@@ -3,17 +3,20 @@
 
 
 ## 一、整体架构设计
-graph TD
-    A[小程序端] --> B(API Gateway)
-    B --> C[用户服务]
-    B --> D[场馆服务]
-    B --> E[预测服务]
-    B --> F[社交服务]
-    C --> G[MySQL集群]
-    D --> H[Redis集群]
-    E --> I[Python微服务]
-    F --> J[MongoDB]
-    H --> K[Elasticsearch]
+```mermaid
+
+    graph TD
+        A[小程序端] --> B(API Gateway)
+        B --> C[用户服务]
+        B --> D[场馆服务]
+        B --> E[预测服务]
+        B --> F[社交服务]
+        C --> G[MySQL集群]
+        D --> H[Redis集群]
+        E --> I[Python微服务]
+        F --> J[MongoDB]
+        H --> K[Elasticsearch]
+```
 
 ## 二、技术栈选型
 | 模块	 | 技术组件                                          |选型理由|
@@ -27,29 +30,34 @@ graph TD
 | 监控运维	 | Prometheus + Grafana + ELK	                   | 全链路监控与日志分析|
 
 # 三、关键架构设计
-1. 高并发处理方案
-sequenceDiagram
-    participant Client as 小程序
-    participant Gateway as API Gateway
-    participant VenueService as 场馆服务
-    participant Redis as Redis集群
+### 高并发处理方案
+```mermaid
 
-    Client->>Gateway: 打卡请求
-    Gateway->>VenueService: 路由请求
-    VenueService->>Redis: INCR venue:123:current
-    Redis-->>VenueService: 当前人数=42
-    VenueService->>Kafka: 发送积分事件
-    VenueService-->>Gateway: 成功响应
-    Gateway-->>Client: 打卡成功
-2. 预测服务集成架构
-graph LR
-   A[Spring Boot] -- gRPC调用 --> B(Python预测服务)
-   B --> C[TensorFlow模型]
-   C --> D[历史人流数据]
-   C --> E[实时天气API]
-   C --> F[预约数据流]
-   B --> G[返回预测值]
+    sequenceDiagram
+        participant Client as 小程序
+        participant Gateway as API Gateway
+        participant VenueService as 场馆服务
+        participant Redis as Redis集群
+    
+        Client->>Gateway: 打卡请求
+        Gateway->>VenueService: 路由请求
+        VenueService->>Redis: INCR venue:123:current
+        Redis-->>VenueService: 当前人数=42
+        VenueService->>Kafka: 发送积分事件
+        VenueService-->>Gateway: 成功响应
+        Gateway-->>Client: 打卡成功
+```
+### 预测服务集成架构
+```mermaid
 
+    graph LR
+        A[Spring Boot] -- gRPC调用 --> B(Python预测服务)
+        B --> C[TensorFlow模型]
+        C --> D[历史人流数据]
+        C --> E[实时天气API]
+        C --> F[预约数据流]
+        B --> G[返回预测值]
+```
 # 四、数据库设计优化
 MySQL分片策略
 
@@ -69,4 +77,72 @@ Redis数据结构设计
    |Hash	|user:{id}:stats	|用户运动统计（周/月）|
 
 
-
+```
+sport-venue/
+├── .gitignore
+├── docker-compose.yml             # 开发环境Docker编排
+├── pom.xml                        # Maven父POM
+├── README.md
+├── config-repo/                   # 集中配置中心仓库
+│   ├── application.yml            # 全局通用配置
+│   ├── gateway.yml
+│   ├── user-service.yml
+│   ├── venue-service.yml
+│   └── prediction-service.yml
+├── sport-venue-common/            # 通用模块
+│   ├── src/main/java/com/sportvenue/common/
+│   │   ├── exception/             # 全局异常处理
+│   │   ├── model/                 # 公共DTO/Entity
+│   │   ├── utils/                 # 工具类
+│   │   └── config/                # 公共配置
+│   └── pom.xml
+├── sport-venue-gateway/           # API网关(已实现)
+│   └── ...                        # 使用之前设计的代码
+├── sport-venue-eureka/            # 服务注册中心
+│   ├── src/main/java/com/sportvenue/eureka/
+│   │   └── EurekaServerApplication.java
+│   ├── src/main/resources/application.yml
+│   └── pom.xml
+├── sport-venue-config/            # 配置中心
+│   ├── src/main/java/com/sportvenue/config/
+│   │   └── ConfigServerApplication.java
+│   ├── src/main/resources/application.yml
+│   └── pom.xml
+├── sport-venue-user/              # 用户服务
+│   ├── src/main/java/com/sportvenue/user/
+│   │   ├── UserApplication.java
+│   │   ├── controller/
+│   │   ├── service/
+│   │   ├── repository/
+│   │   └── security/              # 安全认证
+│   ├── src/main/resources/bootstrap.yml
+│   └── pom.xml
+├── sport-venue-venue/             # 场馆服务
+│   ├── src/main/java/com/sportvenue/venue/
+│   │   ├── VenueApplication.java
+│   │   ├── controller/
+│   │   ├── service/
+│   │   │   ├── impl/VenueServiceImpl.java
+│   │   │   └── occupancy/         # 实时人数计算
+│   │   ├── repository/
+│   │   └── websocket/             # 人数推送
+│   ├── src/main/resources/bootstrap.yml
+│   └── pom.xml
+├── sport-venue-prediction/        # 预测服务
+│   ├── src/main/java/com/sportvenue/prediction/
+│   │   ├── PredictionApplication.java
+│   │   ├── client/                # Python微服务调用
+│   │   └── service/
+│   ├── src/main/resources/bootstrap.yml
+│   └── pom.xml
+├── sport-venue-social/            # 社交服务
+│   ├── src/main/java/com/sportvenue/social/
+│   │   ├── SocialApplication.java
+│   │   ├── controller/
+│   │   ├── service/
+│   │   └── task/                  # 定时任务
+│   ├── src/main/resources/bootstrap.yml
+│   └── pom.xml
+└── sport-venue-biz/               # B端管理系统(预留)
+└── ...
+```
