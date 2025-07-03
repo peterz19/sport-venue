@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: user-service
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://auth-server:9000
+          jwk-set-uri: http://auth-server:9000/.well-known/jwks.json
+
+# JWT配置
+jwt:
+  secret: sport-venue-secret-key-2024
+  expiration: 86400000 # 24小时
