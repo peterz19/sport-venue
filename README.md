@@ -66,6 +66,7 @@ MySQL分片策略
    |user	|id	|范围分片	|用户基础信息|
    |venue	|city_code	|地域分片	|按城市划分场馆|
    |booking	|venue_id	|哈希分片	|预约记录按场馆分布| 
+
 Redis数据结构设计
 
    |数据类型	|Key格式	|用途| 
