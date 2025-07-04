@@ -1,2 +1,4 @@
 .idea
 NOT_README.md
+/logs
+*/target

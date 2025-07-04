@@ -136,3 +136,10 @@ Identify and stop the process that's listening on port 8761 or configure this ap
 2025-07-04T18:27:45.889+08:00  WARN 95138 --- [eureka-server] [nio-8761-exec-9] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: PREDICTION-SERVICE - 192.168.96.49:prediction-service:8083
 2025-07-04T18:27:45.896+08:00  WARN 95138 --- [eureka-server] [nio-8761-exec-9] c.n.eureka.resources.InstanceResource    : Not Found (Renew): PREDICTION-SERVICE - 192.168.96.49:prediction-service:8083
 2025-07-04T18:27:45.913+08:00  INFO 95138 --- [eureka-server] [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Registered instance PREDICTION-SERVICE/192.168.96.49:prediction-service:8083 with status UP (replication=false)
+2025-07-04T18:27:47.400+08:00  WARN 95138 --- [eureka-server] [nio-8761-exec-3] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: GATEWAY-SERVICE - 192.168.96.49:gateway-service:8080
+2025-07-04T18:27:47.400+08:00  WARN 95138 --- [eureka-server] [nio-8761-exec-3] c.n.eureka.resources.InstanceResource    : Not Found (Renew): GATEWAY-SERVICE - 192.168.96.49:gateway-service:8080
+2025-07-04T18:27:47.432+08:00  INFO 95138 --- [eureka-server] [nio-8761-exec-5] c.n.e.registry.AbstractInstanceRegistry  : Registered instance GATEWAY-SERVICE/192.168.96.49:gateway-service:8080 with status UP (replication=false)
+2025-07-04T18:27:55.800+08:00  WARN 95138 --- [eureka-server] [eerNodesUpdater] c.n.eureka.cluster.PeerEurekaNodes       : The replica size seems to be empty. Check the route 53 DNS Registry
+2025-07-04T18:27:55.949+08:00  INFO 95138 --- [eureka-server] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 5ms
+2025-07-04T18:28:55.954+08:00  INFO 95138 --- [eureka-server] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3ms
+2025-07-04T18:29:55.960+08:00  INFO 95138 --- [eureka-server] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 5ms

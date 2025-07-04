@@ -117,3 +117,4 @@
 2025-07-04T18:27:45.909+08:00  INFO 97802 --- [prediction-service] [tbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PREDICTION-SERVICE/192.168.96.49:prediction-service:8083 - Re-registering apps/PREDICTION-SERVICE
 2025-07-04T18:27:45.910+08:00  INFO 97802 --- [prediction-service] [tbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PREDICTION-SERVICE/192.168.96.49:prediction-service:8083: registering service...
 2025-07-04T18:27:45.914+08:00  INFO 97802 --- [prediction-service] [tbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PREDICTION-SERVICE/192.168.96.49:prediction-service:8083 - registration status: 204
+2025-07-04T18:29:15.438+08:00  INFO 97802 --- [prediction-service] [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration

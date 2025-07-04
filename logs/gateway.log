@@ -106,3 +106,7 @@
 2025-07-04T18:24:47.285+08:00  INFO 97807 --- [gateway-service] [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Application version is -1: false
 2025-07-04T18:24:47.285+08:00  INFO 97807 --- [gateway-service] [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
 2025-07-04T18:24:47.310+08:00  INFO 97807 --- [gateway-service] [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2025-07-04T18:27:47.416+08:00  INFO 97807 --- [gateway-service] [tbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_GATEWAY-SERVICE/192.168.96.49:gateway-service:8080 - Re-registering apps/GATEWAY-SERVICE
+2025-07-04T18:27:47.420+08:00  INFO 97807 --- [gateway-service] [tbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_GATEWAY-SERVICE/192.168.96.49:gateway-service:8080: registering service...
+2025-07-04T18:27:47.434+08:00  INFO 97807 --- [gateway-service] [tbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_GATEWAY-SERVICE/192.168.96.49:gateway-service:8080 - registration status: 204
+2025-07-04T18:29:16.837+08:00  INFO 97807 --- [gateway-service] [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration

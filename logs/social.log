@@ -111,3 +111,5 @@
 2025-07-04T18:26:22.749+08:00  INFO 97801 --- [social-service] [nio-8084-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/api]    : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2025-07-04T18:26:22.750+08:00  INFO 97801 --- [social-service] [nio-8084-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2025-07-04T18:26:22.753+08:00  INFO 97801 --- [social-service] [nio-8084-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2025-07-04T18:29:17.612+08:00  INFO 97801 --- [social-service] [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2025-07-04T18:30:00.011+08:00  INFO 97801 --- [social-service] [   scheduling-1] c.sportvenue.social.task.ScheduledTask   : 执行社交服务定时任务: 1751625000011

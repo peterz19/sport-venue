@@ -122,3 +122,4 @@
 2025-07-04T18:26:07.310+08:00  INFO 97803 --- [venue-service] [nio-8082-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/api]    : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2025-07-04T18:26:07.311+08:00  INFO 97803 --- [venue-service] [nio-8082-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2025-07-04T18:26:07.315+08:00  INFO 97803 --- [venue-service] [nio-8082-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2025-07-04T18:29:18.176+08:00  INFO 97803 --- [venue-service] [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
