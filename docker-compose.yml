@@ -15,7 +15,7 @@ services:
       MYSQL_ROOT_PASSWORD: root@123
       MYSQL_DATABASE: sport_venue
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - mysql-data:/var/lib/mysql
 

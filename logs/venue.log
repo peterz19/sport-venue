@@ -1,0 +1,124 @@
+[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for com.sportvenue:sport-venue-venue:jar:1.0.0-SNAPSHOT
+[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: org.projectlombok:lombok:jar -> duplicate declaration of version ${lombok.version} @ line 67, column 21
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[INFO] 
+[INFO] ------------------< com.sportvenue:sport-venue-venue >------------------
+[INFO] Building sport-venue-venue 1.0.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.2.0:run (default-cli) > test-compile @ sport-venue-venue >>>
+[WARNING] The artifact mysql:mysql-connector-java:jar:8.0.33 has been relocated to com.mysql:mysql-connector-j:jar:8.0.33: MySQL Connector/J artifacts moved to reverse-DNS compliant Maven 2+ coordinates.
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ sport-venue-venue ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ sport-venue-venue ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ sport-venue-venue ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /Users/peter/Desktop/file/code/pri/java/sport-venue/sport-venue-venue/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ sport-venue-venue ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] <<< spring-boot:3.2.0:run (default-cli) < test-compile @ sport-venue-venue <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.2.0:run (default-cli) @ sport-venue-venue ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.0)
+
+2025-07-04T18:24:13.716+08:00  INFO 97803 --- [venue-service] [           main] c.c.c.ConfigServicePropertySourceLocator : Fetching config from server at : http://localhost:8888
+2025-07-04T18:24:13.894+08:00  INFO 97803 --- [venue-service] [           main] c.c.c.ConfigServicePropertySourceLocator : Located environment: name=venue-service, profiles=[dev], label=main, version=null, state=null
+2025-07-04T18:24:13.896+08:00  INFO 97803 --- [venue-service] [           main] b.c.PropertySourceBootstrapConfiguration : Located property source: [BootstrapPropertySource {name='bootstrapProperties-configClient'}, BootstrapPropertySource {name='bootstrapProperties-Config resource 'class path resource [config-repo/venue-service.yml]' via location 'classpath:/config-repo/' (document #1)'}, BootstrapPropertySource {name='bootstrapProperties-Config resource 'class path resource [config-repo/venue-service.yml]' via location 'classpath:/config-repo/' (document #0)'}, BootstrapPropertySource {name='bootstrapProperties-classpath:/config-repo/application.yml'}]
+2025-07-04T18:24:13.907+08:00  INFO 97803 --- [venue-service] [           main] com.sportvenue.venue.VenueApplication    : No active profile set, falling back to 1 default profile: "default"
+2025-07-04T18:24:14.446+08:00  INFO 97803 --- [venue-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-07-04T18:24:14.448+08:00  INFO 97803 --- [venue-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-04T18:24:14.463+08:00  INFO 97803 --- [venue-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 7 ms. Found 0 JPA repository interfaces.
+2025-07-04T18:24:14.479+08:00  INFO 97803 --- [venue-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-07-04T18:24:14.480+08:00  INFO 97803 --- [venue-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-07-04T18:24:14.489+08:00  INFO 97803 --- [venue-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 Redis repository interfaces.
+2025-07-04T18:24:14.838+08:00  INFO 97803 --- [venue-service] [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=a0ba226e-920f-3638-b487-cca37fc36d28
+2025-07-04T18:24:15.050+08:00  WARN 97803 --- [venue-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$LoadBalancerInterceptorConfig' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$LoadBalancerInterceptorConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [lbRestClientPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-07-04T18:24:15.052+08:00  WARN 97803 --- [venue-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.loadbalancer.config.BlockingLoadBalancerClientAutoConfiguration' of type [org.springframework.cloud.loadbalancer.config.BlockingLoadBalancerClientAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-04T18:24:15.054+08:00  WARN 97803 --- [venue-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.loadbalancer.config.LoadBalancerAutoConfiguration' of type [org.springframework.cloud.loadbalancer.config.LoadBalancerAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-04T18:24:15.059+08:00  WARN 97803 --- [venue-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.commons.config.CommonsConfigAutoConfiguration' of type [org.springframework.cloud.commons.config.CommonsConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-04T18:24:15.060+08:00  WARN 97803 --- [venue-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-04T18:24:15.061+08:00  WARN 97803 --- [venue-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'loadBalancerClientsDefaultsMappingsProvider' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration$$Lambda/0x000000f80147d238] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-04T18:24:15.062+08:00  WARN 97803 --- [venue-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'defaultsBindHandlerAdvisor' of type [org.springframework.cloud.commons.config.DefaultsBindHandlerAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-04T18:24:15.068+08:00  WARN 97803 --- [venue-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'spring.cloud.loadbalancer-org.springframework.cloud.client.loadbalancer.LoadBalancerClientsProperties' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerClientsProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-04T18:24:15.073+08:00  WARN 97803 --- [venue-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'default.org.springframework.cloud.loadbalancer.config.LoadBalancerAutoConfiguration.LoadBalancerClientSpecification' of type [org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientSpecification] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-04T18:24:15.074+08:00  WARN 97803 --- [venue-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'default.org.springframework.cloud.loadbalancer.config.BlockingLoadBalancerClientAutoConfiguration.LoadBalancerClientSpecification' of type [org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientSpecification] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-04T18:24:15.075+08:00  WARN 97803 --- [venue-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'default.org.springframework.cloud.netflix.eureka.loadbalancer.LoadBalancerEurekaAutoConfiguration.LoadBalancerClientSpecification' of type [org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientSpecification] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-04T18:24:15.076+08:00  WARN 97803 --- [venue-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'loadBalancerClientFactory' of type [org.springframework.cloud.loadbalancer.support.LoadBalancerClientFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-04T18:24:15.079+08:00  WARN 97803 --- [venue-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'blockingLoadBalancerClient' of type [org.springframework.cloud.loadbalancer.blocking.client.BlockingLoadBalancerClient] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-04T18:24:15.084+08:00  WARN 97803 --- [venue-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'loadBalancerServiceInstanceCookieTransformer' of type [org.springframework.cloud.loadbalancer.core.LoadBalancerServiceInstanceCookieTransformer] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-04T18:24:15.084+08:00  WARN 97803 --- [venue-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'xForwarderHeadersTransformer' of type [org.springframework.cloud.loadbalancer.blocking.XForwardedHeadersTransformer] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-04T18:24:15.085+08:00  WARN 97803 --- [venue-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-04T18:24:15.086+08:00  WARN 97803 --- [venue-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'loadBalancerRequestFactory' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerRequestFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-04T18:24:15.086+08:00  WARN 97803 --- [venue-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'loadBalancerInterceptor' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-04T18:24:15.342+08:00  INFO 97803 --- [venue-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8082 (http)
+2025-07-04T18:24:15.358+08:00  INFO 97803 --- [venue-service] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-07-04T18:24:15.358+08:00  INFO 97803 --- [venue-service] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-04T18:24:15.445+08:00  INFO 97803 --- [venue-service] [           main] o.a.c.c.C.[Tomcat].[localhost].[/api]    : Initializing Spring embedded WebApplicationContext
+2025-07-04T18:24:15.447+08:00  INFO 97803 --- [venue-service] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1522 ms
+2025-07-04T18:24:15.619+08:00  INFO 97803 --- [venue-service] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-04T18:24:15.684+08:00  INFO 97803 --- [venue-service] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.3.1.Final
+2025-07-04T18:24:15.724+08:00  INFO 97803 --- [venue-service] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-07-04T18:24:15.939+08:00  INFO 97803 --- [venue-service] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-04T18:24:15.962+08:00  INFO 97803 --- [venue-service] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-07-04T18:24:16.319+08:00  INFO 97803 --- [venue-service] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@506b083
+2025-07-04T18:24:16.330+08:00  INFO 97803 --- [venue-service] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-07-04T18:24:17.202+08:00  INFO 97803 --- [venue-service] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-04T18:24:17.213+08:00  INFO 97803 --- [venue-service] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-04T18:24:17.662+08:00  WARN 97803 --- [venue-service] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-07-04T18:24:18.018+08:00  INFO 97803 --- [venue-service] [           main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestTemplate.
+2025-07-04T18:24:18.050+08:00  WARN 97803 --- [venue-service] [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2025-07-04T18:24:18.073+08:00  INFO 97803 --- [venue-service] [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2025-07-04T18:24:18.146+08:00  INFO 97803 --- [venue-service] [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2025-07-04T18:24:18.149+08:00  INFO 97803 --- [venue-service] [           main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2025-07-04T18:24:18.160+08:00  INFO 97803 --- [venue-service] [           main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2025-07-04T18:24:18.160+08:00  INFO 97803 --- [venue-service] [           main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2025-07-04T18:24:18.160+08:00  INFO 97803 --- [venue-service] [           main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2025-07-04T18:24:18.160+08:00  INFO 97803 --- [venue-service] [           main] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2025-07-04T18:24:18.160+08:00  INFO 97803 --- [venue-service] [           main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2025-07-04T18:24:18.160+08:00  INFO 97803 --- [venue-service] [           main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2025-07-04T18:24:18.160+08:00  INFO 97803 --- [venue-service] [           main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2025-07-04T18:24:18.306+08:00  INFO 97803 --- [venue-service] [           main] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2025-07-04T18:24:18.308+08:00  INFO 97803 --- [venue-service] [           main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2025-07-04T18:24:18.309+08:00  INFO 97803 --- [venue-service] [           main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2025-07-04T18:24:18.311+08:00  INFO 97803 --- [venue-service] [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1751624658311 with initial instances count: 0
+2025-07-04T18:24:18.313+08:00  INFO 97803 --- [venue-service] [           main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application VENUE-SERVICE with eureka with status UP
+2025-07-04T18:24:18.314+08:00  INFO 97803 --- [venue-service] [           main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1751624658314, current=UP, previous=STARTING]
+2025-07-04T18:24:18.315+08:00  INFO 97803 --- [venue-service] [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_VENUE-SERVICE/192.168.96.49:venue-service:8082: registering service...
+2025-07-04T18:24:18.324+08:00  INFO 97803 --- [venue-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8082 (http) with context path '/api'
+2025-07-04T18:24:18.325+08:00  INFO 97803 --- [venue-service] [           main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8082
+2025-07-04T18:24:18.334+08:00  INFO 97803 --- [venue-service] [           main] com.sportvenue.venue.VenueApplication    : Started VenueApplication in 5.827 seconds (process running for 6.26)
+2025-07-04T18:24:18.338+08:00  INFO 97803 --- [venue-service] [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_VENUE-SERVICE/192.168.96.49:venue-service:8082 - registration status: 204
+2025-07-04T18:24:48.315+08:00  INFO 97803 --- [venue-service] [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2025-07-04T18:24:48.316+08:00  INFO 97803 --- [venue-service] [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2025-07-04T18:24:48.316+08:00  INFO 97803 --- [venue-service] [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2025-07-04T18:24:48.316+08:00  INFO 97803 --- [venue-service] [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2025-07-04T18:24:48.316+08:00  INFO 97803 --- [venue-service] [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2025-07-04T18:24:48.316+08:00  INFO 97803 --- [venue-service] [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Application version is -1: false
+2025-07-04T18:24:48.316+08:00  INFO 97803 --- [venue-service] [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2025-07-04T18:24:48.344+08:00  INFO 97803 --- [venue-service] [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2025-07-04T18:26:07.310+08:00  INFO 97803 --- [venue-service] [nio-8082-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/api]    : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-04T18:26:07.311+08:00  INFO 97803 --- [venue-service] [nio-8082-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-07-04T18:26:07.315+08:00  INFO 97803 --- [venue-service] [nio-8082-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms

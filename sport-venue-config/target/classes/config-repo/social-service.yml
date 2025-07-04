@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: social-service
+
+server:
+  port: 8084
+
+# 社交服务特有配置
+social:
+  task:
+    cron: "0 */5 * * * *"  # 每5分钟执行一次定时任务
+  feed:
+    cache-ttl: 300  # 5分钟缓存
+  notification:
+    enabled: true 

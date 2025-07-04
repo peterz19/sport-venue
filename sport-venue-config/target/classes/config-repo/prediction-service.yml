@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: prediction-service
+
+server:
+  port: 8083
+
+# 预测服务特有配置
+prediction:
+  python-service:
+    url: http://localhost:5000
+    timeout: 30000 
