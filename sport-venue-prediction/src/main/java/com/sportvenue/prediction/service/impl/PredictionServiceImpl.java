@@ -1,15 +1,17 @@
 package com.sportvenue.prediction.service.impl;
 
 import com.sportvenue.prediction.service.PredictionService;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
  * 预测服务实现类
  */
-@Slf4j
 @Service
 public class PredictionServiceImpl implements PredictionService {
+
+    private static final Logger log = LoggerFactory.getLogger(PredictionServiceImpl.class);
 
     @Override
     public int predictOccupancy(Long venueId) {

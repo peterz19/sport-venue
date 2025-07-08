@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: user-service
+  config:
+    activate:
+      on-profile: local
+  cloud:
+    config:
+      uri: http://localhost:8888
+      name: user-service
+      profile: local
+      label: main 

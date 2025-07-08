@@ -1,6 +1,55 @@
 # sport-venue
 基于运动场馆小程序的核心需求（实时人数预测、打卡积分、社交PK、B端扩展），以下是全栈技术方案，融合高并发处理、实时数据流与AI集成
 
+## 🚀 快速开始
+
+### 方式一：本地运行（推荐开发环境）
+```bash
+# 1. 检查本地环境
+./check-local-env.sh
+
+# 2. 启动所有服务
+./start-local-services.sh
+
+# 3. 停止所有服务
+./stop-services.sh
+```
+
+### 方式二：Docker运行（推荐生产环境）
+```bash
+# 1. 启动基础设施
+docker-compose up -d
+
+# 2. 启动所有服务
+./start-services.sh
+
+# 3. 停止所有服务
+./stop-services.sh
+```
+
+### 服务访问地址
+| 服务 | 地址 | 说明 |
+|------|------|------|
+| 配置中心 | http://localhost:8888 | Spring Cloud Config |
+| 注册中心 | http://localhost:8761 | Eureka Server |
+| 网关服务 | http://localhost:8080 | Spring Cloud Gateway |
+| 用户服务 | http://localhost:8081 | 用户管理服务 |
+| 场馆服务 | http://localhost:8082 | 场馆管理服务 |
+| 预测服务 | http://localhost:8083 | 预测分析服务 |
+| 社交服务 | http://localhost:8084 | 社交功能服务 |
+
+### 详细文档
+- [本地环境设置指南](LOCAL_SETUP.md) - 本地运行详细说明
+- [IDE运行指南](IDE_RUNNING_GUIDE.md) - IDE直接运行详细说明
+- [MySQL安装配置指南](MYSQL_SETUP.md) - MySQL安装和配置说明
+- [快速开始指南](QUICK_START.md) - Docker运行详细说明
+
+### 实用脚本
+- `check-local-env.sh` - 检查本地环境
+- `find-mysql.sh` - 查找MySQL安装路径
+- `start-local-services.sh` - 启动本地服务
+- `test-services.sh` - 测试服务状态
+
 
 ## 一、整体架构设计
 ```mermaid

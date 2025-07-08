@@ -1,0 +1,44 @@
+server:
+  port: 8080
+
+spring:
+  redis:
+    host: localhost
+    port: 6379
+
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/user/**
+          filters:
+            - StripPrefix=1
+        - id: venue-service
+          uri: lb://venue-service
+          predicates:
+            - Path=/api/venue/**
+          filters:
+            - StripPrefix=1
+        - id: prediction-service
+          uri: lb://prediction-service
+          predicates:
+            - Path=/api/prediction/**
+          filters:
+            - StripPrefix=1
+        - id: social-service
+          uri: lb://social-service
+          predicates:
+            - Path=/api/social/**
+          filters:
+            - StripPrefix=1 

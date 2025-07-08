@@ -4,7 +4,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3307/sport_venue?useSSL=false&characterEncoding=utf8&allowPublicKeyRetrieval=true
     username: root
-    password: root@123
+    password: Aa123456
     hikari:
       maximum-pool-size: 20
       minimum-idle: 5
@@ -12,7 +12,6 @@ spring:
   redis:
     host: redis
     port: 6379
-    password: sportvenue@2024
     database: 0
 
   jpa:
