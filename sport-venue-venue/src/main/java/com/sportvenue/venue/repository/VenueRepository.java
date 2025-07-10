@@ -165,4 +165,29 @@ public interface VenueRepository extends JpaRepository<Venue, Long> {
                                  @Param("minLat") BigDecimal minLat,
                                  @Param("maxLat") BigDecimal maxLat,
                                  Pageable pageable);
+
+    /**
+     * 根据状态和评分排序查询场馆
+     */
+    List<Venue> findByStatusOrderByRatingDescRatingCountDesc(Venue.VenueStatus status);
+
+    /**
+     * 根据名称包含和状态查询场馆
+     */
+    List<Venue> findByNameContainingAndStatus(String name, Venue.VenueStatus status);
+
+    /**
+     * 根据状态和距离排序查询场馆（简化版本）
+     */
+    @Query("SELECT v FROM Venue v WHERE v.status = :status ORDER BY v.rating DESC")
+    List<Venue> findByStatusOrderByRatingDesc(@Param("status") Venue.VenueStatus status);
+
+    /**
+     * 根据状态和距离排序查询场馆（带位置参数）
+     */
+    @Query("SELECT v FROM Venue v WHERE v.status = :status " +
+           "ORDER BY SQRT(POWER(v.longitude - :longitude, 2) + POWER(v.latitude - :latitude, 2)) ASC")
+    List<Venue> findByStatusOrderByDistanceAsc(@Param("status") Venue.VenueStatus status,
+                                              @Param("longitude") BigDecimal longitude,
+                                              @Param("latitude") BigDecimal latitude);
 } 

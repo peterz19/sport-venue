@@ -286,16 +286,201 @@ public class VenueServiceImpl implements VenueService {
     @Override
     public ApiResponse<List<VenueDTO>> getPopularVenues(Integer limit) {
         try {
-            Pageable pageable = PageRequest.of(0, limit != null ? limit : 10);
-            Page<Venue> venuePage = venueRepository.findPopularVenues(pageable);
-            List<VenueDTO> dtoList = venuePage.getContent().stream()
+            // 根据评分和预约次数排序，获取热门场馆
+            List<Venue> venues = venueRepository.findByStatusOrderByRatingDescRatingCountDesc(Venue.VenueStatus.ACTIVE);
+            
+            // 限制返回数量
+            if (limit != null && limit > 0) {
+                venues = venues.stream().limit(limit).collect(Collectors.toList());
+            }
+            
+            List<VenueDTO> venueDTOs = venues.stream()
                     .map(VenueDTO::fromEntity)
                     .collect(Collectors.toList());
             
-            return ApiResponse.success(dtoList);
+            return ApiResponse.success(venueDTOs);
         } catch (Exception e) {
-            log.error("查询热门场馆异常：", e);
-            return ApiResponse.error("查询热门场馆失败");
+            log.error("获取热门场馆异常：", e);
+            return ApiResponse.error("获取热门场馆失败");
+        }
+    }
+
+    @Override
+    public ApiResponse<List<VenueDTO>> searchVenuesByName(String name) {
+        try {
+            if (!StringUtils.hasText(name)) {
+                return ApiResponse.error("搜索关键词不能为空");
+            }
+            
+            List<Venue> venues = venueRepository.findByNameContainingAndStatus(name, Venue.VenueStatus.ACTIVE);
+            
+            List<VenueDTO> venueDTOs = venues.stream()
+                    .map(VenueDTO::fromEntity)
+                    .collect(Collectors.toList());
+            
+            return ApiResponse.success(venueDTOs);
+        } catch (Exception e) {
+            log.error("搜索场馆异常：", e);
+            return ApiResponse.error("搜索场馆失败");
+        }
+    }
+
+    @Override
+    public ApiResponse<List<VenueDTO>> getRecommendedVenues(BigDecimal longitude, BigDecimal latitude, Integer limit) {
+        try {
+            List<Venue> venues = new ArrayList<>();
+            
+            if (longitude != null && latitude != null) {
+                // 基于位置推荐：优先推荐附近的场馆
+                venues = venueRepository.findByStatusOrderByDistanceAsc(Venue.VenueStatus.ACTIVE, longitude, latitude);
+            } else {
+                // 基于热度推荐：推荐评分高的场馆
+                venues = venueRepository.findByStatusOrderByRatingDesc(Venue.VenueStatus.ACTIVE);
+            }
+            
+            // 限制返回数量
+            if (limit != null && limit > 0) {
+                venues = venues.stream().limit(limit).collect(Collectors.toList());
+            }
+            
+            List<VenueDTO> venueDTOs = venues.stream()
+                    .map(VenueDTO::fromEntity)
+                    .collect(Collectors.toList());
+            
+            return ApiResponse.success(venueDTOs);
+        } catch (Exception e) {
+            log.error("获取推荐场馆异常：", e);
+            return ApiResponse.error("获取推荐场馆失败");
+        }
+    }
+
+    @Override
+    public ApiResponse<Map<String, Object>> getVenueRealtimeInfo(Long id) {
+        try {
+            Venue venue = venueRepository.findById(id)
+                    .orElseThrow(() -> new BusinessException("场馆不存在"));
+            
+            Map<String, Object> realtimeInfo = new HashMap<>();
+            realtimeInfo.put("venueId", venue.getId());
+            realtimeInfo.put("venueName", venue.getName());
+            realtimeInfo.put("currentOccupancy", venue.getCurrentOccupancy());
+            realtimeInfo.put("capacity", venue.getCapacity());
+            realtimeInfo.put("occupancyRate", venue.getCapacity() > 0 ? 
+                (double) venue.getCurrentOccupancy() / venue.getCapacity() : 0.0);
+            realtimeInfo.put("isOpen", isVenueOpen(venue));
+            realtimeInfo.put("availableSlots", venue.getCapacity() - venue.getCurrentOccupancy());
+            realtimeInfo.put("lastUpdateTime", venue.getUpdateTime());
+            
+            return ApiResponse.success(realtimeInfo);
+        } catch (Exception e) {
+            log.error("获取场馆实时信息异常：", e);
+            return ApiResponse.error("获取场馆实时信息失败");
+        }
+    }
+
+    @Override
+    public ApiResponse<Map<String, Object>> getVenueRealtimeData(Long id) {
+        try {
+            Venue venue = venueRepository.findById(id)
+                    .orElseThrow(() -> new BusinessException("场馆不存在"));
+            
+            Map<String, Object> realtimeData = new HashMap<>();
+            realtimeData.put("venueId", venue.getId());
+            realtimeData.put("venueName", venue.getName());
+            realtimeData.put("currentOccupancy", venue.getCurrentOccupancy());
+            realtimeData.put("capacity", venue.getCapacity());
+            realtimeData.put("occupancyRate", venue.getCapacity() > 0 ? 
+                (double) venue.getCurrentOccupancy() / venue.getCapacity() : 0.0);
+            realtimeData.put("isOpen", isVenueOpen(venue));
+            realtimeData.put("availableSlots", venue.getCapacity() - venue.getCurrentOccupancy());
+            realtimeData.put("rating", venue.getRating());
+            realtimeData.put("ratingCount", venue.getRatingCount());
+            realtimeData.put("status", venue.getStatus());
+            realtimeData.put("lastUpdateTime", venue.getUpdateTime());
+            
+            // TODO: 添加更多实时数据，如当前预约数、今日收入等
+            
+            return ApiResponse.success(realtimeData);
+        } catch (Exception e) {
+            log.error("获取场馆实时数据异常：", e);
+            return ApiResponse.error("获取场馆实时数据失败");
+        }
+    }
+
+    @Override
+    public ApiResponse<Map<String, Object>> getVenueReservationStats(Long id) {
+        try {
+            Venue venue = venueRepository.findById(id)
+                    .orElseThrow(() -> new BusinessException("场馆不存在"));
+            
+            Map<String, Object> reservationStats = new HashMap<>();
+            reservationStats.put("venueId", venue.getId());
+            reservationStats.put("venueName", venue.getName());
+            
+            // TODO: 从预约表查询统计数据
+            reservationStats.put("todayReservations", 0);
+            reservationStats.put("weekReservations", 0);
+            reservationStats.put("monthReservations", 0);
+            reservationStats.put("totalReservations", 0);
+            reservationStats.put("pendingReservations", 0);
+            reservationStats.put("confirmedReservations", 0);
+            reservationStats.put("cancelledReservations", 0);
+            
+            return ApiResponse.success(reservationStats);
+        } catch (Exception e) {
+            log.error("获取场馆预约统计异常：", e);
+            return ApiResponse.error("获取场馆预约统计失败");
+        }
+    }
+
+    @Override
+    public ApiResponse<Map<String, Object>> getVenueCheckInStats(Long id) {
+        try {
+            Venue venue = venueRepository.findById(id)
+                    .orElseThrow(() -> new BusinessException("场馆不存在"));
+            
+            Map<String, Object> checkInStats = new HashMap<>();
+            checkInStats.put("venueId", venue.getId());
+            checkInStats.put("venueName", venue.getName());
+            
+            // TODO: 从打卡表查询统计数据
+            checkInStats.put("todayCheckIns", 0);
+            checkInStats.put("weekCheckIns", 0);
+            checkInStats.put("monthCheckIns", 0);
+            checkInStats.put("totalCheckIns", 0);
+            checkInStats.put("currentCheckIns", venue.getCurrentOccupancy());
+            checkInStats.put("peakCheckIns", 0);
+            checkInStats.put("averageCheckIns", 0.0);
+            
+            return ApiResponse.success(checkInStats);
+        } catch (Exception e) {
+            log.error("获取场馆打卡统计异常：", e);
+            return ApiResponse.error("获取场馆打卡统计失败");
+        }
+    }
+
+    @Override
+    public ApiResponse<Map<String, Object>> getVenueRevenueStats(Long id) {
+        try {
+            Venue venue = venueRepository.findById(id)
+                    .orElseThrow(() -> new BusinessException("场馆不存在"));
+            
+            Map<String, Object> revenueStats = new HashMap<>();
+            revenueStats.put("venueId", venue.getId());
+            revenueStats.put("venueName", venue.getName());
+            
+            // TODO: 从收入表查询统计数据
+            revenueStats.put("todayRevenue", BigDecimal.ZERO);
+            revenueStats.put("weekRevenue", BigDecimal.ZERO);
+            revenueStats.put("monthRevenue", BigDecimal.ZERO);
+            revenueStats.put("totalRevenue", BigDecimal.ZERO);
+            revenueStats.put("averageRevenue", BigDecimal.ZERO);
+            revenueStats.put("peakRevenue", BigDecimal.ZERO);
+            
+            return ApiResponse.success(revenueStats);
+        } catch (Exception e) {
+            log.error("获取场馆收入统计异常：", e);
+            return ApiResponse.error("获取场馆收入统计失败");
         }
     }
     
@@ -610,5 +795,28 @@ public class VenueServiceImpl implements VenueService {
         
         return new org.springframework.data.domain.PageImpl<>(
                 venues.subList(start, end), pageable, venues.size());
+    }
+
+    /**
+     * 检查场馆是否营业
+     */
+    private boolean isVenueOpen(Venue venue) {
+        if (venue.getStatus() != Venue.VenueStatus.ACTIVE) {
+            return false;
+        }
+        
+        String openTime = venue.getOpenTime();
+        String closeTime = venue.getCloseTime();
+        
+        if (openTime == null || closeTime == null || openTime.isEmpty() || closeTime.isEmpty()) {
+            return true; // 如果没有设置营业时间，默认营业
+        }
+        
+        // 简化判断，实际应该解析时间字符串并考虑跨天营业的情况
+        // 这里假设营业时间是24小时制，如"09:00"到"22:00"
+        LocalDateTime now = LocalDateTime.now();
+        String currentTime = String.format("%02d:%02d", now.getHour(), now.getMinute());
+        
+        return currentTime.compareTo(openTime) >= 0 && currentTime.compareTo(closeTime) <= 0;
     }
 } 

@@ -77,6 +77,21 @@ public interface VenueService {
     ApiResponse<List<VenueDTO>> getPopularVenues(Integer limit);
     
     /**
+     * 根据场馆名称搜索
+     */
+    ApiResponse<List<VenueDTO>> searchVenuesByName(String name);
+    
+    /**
+     * 获取推荐场馆
+     */
+    ApiResponse<List<VenueDTO>> getRecommendedVenues(BigDecimal longitude, BigDecimal latitude, Integer limit);
+    
+    /**
+     * 获取场馆实时信息
+     */
+    ApiResponse<Map<String, Object>> getVenueRealtimeInfo(Long id);
+    
+    /**
      * 更新场馆状态
      */
     ApiResponse<Void> updateVenueStatus(Long id, Venue.VenueStatus status);
@@ -110,6 +125,26 @@ public interface VenueService {
      * 统计各子类型场馆数量
      */
     ApiResponse<Map<String, Long>> getVenueSubTypeStatistics(Long merchantId);
+    
+    /**
+     * 获取场馆实时数据（B端）
+     */
+    ApiResponse<Map<String, Object>> getVenueRealtimeData(Long id);
+    
+    /**
+     * 获取场馆预约统计（B端）
+     */
+    ApiResponse<Map<String, Object>> getVenueReservationStats(Long id);
+    
+    /**
+     * 获取场馆打卡统计（B端）
+     */
+    ApiResponse<Map<String, Object>> getVenueCheckInStats(Long id);
+    
+    /**
+     * 获取场馆收入统计（B端）
+     */
+    ApiResponse<Map<String, Object>> getVenueRevenueStats(Long id);
     
     /**
      * 检查场馆名称是否重复
