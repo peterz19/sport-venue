@@ -43,7 +43,7 @@ public class BusinessVenueController {
      * 更新场馆（B端商户）
      */
     @PutMapping("/{id}")
-    public ApiResponse<VenueDTO> updateVenue(@PathVariable Long id, @RequestBody Venue venue) {
+    public ApiResponse<VenueDTO> updateVenue(@PathVariable("id") Long id, @RequestBody Venue venue) {
         log.info("B端商户更新场馆请求，ID：{}", id);
         return venueService.updateVenue(id, venue);
     }
@@ -52,7 +52,7 @@ public class BusinessVenueController {
      * 删除场馆（B端商户）
      */
     @DeleteMapping("/{id}")
-    public ApiResponse<Void> deleteVenue(@PathVariable Long id) {
+    public ApiResponse<Void> deleteVenue(@PathVariable("id") Long id) {
         log.info("B端商户删除场馆请求，ID：{}", id);
         return venueService.deleteVenue(id);
     }
@@ -61,7 +61,7 @@ public class BusinessVenueController {
      * 根据ID获取场馆详情（B端商户）
      */
     @GetMapping("/{id}")
-    public ApiResponse<VenueDTO> getVenueById(@PathVariable Long id) {
+    public ApiResponse<VenueDTO> getVenueById(@PathVariable("id") Long id) {
         log.info("B端商户获取场馆详情请求，ID：{}", id);
         return venueService.getVenueById(id);
     }
@@ -79,7 +79,7 @@ public class BusinessVenueController {
      * 根据商户ID查询场馆（B端商户）
      */
     @GetMapping("/merchant/{merchantId}")
-    public ApiResponse<List<VenueDTO>> getVenuesByMerchant(@PathVariable Long merchantId) {
+    public ApiResponse<List<VenueDTO>> getVenuesByMerchant(@PathVariable("merchantId") Long merchantId) {
         log.info("B端商户查询商户场馆请求，商户ID：{}", merchantId);
         return venueService.getVenuesByMerchant(merchantId);
     }
@@ -88,7 +88,7 @@ public class BusinessVenueController {
      * 更新场馆状态（B端商户）
      */
     @PutMapping("/{id}/status")
-    public ApiResponse<Void> updateVenueStatus(@PathVariable Long id, @RequestParam String status) {
+    public ApiResponse<Void> updateVenueStatus(@PathVariable("id") Long id, @RequestParam("status") String status) {
         log.info("B端商户更新场馆状态请求，ID：{}，状态：{}", id, status);
         return venueService.updateVenueStatus(id, Venue.VenueStatus.valueOf(status.toUpperCase()));
     }
@@ -97,7 +97,7 @@ public class BusinessVenueController {
      * 更新场馆使用人数（B端商户）
      */
     @PutMapping("/{id}/occupancy")
-    public ApiResponse<Void> updateVenueOccupancy(@PathVariable Long id, @RequestParam Integer occupancy) {
+    public ApiResponse<Void> updateVenueOccupancy(@PathVariable("id") Long id, @RequestParam("occupancy") Integer occupancy) {
         log.info("B端商户更新场馆使用人数请求，ID：{}，人数：{}", id, occupancy);
         return venueService.updateVenueOccupancy(id, occupancy);
     }
@@ -106,7 +106,7 @@ public class BusinessVenueController {
      * 更新场馆评分（B端商户）
      */
     @PutMapping("/{id}/rating")
-    public ApiResponse<Void> updateVenueRating(@PathVariable Long id, @RequestParam BigDecimal rating) {
+    public ApiResponse<Void> updateVenueRating(@PathVariable("id") Long id, @RequestParam("rating") BigDecimal rating) {
         log.info("B端商户更新场馆评分请求，ID：{}，评分：{}", id, rating);
         return venueService.updateVenueRating(id, rating);
     }
@@ -115,7 +115,7 @@ public class BusinessVenueController {
      * 批量更新场馆状态（B端商户）
      */
     @PutMapping("/batch/status")
-    public ApiResponse<Void> batchUpdateVenueStatus(@RequestParam List<Long> ids, @RequestParam String status) {
+    public ApiResponse<Void> batchUpdateVenueStatus(@RequestParam("ids") List<Long> ids, @RequestParam("status") String status) {
         log.info("B端商户批量更新场馆状态请求，场馆数量：{}，状态：{}", ids.size(), status);
         return venueService.batchUpdateVenueStatus(ids, Venue.VenueStatus.valueOf(status.toUpperCase()));
     }
@@ -124,7 +124,7 @@ public class BusinessVenueController {
      * 获取场馆统计信息（B端商户）
      */
     @GetMapping("/statistics")
-    public ApiResponse<Map<String, Object>> getVenueStatistics(@RequestParam Long merchantId) {
+    public ApiResponse<Map<String, Object>> getVenueStatistics(@RequestParam("merchantId") Long merchantId) {
         log.info("B端商户获取场馆统计信息请求，商户ID：{}", merchantId);
         return venueService.getVenueStatistics(merchantId);
     }
@@ -133,7 +133,7 @@ public class BusinessVenueController {
      * 获取场馆类型统计（B端商户）
      */
     @GetMapping("/statistics/types")
-    public ApiResponse<Map<String, Long>> getVenueTypeStatistics(@RequestParam Long merchantId) {
+    public ApiResponse<Map<String, Long>> getVenueTypeStatistics(@RequestParam("merchantId") Long merchantId) {
         log.info("B端商户获取场馆类型统计请求，商户ID：{}", merchantId);
         return venueService.getVenueTypeStatistics(merchantId);
     }
@@ -142,7 +142,7 @@ public class BusinessVenueController {
      * 获取场馆子类型统计（B端商户）
      */
     @GetMapping("/statistics/subtypes")
-    public ApiResponse<Map<String, Long>> getVenueSubTypeStatistics(@RequestParam Long merchantId) {
+    public ApiResponse<Map<String, Long>> getVenueSubTypeStatistics(@RequestParam("merchantId") Long merchantId) {
         log.info("B端商户获取场馆子类型统计请求，商户ID：{}", merchantId);
         return venueService.getVenueSubTypeStatistics(merchantId);
     }
@@ -151,7 +151,7 @@ public class BusinessVenueController {
      * 获取场馆实时数据（B端商户）
      */
     @GetMapping("/{id}/realtime")
-    public ApiResponse<Map<String, Object>> getVenueRealtimeData(@PathVariable Long id) {
+    public ApiResponse<Map<String, Object>> getVenueRealtimeData(@PathVariable("id") Long id) {
         log.info("B端商户获取场馆实时数据请求，场馆ID：{}", id);
         return venueService.getVenueRealtimeData(id);
     }
@@ -160,7 +160,7 @@ public class BusinessVenueController {
      * 获取场馆预约统计（B端商户）
      */
     @GetMapping("/{id}/reservation-stats")
-    public ApiResponse<Map<String, Object>> getVenueReservationStats(@PathVariable Long id) {
+    public ApiResponse<Map<String, Object>> getVenueReservationStats(@PathVariable("id") Long id) {
         log.info("B端商户获取场馆预约统计请求，场馆ID：{}", id);
         return venueService.getVenueReservationStats(id);
     }
@@ -169,7 +169,7 @@ public class BusinessVenueController {
      * 获取场馆打卡统计（B端商户）
      */
     @GetMapping("/{id}/checkin-stats")
-    public ApiResponse<Map<String, Object>> getVenueCheckInStats(@PathVariable Long id) {
+    public ApiResponse<Map<String, Object>> getVenueCheckInStats(@PathVariable("id") Long id) {
         log.info("B端商户获取场馆打卡统计请求，场馆ID：{}", id);
         return venueService.getVenueCheckInStats(id);
     }
@@ -178,7 +178,7 @@ public class BusinessVenueController {
      * 获取场馆收入统计（B端商户）
      */
     @GetMapping("/{id}/revenue-stats")
-    public ApiResponse<Map<String, Object>> getVenueRevenueStats(@PathVariable Long id) {
+    public ApiResponse<Map<String, Object>> getVenueRevenueStats(@PathVariable("id") Long id) {
         log.info("B端商户获取场馆收入统计请求，场馆ID：{}", id);
         return venueService.getVenueRevenueStats(id);
     }

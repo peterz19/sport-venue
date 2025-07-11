@@ -44,7 +44,7 @@ public class VenueController {
      * 更新场馆
      */
     @PutMapping("/{id}")
-    public ApiResponse<VenueDTO> updateVenue(@PathVariable Long id, @RequestBody Venue venue) {
+    public ApiResponse<VenueDTO> updateVenue(@PathVariable("id") Long id, @RequestBody Venue venue) {
         log.info("更新场馆请求，ID：{}", id);
         return venueService.updateVenue(id, venue);
     }
@@ -53,7 +53,7 @@ public class VenueController {
      * 删除场馆
      */
     @DeleteMapping("/{id}")
-    public ApiResponse<Void> deleteVenue(@PathVariable Long id) {
+    public ApiResponse<Void> deleteVenue(@PathVariable("id") Long id) {
         log.info("删除场馆请求，ID：{}", id);
         return venueService.deleteVenue(id);
     }
@@ -62,7 +62,7 @@ public class VenueController {
      * 根据ID获取场馆详情
      */
     @GetMapping("/{id}")
-    public ApiResponse<VenueDTO> getVenueById(@PathVariable Long id) {
+    public ApiResponse<VenueDTO> getVenueById(@PathVariable("id") Long id) {
         log.info("获取场馆详情请求，ID：{}", id);
         return venueService.getVenueById(id);
     }
@@ -80,7 +80,7 @@ public class VenueController {
      * 根据商户ID查询场馆
      */
     @GetMapping("/merchant/{merchantId}")
-    public ApiResponse<List<VenueDTO>> getVenuesByMerchant(@PathVariable Long merchantId) {
+    public ApiResponse<List<VenueDTO>> getVenuesByMerchant(@PathVariable("merchantId") Long merchantId) {
         log.info("查询商户场馆请求，商户ID：{}", merchantId);
         return venueService.getVenuesByMerchant(merchantId);
     }
@@ -89,7 +89,7 @@ public class VenueController {
      * 根据场馆类型查询
      */
     @GetMapping("/type/{type}")
-    public ApiResponse<List<VenueDTO>> getVenuesByType(@PathVariable String type) {
+    public ApiResponse<List<VenueDTO>> getVenuesByType(@PathVariable("type") String type) {
         log.info("查询场馆类型请求，类型：{}", type);
         return venueService.getVenuesByType(Venue.VenueType.valueOf(type.toUpperCase()));
     }
@@ -98,7 +98,7 @@ public class VenueController {
      * 根据场馆子类型查询
      */
     @GetMapping("/subtype/{subType}")
-    public ApiResponse<List<VenueDTO>> getVenuesBySubType(@PathVariable String subType) {
+    public ApiResponse<List<VenueDTO>> getVenuesBySubType(@PathVariable("subType") String subType) {
         log.info("查询场馆子类型请求，子类型：{}", subType);
         return venueService.getVenuesBySubType(Venue.VenueSubType.valueOf(subType.toUpperCase()));
     }
@@ -128,7 +128,7 @@ public class VenueController {
      * 更新场馆状态
      */
     @PutMapping("/{id}/status")
-    public ApiResponse<Void> updateVenueStatus(@PathVariable Long id, @RequestParam String status) {
+    public ApiResponse<Void> updateVenueStatus(@PathVariable("id") Long id, @RequestParam("status") String status) {
         log.info("更新场馆状态请求，ID：{}，状态：{}", id, status);
         return venueService.updateVenueStatus(id, Venue.VenueStatus.valueOf(status.toUpperCase()));
     }
@@ -137,7 +137,7 @@ public class VenueController {
      * 更新场馆使用人数
      */
     @PutMapping("/{id}/occupancy")
-    public ApiResponse<Void> updateVenueOccupancy(@PathVariable Long id, @RequestParam Integer occupancy) {
+    public ApiResponse<Void> updateVenueOccupancy(@PathVariable("id") Long id, @RequestParam("occupancy") Integer occupancy) {
         log.info("更新场馆使用人数请求，ID：{}，人数：{}", id, occupancy);
         return venueService.updateVenueOccupancy(id, occupancy);
     }
@@ -146,7 +146,7 @@ public class VenueController {
      * 更新场馆评分
      */
     @PutMapping("/{id}/rating")
-    public ApiResponse<Void> updateVenueRating(@PathVariable Long id, @RequestParam BigDecimal rating) {
+    public ApiResponse<Void> updateVenueRating(@PathVariable("id") Long id, @RequestParam("rating") BigDecimal rating) {
         log.info("更新场馆评分请求，ID：{}，评分：{}", id, rating);
         return venueService.updateVenueRating(id, rating);
     }

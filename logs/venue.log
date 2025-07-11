@@ -3,14 +3,6 @@ WARNING: sun.misc.Unsafe::staticFieldBase has been called by com.google.inject.i
 WARNING: Please consider reporting this to the maintainers of class com.google.inject.internal.aop.HiddenClassDefiner
 WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
 [INFO] Scanning for projects...
-[WARNING] 
-[WARNING] Some problems were encountered while building the effective model for com.sportvenue:sport-venue-venue:jar:1.0.0-SNAPSHOT
-[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: org.projectlombok:lombok:jar -> duplicate declaration of version ${lombok.version} @ line 67, column 21
-[WARNING] 
-[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
-[WARNING] 
-[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
-[WARNING] 
 [INFO] 
 [INFO] ------------------< com.sportvenue:sport-venue-venue >------------------
 [INFO] Building sport-venue-venue 1.0.0-SNAPSHOT
@@ -22,16 +14,16 @@ WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
 [INFO] 
 [INFO] --- resources:3.3.1:resources (default-resources) @ sport-venue-venue ---
 [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
-[INFO] Copying 3 resources from src/main/resources to target/classes
+[INFO] Copying 5 resources from src/main/resources to target/classes
 [INFO] 
-[INFO] --- compiler:3.13.0:compile (default-compile) @ sport-venue-venue ---
-[INFO] Nothing to compile - all classes are up to date.
+[INFO] --- compiler:3.11.0:compile (default-compile) @ sport-venue-venue ---
+[INFO] Nothing to compile - all classes are up to date
 [INFO] 
 [INFO] --- resources:3.3.1:testResources (default-testResources) @ sport-venue-venue ---
 [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
 [INFO] skip non existing resourceDirectory /Users/peter/Desktop/file/code/pri/java/sport-venue/sport-venue-venue/src/test/resources
 [INFO] 
-[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ sport-venue-venue ---
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ sport-venue-venue ---
 [INFO] No sources to compile
 [INFO] 
 [INFO] <<< spring-boot:3.2.0:run (default-cli) < test-compile @ sport-venue-venue <<<
@@ -48,377 +40,691 @@ WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
  =========|_|==============|___/=/_/_/_/
 [32m :: Spring Boot :: [39m              [2m (v3.2.0)[0;39m
 
-[2m2025-07-08T17:07:10.640+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mc.c.c.ConfigServicePropertySourceLocator[0;39m [2m:[0;39m Fetching config from server at : http://localhost:8888
-[2m2025-07-08T17:07:10.726+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mc.c.c.ConfigServicePropertySourceLocator[0;39m [2m:[0;39m Exception on Url - http://localhost:8888:org.springframework.web.client.ResourceAccessException: I/O error on GET request for "http://localhost:8888/venue-service/local/main": Connection refused. Will be trying the next url if available
-[2m2025-07-08T17:07:10.726+08:00[0;39m [33m WARN[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mc.c.c.ConfigServicePropertySourceLocator[0;39m [2m:[0;39m Could not locate PropertySource: I/O error on GET request for "http://localhost:8888/venue-service/local/main": Connection refused
-[2m2025-07-08T17:07:10.730+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mcom.sportvenue.venue.VenueApplication   [0;39m [2m:[0;39m The following 1 profile is active: "local"
-[2m2025-07-08T17:07:11.186+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36m.s.d.r.c.RepositoryConfigurationDelegate[0;39m [2m:[0;39m Multiple Spring Data modules found, entering strict repository configuration mode
-[2m2025-07-08T17:07:11.187+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36m.s.d.r.c.RepositoryConfigurationDelegate[0;39m [2m:[0;39m Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-[2m2025-07-08T17:07:11.198+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36m.s.d.r.c.RepositoryConfigurationDelegate[0;39m [2m:[0;39m Finished Spring Data repository scanning in 6 ms. Found 0 JPA repository interfaces.
-[2m2025-07-08T17:07:11.210+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36m.s.d.r.c.RepositoryConfigurationDelegate[0;39m [2m:[0;39m Multiple Spring Data modules found, entering strict repository configuration mode
-[2m2025-07-08T17:07:11.211+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36m.s.d.r.c.RepositoryConfigurationDelegate[0;39m [2m:[0;39m Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-[2m2025-07-08T17:07:11.221+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36m.s.d.r.c.RepositoryConfigurationDelegate[0;39m [2m:[0;39m Finished Spring Data repository scanning in 1 ms. Found 0 Redis repository interfaces.
-[2m2025-07-08T17:07:11.403+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mo.s.cloud.context.scope.GenericScope    [0;39m [2m:[0;39m BeanFactory id=a0ba226e-920f-3638-b487-cca37fc36d28
-[2m2025-07-08T17:07:11.611+08:00[0;39m [33m WARN[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$LoadBalancerInterceptorConfig' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$LoadBalancerInterceptorConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [lbRestClientPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
-[2m2025-07-08T17:07:11.613+08:00[0;39m [33m WARN[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.cloud.loadbalancer.config.BlockingLoadBalancerClientAutoConfiguration' of type [org.springframework.cloud.loadbalancer.config.BlockingLoadBalancerClientAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-[2m2025-07-08T17:07:11.615+08:00[0;39m [33m WARN[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.cloud.loadbalancer.config.LoadBalancerAutoConfiguration' of type [org.springframework.cloud.loadbalancer.config.LoadBalancerAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-[2m2025-07-08T17:07:11.618+08:00[0;39m [33m WARN[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.cloud.commons.config.CommonsConfigAutoConfiguration' of type [org.springframework.cloud.commons.config.CommonsConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-[2m2025-07-08T17:07:11.619+08:00[0;39m [33m WARN[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-[2m2025-07-08T17:07:11.620+08:00[0;39m [33m WARN[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'loadBalancerClientsDefaultsMappingsProvider' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration$$Lambda/0x00003ff001399c28] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-[2m2025-07-08T17:07:11.621+08:00[0;39m [33m WARN[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'defaultsBindHandlerAdvisor' of type [org.springframework.cloud.commons.config.DefaultsBindHandlerAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-[2m2025-07-08T17:07:11.625+08:00[0;39m [33m WARN[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'spring.cloud.loadbalancer-org.springframework.cloud.client.loadbalancer.LoadBalancerClientsProperties' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerClientsProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-[2m2025-07-08T17:07:11.630+08:00[0;39m [33m WARN[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'default.org.springframework.cloud.loadbalancer.config.LoadBalancerAutoConfiguration.LoadBalancerClientSpecification' of type [org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientSpecification] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-[2m2025-07-08T17:07:11.630+08:00[0;39m [33m WARN[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'default.org.springframework.cloud.loadbalancer.config.BlockingLoadBalancerClientAutoConfiguration.LoadBalancerClientSpecification' of type [org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientSpecification] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-[2m2025-07-08T17:07:11.631+08:00[0;39m [33m WARN[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'default.org.springframework.cloud.netflix.eureka.loadbalancer.LoadBalancerEurekaAutoConfiguration.LoadBalancerClientSpecification' of type [org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientSpecification] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-[2m2025-07-08T17:07:11.632+08:00[0;39m [33m WARN[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'loadBalancerClientFactory' of type [org.springframework.cloud.loadbalancer.support.LoadBalancerClientFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-[2m2025-07-08T17:07:11.635+08:00[0;39m [33m WARN[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'blockingLoadBalancerClient' of type [org.springframework.cloud.loadbalancer.blocking.client.BlockingLoadBalancerClient] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-[2m2025-07-08T17:07:11.640+08:00[0;39m [33m WARN[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'loadBalancerServiceInstanceCookieTransformer' of type [org.springframework.cloud.loadbalancer.core.LoadBalancerServiceInstanceCookieTransformer] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-[2m2025-07-08T17:07:11.641+08:00[0;39m [33m WARN[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'xForwarderHeadersTransformer' of type [org.springframework.cloud.loadbalancer.blocking.XForwardedHeadersTransformer] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-[2m2025-07-08T17:07:11.642+08:00[0;39m [33m WARN[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-[2m2025-07-08T17:07:11.643+08:00[0;39m [33m WARN[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'loadBalancerRequestFactory' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerRequestFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-[2m2025-07-08T17:07:11.644+08:00[0;39m [33m WARN[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'loadBalancerInterceptor' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-11 16:44:36 [main] INFO  o.s.c.c.c.ConfigServicePropertySourceLocator - Fetching config from server at : http://localhost:8888
+2025-07-11 16:44:36 [main] INFO  o.s.c.c.c.ConfigServicePropertySourceLocator - Located environment: name=venue-service, profiles=[local], label=main, version=null, state=null
+2025-07-11 16:44:36 [main] INFO  o.s.c.b.c.PropertySourceBootstrapConfiguration - Located property source: [BootstrapPropertySource {name='bootstrapProperties-configClient'}, BootstrapPropertySource {name='bootstrapProperties-Config resource 'class path resource [config-repo/venue-service.yml]' via location 'classpath:/config-repo/' (document #0)'}, BootstrapPropertySource {name='bootstrapProperties-classpath:/config-repo/application.yml'}]
+2025-07-11 16:44:36 [main] INFO  c.sportvenue.venue.VenueApplication - The following 1 profile is active: "local"
+2025-07-11 16:44:37 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-07-11 16:44:37 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-11 16:44:37 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 153 ms. Found 5 JPA repository interfaces.
+2025-07-11 16:44:37 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-07-11 16:44:37 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-07-11 16:44:37 [main] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.sportvenue.venue.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-07-11 16:44:37 [main] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.sportvenue.venue.repository.VenueCheckInRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-07-11 16:44:37 [main] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.sportvenue.venue.repository.VenuePriceRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-07-11 16:44:37 [main] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.sportvenue.venue.repository.VenueRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-07-11 16:44:37 [main] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.sportvenue.venue.repository.VenueReservationRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2025-07-11 16:44:37 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 12 ms. Found 0 Redis repository interfaces.
+2025-07-11 16:44:38 [main] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=23772b77-62c8-3478-b657-7f57bca9816e
+2025-07-11 16:44:38 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$LoadBalancerInterceptorConfig' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$LoadBalancerInterceptorConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [lbRestClientPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-07-11 16:44:38 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.loadbalancer.config.BlockingLoadBalancerClientAutoConfiguration' of type [org.springframework.cloud.loadbalancer.config.BlockingLoadBalancerClientAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-11 16:44:38 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.loadbalancer.config.LoadBalancerAutoConfiguration' of type [org.springframework.cloud.loadbalancer.config.LoadBalancerAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-11 16:44:38 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.commons.config.CommonsConfigAutoConfiguration' of type [org.springframework.cloud.commons.config.CommonsConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-11 16:44:38 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-11 16:44:38 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'loadBalancerClientsDefaultsMappingsProvider' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration$$Lambda/0x00001ffc013cd750] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-11 16:44:38 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'defaultsBindHandlerAdvisor' of type [org.springframework.cloud.commons.config.DefaultsBindHandlerAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-11 16:44:38 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'spring.cloud.loadbalancer-org.springframework.cloud.client.loadbalancer.LoadBalancerClientsProperties' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerClientsProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-11 16:44:38 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'default.org.springframework.cloud.loadbalancer.config.LoadBalancerAutoConfiguration.LoadBalancerClientSpecification' of type [org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientSpecification] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-11 16:44:38 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'default.org.springframework.cloud.loadbalancer.config.BlockingLoadBalancerClientAutoConfiguration.LoadBalancerClientSpecification' of type [org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientSpecification] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-11 16:44:38 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'default.org.springframework.cloud.netflix.eureka.loadbalancer.LoadBalancerEurekaAutoConfiguration.LoadBalancerClientSpecification' of type [org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientSpecification] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-11 16:44:38 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'loadBalancerClientFactory' of type [org.springframework.cloud.loadbalancer.support.LoadBalancerClientFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-11 16:44:38 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'blockingLoadBalancerClient' of type [org.springframework.cloud.loadbalancer.blocking.client.BlockingLoadBalancerClient] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-11 16:44:38 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'loadBalancerServiceInstanceCookieTransformer' of type [org.springframework.cloud.loadbalancer.core.LoadBalancerServiceInstanceCookieTransformer] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-11 16:44:38 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'xForwarderHeadersTransformer' of type [org.springframework.cloud.loadbalancer.blocking.XForwardedHeadersTransformer] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-11 16:44:38 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-11 16:44:38 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'loadBalancerRequestFactory' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerRequestFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-07-11 16:44:38 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'loadBalancerInterceptor' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
 WARNING: A restricted method in java.lang.System has been called
 WARNING: java.lang.System::load has been called by org.apache.tomcat.jni.Library in an unnamed module (file:/Users/peter/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/10.1.16/tomcat-embed-core-10.1.16.jar)
 WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
 WARNING: Restricted methods will be blocked in a future release unless native access is enabled
 
-[2m2025-07-08T17:07:11.818+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port 8082 (http)
-[2m2025-07-08T17:07:11.825+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mo.apache.catalina.core.StandardService  [0;39m [2m:[0;39m Starting service [Tomcat]
-[2m2025-07-08T17:07:11.825+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mo.apache.catalina.core.StandardEngine   [0;39m [2m:[0;39m Starting Servlet engine: [Apache Tomcat/10.1.16]
-[2m2025-07-08T17:07:11.878+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mo.a.c.c.C.[Tomcat].[localhost].[/]      [0;39m [2m:[0;39m Initializing Spring embedded WebApplicationContext
-[2m2025-07-08T17:07:11.878+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 1130 ms
-[2m2025-07-08T17:07:11.985+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mo.hibernate.jpa.internal.util.LogHelper [0;39m [2m:[0;39m HHH000204: Processing PersistenceUnitInfo [name: default]
-[2m2025-07-08T17:07:12.033+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36morg.hibernate.Version                   [0;39m [2m:[0;39m HHH000412: Hibernate ORM core version 6.3.1.Final
-[2m2025-07-08T17:07:12.060+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mo.h.c.internal.RegionFactoryInitiator   [0;39m [2m:[0;39m HHH000026: Second-level cache disabled
-[2m2025-07-08T17:07:12.270+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mo.s.o.j.p.SpringPersistenceUnitInfo     [0;39m [2m:[0;39m No LoadTimeWeaver setup: ignoring JPA class transformer
-[2m2025-07-08T17:07:12.294+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mcom.zaxxer.hikari.HikariDataSource      [0;39m [2m:[0;39m HikariPool-1 - Starting...
-[2m2025-07-08T17:07:12.411+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3ec7eb5
-[2m2025-07-08T17:07:12.412+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mcom.zaxxer.hikari.HikariDataSource      [0;39m [2m:[0;39m HikariPool-1 - Start completed.
-[2m2025-07-08T17:07:12.717+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mo.h.e.t.j.p.i.JtaPlatformInitiator      [0;39m [2m:[0;39m HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-[2m2025-07-08T17:07:12.723+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mj.LocalContainerEntityManagerFactoryBean[0;39m [2m:[0;39m Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-11 16:44:38 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8082 (http)
+2025-07-11 16:44:38 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-11 16:44:38 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-11 16:44:38 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-07-11 16:44:38 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1928 ms
+2025-07-11 16:44:38 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-11 16:44:38 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.3.1.Final
+2025-07-11 16:44:38 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-07-11 16:44:39 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-11 16:44:39 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-07-11 16:44:39 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@219edc05
+2025-07-11 16:44:39 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-07-11 16:44:39 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-07-11 16:44:39 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-07-11 16:44:41 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-11 16:44:41 [main] DEBUG org.hibernate.SQL - 
+    create table merchants (
+        id bigint not null auto_increment,
+        address varchar(200),
+        business_hours varchar(100),
+        business_license varchar(50),
+        contact_email varchar(100),
+        contact_name varchar(50),
+        contact_phone varchar(20),
+        create_by bigint,
+        create_time datetime(6) not null,
+        description varchar(1000),
+        establishment_date datetime(6),
+        images varchar(1000),
+        legal_person varchar(50),
+        legal_person_id varchar(20),
+        logo varchar(200),
+        merchant_code varchar(50) not null,
+        merchant_type enum ('INDIVIDUAL','COMPANY','CHAIN') not null,
+        monthly_revenue decimal(38,2),
+        name varchar(100) not null,
+        rating decimal(38,2),
+        rating_count integer,
+        registered_capital decimal(38,2),
+        remark varchar(500),
+        short_name varchar(50),
+        status enum ('ACTIVE','INACTIVE','SUSPENDED') not null,
+        tags varchar(500),
+        total_revenue decimal(38,2),
+        update_by bigint,
+        update_time datetime(6) not null,
+        venue_count integer,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    create table merchants (
+        id bigint not null auto_increment,
+        address varchar(200),
+        business_hours varchar(100),
+        business_license varchar(50),
+        contact_email varchar(100),
+        contact_name varchar(50),
+        contact_phone varchar(20),
+        create_by bigint,
+        create_time datetime(6) not null,
+        description varchar(1000),
+        establishment_date datetime(6),
+        images varchar(1000),
+        legal_person varchar(50),
+        legal_person_id varchar(20),
+        logo varchar(200),
+        merchant_code varchar(50) not null,
+        merchant_type enum ('INDIVIDUAL','COMPANY','CHAIN') not null,
+        monthly_revenue decimal(38,2),
+        name varchar(100) not null,
+        rating decimal(38,2),
+        rating_count integer,
+        registered_capital decimal(38,2),
+        remark varchar(500),
+        short_name varchar(50),
+        status enum ('ACTIVE','INACTIVE','SUSPENDED') not null,
+        tags varchar(500),
+        total_revenue decimal(38,2),
+        update_by bigint,
+        update_time datetime(6) not null,
+        venue_count integer,
+        primary key (id)
+    ) engine=InnoDB
+2025-07-11 16:44:41 [main] DEBUG org.hibernate.SQL - 
+    create table permissions (
+        id bigint not null auto_increment,
+        category enum ('VENUE','RESERVATION','CHECKIN','USER','SYSTEM','STATISTICS') not null,
+        code varchar(100) not null,
+        create_by bigint,
+        create_time datetime(6) not null,
+        description varchar(200),
+        http_method varchar(10),
+        name varchar(100) not null,
+        parent_id bigint,
+        permission_type enum ('MENU','BUTTON','API') not null,
+        remark varchar(500),
+        resource_path varchar(200),
+        sort integer,
+        status enum ('ACTIVE','INACTIVE') not null,
+        update_by bigint,
+        update_time datetime(6) not null,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    create table permissions (
+        id bigint not null auto_increment,
+        category enum ('VENUE','RESERVATION','CHECKIN','USER','SYSTEM','STATISTICS') not null,
+        code varchar(100) not null,
+        create_by bigint,
+        create_time datetime(6) not null,
+        description varchar(200),
+        http_method varchar(10),
+        name varchar(100) not null,
+        parent_id bigint,
+        permission_type enum ('MENU','BUTTON','API') not null,
+        remark varchar(500),
+        resource_path varchar(200),
+        sort integer,
+        status enum ('ACTIVE','INACTIVE') not null,
+        update_by bigint,
+        update_time datetime(6) not null,
+        primary key (id)
+    ) engine=InnoDB
+2025-07-11 16:44:41 [main] DEBUG org.hibernate.SQL - 
+    create table role_permissions (
+        role_id bigint not null,
+        permission_id bigint not null,
+        primary key (role_id, permission_id)
+    ) engine=InnoDB
+Hibernate: 
+    create table role_permissions (
+        role_id bigint not null,
+        permission_id bigint not null,
+        primary key (role_id, permission_id)
+    ) engine=InnoDB
+2025-07-11 16:44:41 [main] DEBUG org.hibernate.SQL - 
+    create table roles (
+        id bigint not null auto_increment,
+        code varchar(50) not null,
+        create_by bigint,
+        create_time datetime(6) not null,
+        description varchar(200),
+        merchant_id bigint,
+        name varchar(50) not null,
+        remark varchar(500),
+        role_type enum ('SYSTEM','MERCHANT','CUSTOM') not null,
+        sort integer,
+        status enum ('ACTIVE','INACTIVE') not null,
+        update_by bigint,
+        update_time datetime(6) not null,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    create table roles (
+        id bigint not null auto_increment,
+        code varchar(50) not null,
+        create_by bigint,
+        create_time datetime(6) not null,
+        description varchar(200),
+        merchant_id bigint,
+        name varchar(50) not null,
+        remark varchar(500),
+        role_type enum ('SYSTEM','MERCHANT','CUSTOM') not null,
+        sort integer,
+        status enum ('ACTIVE','INACTIVE') not null,
+        update_by bigint,
+        update_time datetime(6) not null,
+        primary key (id)
+    ) engine=InnoDB
+2025-07-11 16:44:41 [main] DEBUG org.hibernate.SQL - 
+    create table user_roles (
+        user_id bigint not null,
+        role_id bigint not null,
+        primary key (user_id, role_id)
+    ) engine=InnoDB
+Hibernate: 
+    create table user_roles (
+        user_id bigint not null,
+        role_id bigint not null,
+        primary key (user_id, role_id)
+    ) engine=InnoDB
+2025-07-11 16:44:41 [main] DEBUG org.hibernate.SQL - 
+    create table users (
+        id bigint not null auto_increment,
+        avatar varchar(200),
+        create_by bigint,
+        create_time datetime(6) not null,
+        email varchar(100),
+        last_login_ip varchar(50),
+        last_login_time datetime(6),
+        member_level enum ('BRONZE','SILVER','GOLD','PLATINUM','DIAMOND'),
+        merchant_id bigint,
+        merchant_name varchar(100),
+        password varchar(100) not null,
+        phone varchar(20),
+        points integer,
+        real_name varchar(50),
+        remark varchar(500),
+        status enum ('ACTIVE','INACTIVE','LOCKED') not null,
+        update_by bigint,
+        update_time datetime(6) not null,
+        user_type enum ('B_MERCHANT','B_STAFF','C_USER','ADMIN') not null,
+        username varchar(50) not null,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    create table users (
+        id bigint not null auto_increment,
+        avatar varchar(200),
+        create_by bigint,
+        create_time datetime(6) not null,
+        email varchar(100),
+        last_login_ip varchar(50),
+        last_login_time datetime(6),
+        member_level enum ('BRONZE','SILVER','GOLD','PLATINUM','DIAMOND'),
+        merchant_id bigint,
+        merchant_name varchar(100),
+        password varchar(100) not null,
+        phone varchar(20),
+        points integer,
+        real_name varchar(50),
+        remark varchar(500),
+        status enum ('ACTIVE','INACTIVE','LOCKED') not null,
+        update_by bigint,
+        update_time datetime(6) not null,
+        user_type enum ('B_MERCHANT','B_STAFF','C_USER','ADMIN') not null,
+        username varchar(50) not null,
+        primary key (id)
+    ) engine=InnoDB
+2025-07-11 16:44:41 [main] DEBUG org.hibernate.SQL - 
+    create table venue_check_ins (
+        id bigint not null auto_increment,
+        check_in_no varchar(50) not null,
+        check_in_time datetime(6),
+        consecutive_days integer,
+        create_by bigint,
+        create_time datetime(6),
+        device_id varchar(100),
+        device_type enum ('MOBILE','TABLET','TERMINAL','PC'),
+        duration_minutes integer,
+        earned_points integer,
+        location varchar(100),
+        method enum ('QR_CODE','NFC','MANUAL','AUTO','FACE') not null,
+        remark varchar(500),
+        reservation_id bigint,
+        total_check_ins integer,
+        type enum ('CHECK_IN','CHECK_OUT','AUTO_CHECK_OUT','RE_CHECK_IN') not null,
+        update_by bigint,
+        update_time datetime(6),
+        user_id bigint not null,
+        user_name varchar(50),
+        venue_id bigint not null,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    create table venue_check_ins (
+        id bigint not null auto_increment,
+        check_in_no varchar(50) not null,
+        check_in_time datetime(6),
+        consecutive_days integer,
+        create_by bigint,
+        create_time datetime(6),
+        device_id varchar(100),
+        device_type enum ('MOBILE','TABLET','TERMINAL','PC'),
+        duration_minutes integer,
+        earned_points integer,
+        location varchar(100),
+        method enum ('QR_CODE','NFC','MANUAL','AUTO','FACE') not null,
+        remark varchar(500),
+        reservation_id bigint,
+        total_check_ins integer,
+        type enum ('CHECK_IN','CHECK_OUT','AUTO_CHECK_OUT','RE_CHECK_IN') not null,
+        update_by bigint,
+        update_time datetime(6),
+        user_id bigint not null,
+        user_name varchar(50),
+        venue_id bigint not null,
+        primary key (id)
+    ) engine=InnoDB
+2025-07-11 16:44:41 [main] DEBUG org.hibernate.SQL - 
+    create table venue_prices (
+        id bigint not null auto_increment,
+        base_price decimal(10,2) not null,
+        create_by bigint,
+        create_time datetime(6),
+        enabled bit,
+        holiday_price decimal(10,2),
+        max_duration integer,
+        member_price decimal(10,2),
+        min_duration integer,
+        name varchar(100) not null,
+        priority integer,
+        remark varchar(500),
+        time_slot_end varchar(10),
+        time_slot_start varchar(10),
+        type enum ('HOURLY','DAILY','PACKAGE','MEMBER','PEAK','OFF_PEAK') not null,
+        update_by bigint,
+        update_time datetime(6),
+        valid_from datetime(6),
+        valid_to datetime(6),
+        venue_id bigint not null,
+        vip_price decimal(10,2),
+        weekdays varchar(20),
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    create table venue_prices (
+        id bigint not null auto_increment,
+        base_price decimal(10,2) not null,
+        create_by bigint,
+        create_time datetime(6),
+        enabled bit,
+        holiday_price decimal(10,2),
+        max_duration integer,
+        member_price decimal(10,2),
+        min_duration integer,
+        name varchar(100) not null,
+        priority integer,
+        remark varchar(500),
+        time_slot_end varchar(10),
+        time_slot_start varchar(10),
+        type enum ('HOURLY','DAILY','PACKAGE','MEMBER','PEAK','OFF_PEAK') not null,
+        update_by bigint,
+        update_time datetime(6),
+        valid_from datetime(6),
+        valid_to datetime(6),
+        venue_id bigint not null,
+        vip_price decimal(10,2),
+        weekdays varchar(20),
+        primary key (id)
+    ) engine=InnoDB
+2025-07-11 16:44:41 [main] DEBUG org.hibernate.SQL - 
+    create table venue_reservations (
+        id bigint not null auto_increment,
+        actual_amount decimal(10,2),
+        cancel_by bigint,
+        cancel_reason varchar(200),
+        cancel_time datetime(6),
+        create_by bigint,
+        create_time datetime(6),
+        discount_amount decimal(10,2),
+        duration integer,
+        end_time datetime(6),
+        payment_method enum ('WECHAT','ALIPAY','CASH','CARD','POINTS'),
+        payment_status enum ('UNPAID','PAID','REFUNDED','PARTIAL_REFUND') not null,
+        payment_time datetime(6),
+        people_count integer,
+        remark varchar(500),
+        reservation_no varchar(50) not null,
+        start_time datetime(6),
+        status enum ('PENDING','CONFIRMED','CANCELLED','COMPLETED','NO_SHOW') not null,
+        total_price decimal(10,2),
+        transaction_no varchar(100),
+        type enum ('NORMAL','MEMBER','VIP','GROUP') not null,
+        unit_price decimal(10,2),
+        update_by bigint,
+        update_time datetime(6),
+        user_id bigint not null,
+        user_name varchar(50),
+        user_phone varchar(20),
+        venue_id bigint not null,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    create table venue_reservations (
+        id bigint not null auto_increment,
+        actual_amount decimal(10,2),
+        cancel_by bigint,
+        cancel_reason varchar(200),
+        cancel_time datetime(6),
+        create_by bigint,
+        create_time datetime(6),
+        discount_amount decimal(10,2),
+        duration integer,
+        end_time datetime(6),
+        payment_method enum ('WECHAT','ALIPAY','CASH','CARD','POINTS'),
+        payment_status enum ('UNPAID','PAID','REFUNDED','PARTIAL_REFUND') not null,
+        payment_time datetime(6),
+        people_count integer,
+        remark varchar(500),
+        reservation_no varchar(50) not null,
+        start_time datetime(6),
+        status enum ('PENDING','CONFIRMED','CANCELLED','COMPLETED','NO_SHOW') not null,
+        total_price decimal(10,2),
+        transaction_no varchar(100),
+        type enum ('NORMAL','MEMBER','VIP','GROUP') not null,
+        unit_price decimal(10,2),
+        update_by bigint,
+        update_time datetime(6),
+        user_id bigint not null,
+        user_name varchar(50),
+        user_phone varchar(20),
+        venue_id bigint not null,
+        primary key (id)
+    ) engine=InnoDB
+2025-07-11 16:44:41 [main] DEBUG org.hibernate.SQL - 
+    create table venues (
+        id bigint not null auto_increment,
+        address varchar(200) not null,
+        area decimal(38,2),
+        capacity integer,
+        check_in_enabled bit,
+        close_time varchar(10),
+        create_by bigint,
+        create_time datetime(6),
+        current_occupancy integer,
+        description varchar(500),
+        facilities varchar(500),
+        images TEXT,
+        latitude decimal(38,2),
+        longitude decimal(38,2),
+        merchant_id bigint not null,
+        merchant_name varchar(100),
+        name varchar(100) not null,
+        open_time varchar(10),
+        phone varchar(20),
+        points_enabled bit,
+        rating decimal(38,2),
+        rating_count integer,
+        reservation_enabled bit,
+        status enum ('ACTIVE','INACTIVE','MAINTENANCE') not null,
+        sub_type enum ('BASKETBALL','FOOTBALL','TENNIS','SWIMMING','GYM','BADMINTON','TABLE_TENNIS','VOLLEYBALL','BASEBALL','RUNNING','YOGA','DANCE','BOXING','MARTIAL_ARTS','OTHER') not null,
+        tags TEXT,
+        type enum ('INDOOR','OUTDOOR','INSTITUTION','PARK','PAID','FREE') not null,
+        update_by bigint,
+        update_time datetime(6),
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    create table venues (
+        id bigint not null auto_increment,
+        address varchar(200) not null,
+        area decimal(38,2),
+        capacity integer,
+        check_in_enabled bit,
+        close_time varchar(10),
+        create_by bigint,
+        create_time datetime(6),
+        current_occupancy integer,
+        description varchar(500),
+        facilities varchar(500),
+        images TEXT,
+        latitude decimal(38,2),
+        longitude decimal(38,2),
+        merchant_id bigint not null,
+        merchant_name varchar(100),
+        name varchar(100) not null,
+        open_time varchar(10),
+        phone varchar(20),
+        points_enabled bit,
+        rating decimal(38,2),
+        rating_count integer,
+        reservation_enabled bit,
+        status enum ('ACTIVE','INACTIVE','MAINTENANCE') not null,
+        sub_type enum ('BASKETBALL','FOOTBALL','TENNIS','SWIMMING','GYM','BADMINTON','TABLE_TENNIS','VOLLEYBALL','BASEBALL','RUNNING','YOGA','DANCE','BOXING','MARTIAL_ARTS','OTHER') not null,
+        tags TEXT,
+        type enum ('INDOOR','OUTDOOR','INSTITUTION','PARK','PAID','FREE') not null,
+        update_by bigint,
+        update_time datetime(6),
+        primary key (id)
+    ) engine=InnoDB
+2025-07-11 16:44:41 [main] DEBUG org.hibernate.SQL - 
+    alter table merchants 
+       drop index UK_eopmihf50qel9ic2v35oolma2
+Hibernate: 
+    alter table merchants 
+       drop index UK_eopmihf50qel9ic2v35oolma2
+2025-07-11 16:44:41 [main] DEBUG org.hibernate.SQL - 
+    alter table merchants 
+       add constraint UK_eopmihf50qel9ic2v35oolma2 unique (merchant_code)
+Hibernate: 
+    alter table merchants 
+       add constraint UK_eopmihf50qel9ic2v35oolma2 unique (merchant_code)
+2025-07-11 16:44:42 [main] DEBUG org.hibernate.SQL - 
+    alter table permissions 
+       drop index UK_7lcb6glmvwlro3p2w2cewxtvd
+Hibernate: 
+    alter table permissions 
+       drop index UK_7lcb6glmvwlro3p2w2cewxtvd
+2025-07-11 16:44:42 [main] DEBUG org.hibernate.SQL - 
+    alter table permissions 
+       add constraint UK_7lcb6glmvwlro3p2w2cewxtvd unique (code)
+Hibernate: 
+    alter table permissions 
+       add constraint UK_7lcb6glmvwlro3p2w2cewxtvd unique (code)
+2025-07-11 16:44:42 [main] DEBUG org.hibernate.SQL - 
+    alter table roles 
+       drop index UK_ch1113horj4qr56f91omojv8
+Hibernate: 
+    alter table roles 
+       drop index UK_ch1113horj4qr56f91omojv8
+2025-07-11 16:44:42 [main] DEBUG org.hibernate.SQL - 
+    alter table roles 
+       add constraint UK_ch1113horj4qr56f91omojv8 unique (code)
+Hibernate: 
+    alter table roles 
+       add constraint UK_ch1113horj4qr56f91omojv8 unique (code)
+2025-07-11 16:44:42 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       drop index UK_6dotkott2kjsp8vw4d0m25fb7
+Hibernate: 
+    alter table users 
+       drop index UK_6dotkott2kjsp8vw4d0m25fb7
+2025-07-11 16:44:42 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       add constraint UK_6dotkott2kjsp8vw4d0m25fb7 unique (email)
+Hibernate: 
+    alter table users 
+       add constraint UK_6dotkott2kjsp8vw4d0m25fb7 unique (email)
+2025-07-11 16:44:42 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       drop index UK_du5v5sr43g5bfnji4vb8hg5s3
+Hibernate: 
+    alter table users 
+       drop index UK_du5v5sr43g5bfnji4vb8hg5s3
+2025-07-11 16:44:42 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       add constraint UK_du5v5sr43g5bfnji4vb8hg5s3 unique (phone)
+Hibernate: 
+    alter table users 
+       add constraint UK_du5v5sr43g5bfnji4vb8hg5s3 unique (phone)
+2025-07-11 16:44:42 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       drop index UK_r43af9ap4edm43mmtq01oddj6
+Hibernate: 
+    alter table users 
+       drop index UK_r43af9ap4edm43mmtq01oddj6
+2025-07-11 16:44:42 [main] DEBUG org.hibernate.SQL - 
+    alter table users 
+       add constraint UK_r43af9ap4edm43mmtq01oddj6 unique (username)
+Hibernate: 
+    alter table users 
+       add constraint UK_r43af9ap4edm43mmtq01oddj6 unique (username)
+2025-07-11 16:44:42 [main] DEBUG org.hibernate.SQL - 
+    alter table venue_check_ins 
+       drop index UK_le4e00d7jh4hrid9nsp2sanxj
+Hibernate: 
+    alter table venue_check_ins 
+       drop index UK_le4e00d7jh4hrid9nsp2sanxj
+2025-07-11 16:44:42 [main] DEBUG org.hibernate.SQL - 
+    alter table venue_check_ins 
+       add constraint UK_le4e00d7jh4hrid9nsp2sanxj unique (check_in_no)
+Hibernate: 
+    alter table venue_check_ins 
+       add constraint UK_le4e00d7jh4hrid9nsp2sanxj unique (check_in_no)
+2025-07-11 16:44:42 [main] DEBUG org.hibernate.SQL - 
+    alter table venue_reservations 
+       drop index UK_1koa71b6ktpijv9pwwbli4woy
+Hibernate: 
+    alter table venue_reservations 
+       drop index UK_1koa71b6ktpijv9pwwbli4woy
+2025-07-11 16:44:42 [main] DEBUG org.hibernate.SQL - 
+    alter table venue_reservations 
+       add constraint UK_1koa71b6ktpijv9pwwbli4woy unique (reservation_no)
+Hibernate: 
+    alter table venue_reservations 
+       add constraint UK_1koa71b6ktpijv9pwwbli4woy unique (reservation_no)
+2025-07-11 16:44:42 [main] DEBUG org.hibernate.SQL - 
+    alter table role_permissions 
+       add constraint FKegdk29eiy7mdtefy5c7eirr6e 
+       foreign key (permission_id) 
+       references permissions (id)
+Hibernate: 
+    alter table role_permissions 
+       add constraint FKegdk29eiy7mdtefy5c7eirr6e 
+       foreign key (permission_id) 
+       references permissions (id)
+2025-07-11 16:44:42 [main] DEBUG org.hibernate.SQL - 
+    alter table role_permissions 
+       add constraint FKn5fotdgk8d1xvo8nav9uv3muc 
+       foreign key (role_id) 
+       references roles (id)
+Hibernate: 
+    alter table role_permissions 
+       add constraint FKn5fotdgk8d1xvo8nav9uv3muc 
+       foreign key (role_id) 
+       references roles (id)
+2025-07-11 16:44:42 [main] DEBUG org.hibernate.SQL - 
+    alter table user_roles 
+       add constraint FKh8ciramu9cc9q3qcqiv4ue8a6 
+       foreign key (role_id) 
+       references roles (id)
+Hibernate: 
+    alter table user_roles 
+       add constraint FKh8ciramu9cc9q3qcqiv4ue8a6 
+       foreign key (role_id) 
+       references roles (id)
+2025-07-11 16:44:42 [main] DEBUG org.hibernate.SQL - 
+    alter table user_roles 
+       add constraint FKhfh9dx7w3ubf1co1vdev94g3f 
+       foreign key (user_id) 
+       references users (id)
+Hibernate: 
+    alter table user_roles 
+       add constraint FKhfh9dx7w3ubf1co1vdev94g3f 
+       foreign key (user_id) 
+       references users (id)
+2025-07-11 16:44:42 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-11 16:44:42 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
 WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
 WARNING: sun.misc.Unsafe::objectFieldOffset has been called by io.netty.util.internal.PlatformDependent0$4 (file:/Users/peter/.m2/repository/io/netty/netty-common/4.1.101.Final/netty-common-4.1.101.Final.jar)
 WARNING: Please consider reporting this to the maintainers of class io.netty.util.internal.PlatformDependent0$4
 WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
-[2m2025-07-08T17:07:13.000+08:00[0;39m [33m WARN[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mJpaBaseConfiguration$JpaWebConfiguration[0;39m [2m:[0;39m spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-[2m2025-07-08T17:07:13.347+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mDiscoveryClientOptionalArgsConfiguration[0;39m [2m:[0;39m Eureka HTTP Client uses RestTemplate.
-[2m2025-07-08T17:07:13.369+08:00[0;39m [33m WARN[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36miguration$LoadBalancerCaffeineWarnLogger[0;39m [2m:[0;39m Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
-[2m2025-07-08T17:07:13.392+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mo.s.c.n.eureka.InstanceInfoFactory      [0;39m [2m:[0;39m Setting initial instance status as: STARTING
-[2m2025-07-08T17:07:13.471+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mcom.netflix.discovery.DiscoveryClient   [0;39m [2m:[0;39m Initializing Eureka in region us-east-1
-[2m2025-07-08T17:07:13.473+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mc.n.d.s.r.aws.ConfigClusterResolver     [0;39m [2m:[0;39m Resolving eureka endpoints via configuration
-[2m2025-07-08T17:07:13.485+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mcom.netflix.discovery.DiscoveryClient   [0;39m [2m:[0;39m Disable delta property : false
-[2m2025-07-08T17:07:13.485+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mcom.netflix.discovery.DiscoveryClient   [0;39m [2m:[0;39m Single vip registry refresh property : null
-[2m2025-07-08T17:07:13.485+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mcom.netflix.discovery.DiscoveryClient   [0;39m [2m:[0;39m Force full registry fetch : false
-[2m2025-07-08T17:07:13.485+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mcom.netflix.discovery.DiscoveryClient   [0;39m [2m:[0;39m Application is null : false
-[2m2025-07-08T17:07:13.485+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mcom.netflix.discovery.DiscoveryClient   [0;39m [2m:[0;39m Registered Applications size is zero : true
-[2m2025-07-08T17:07:13.485+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mcom.netflix.discovery.DiscoveryClient   [0;39m [2m:[0;39m Application version is -1: true
-[2m2025-07-08T17:07:13.485+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mcom.netflix.discovery.DiscoveryClient   [0;39m [2m:[0;39m Getting all instance registry info from the eureka server
-[2m2025-07-08T17:07:13.647+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mcom.netflix.discovery.DiscoveryClient   [0;39m [2m:[0;39m The response status is 200
-[2m2025-07-08T17:07:13.648+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mcom.netflix.discovery.DiscoveryClient   [0;39m [2m:[0;39m Starting heartbeat executor: renew interval is: 30
-[2m2025-07-08T17:07:13.649+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mc.n.discovery.InstanceInfoReplicator    [0;39m [2m:[0;39m InstanceInfoReplicator onDemand update allowed rate per min is 4
-[2m2025-07-08T17:07:13.652+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mcom.netflix.discovery.DiscoveryClient   [0;39m [2m:[0;39m Discovery Client initialized at timestamp 1751965633651 with initial instances count: 0
-[2m2025-07-08T17:07:13.654+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mo.s.c.n.e.s.EurekaServiceRegistry       [0;39m [2m:[0;39m Registering application VENUE-SERVICE with eureka with status UP
-[2m2025-07-08T17:07:13.654+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mcom.netflix.discovery.DiscoveryClient   [0;39m [2m:[0;39m Saw local status change event StatusChangeEvent [timestamp=1751965633654, current=UP, previous=STARTING]
-[2m2025-07-08T17:07:13.654+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [nfoReplicator-0][0;39m [2m[0;39m[36mcom.netflix.discovery.DiscoveryClient   [0;39m [2m:[0;39m DiscoveryClient_VENUE-SERVICE/192.168.139.206:venue-service:8082: registering service...
-[2m2025-07-08T17:07:13.662+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port 8082 (http) with context path ''
-[2m2025-07-08T17:07:13.663+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36m.s.c.n.e.s.EurekaAutoServiceRegistration[0;39m [2m:[0;39m Updating port to 8082
-[2m2025-07-08T17:07:13.672+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [           main][0;39m [2m[0;39m[36mcom.sportvenue.venue.VenueApplication   [0;39m [2m:[0;39m Started VenueApplication in 4.521 seconds (process running for 5.061)
-[2m2025-07-08T17:07:13.676+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [nfoReplicator-0][0;39m [2m[0;39m[36mcom.netflix.discovery.DiscoveryClient   [0;39m [2m:[0;39m DiscoveryClient_VENUE-SERVICE/192.168.139.206:venue-service:8082 - registration status: 204
-[2m2025-07-08T17:07:43.652+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [freshExecutor-0][0;39m [2m[0;39m[36mcom.netflix.discovery.DiscoveryClient   [0;39m [2m:[0;39m Disable delta property : false
-[2m2025-07-08T17:07:43.654+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [freshExecutor-0][0;39m [2m[0;39m[36mcom.netflix.discovery.DiscoveryClient   [0;39m [2m:[0;39m Single vip registry refresh property : null
-[2m2025-07-08T17:07:43.654+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [freshExecutor-0][0;39m [2m[0;39m[36mcom.netflix.discovery.DiscoveryClient   [0;39m [2m:[0;39m Force full registry fetch : false
-[2m2025-07-08T17:07:43.654+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [freshExecutor-0][0;39m [2m[0;39m[36mcom.netflix.discovery.DiscoveryClient   [0;39m [2m:[0;39m Application is null : false
-[2m2025-07-08T17:07:43.654+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [freshExecutor-0][0;39m [2m[0;39m[36mcom.netflix.discovery.DiscoveryClient   [0;39m [2m:[0;39m Registered Applications size is zero : true
-[2m2025-07-08T17:07:43.654+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [freshExecutor-0][0;39m [2m[0;39m[36mcom.netflix.discovery.DiscoveryClient   [0;39m [2m:[0;39m Application version is -1: false
-[2m2025-07-08T17:07:43.654+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [freshExecutor-0][0;39m [2m[0;39m[36mcom.netflix.discovery.DiscoveryClient   [0;39m [2m:[0;39m Getting all instance registry info from the eureka server
-[2m2025-07-08T17:07:43.689+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [freshExecutor-0][0;39m [2m[0;39m[36mcom.netflix.discovery.DiscoveryClient   [0;39m [2m:[0;39m The response status is 200
-[2m2025-07-08T17:08:14.482+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [ionShutdownHook][0;39m [2m[0;39m[36mo.s.c.n.e.s.EurekaServiceRegistry       [0;39m [2m:[0;39m Unregistering application VENUE-SERVICE with eureka with status DOWN
-[2m2025-07-08T17:08:14.483+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [ionShutdownHook][0;39m [2m[0;39m[36mcom.netflix.discovery.DiscoveryClient   [0;39m [2m:[0;39m Saw local status change event StatusChangeEvent [timestamp=1751965694483, current=DOWN, previous=UP]
-[2m2025-07-08T17:08:14.483+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [nfoReplicator-0][0;39m [2m[0;39m[36mcom.netflix.discovery.DiscoveryClient   [0;39m [2m:[0;39m DiscoveryClient_VENUE-SERVICE/192.168.139.206:venue-service:8082: registering service...
-[2m2025-07-08T17:08:14.506+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [nfoReplicator-0][0;39m [2m[0;39m[36mc.n.d.s.t.d.RedirectingEurekaHttpClient [0;39m [2m:[0;39m Request execution error. endpoint=DefaultEndpoint{ serviceUrl='http://localhost:8761/eureka/} exception=I/O error on POST request for "http://localhost:8761/eureka/apps/VENUE-SERVICE": The target server failed to respond stacktrace=org.springframework.web.client.ResourceAccessException: I/O error on POST request for "http://localhost:8761/eureka/apps/VENUE-SERVICE": The target server failed to respond
-	at org.springframework.web.client.RestTemplate.createResourceAccessException(RestTemplate.java:905)
-	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:885)
-	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:781)
-	at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:663)
-	at org.springframework.cloud.netflix.eureka.http.RestTemplateEurekaHttpClient.register(RestTemplateEurekaHttpClient.java:77)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$1.execute(EurekaHttpClientDecorator.java:59)
-	at com.netflix.discovery.shared.transport.decorator.RedirectingEurekaHttpClient.execute(RedirectingEurekaHttpClient.java:91)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.register(EurekaHttpClientDecorator.java:56)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$1.execute(EurekaHttpClientDecorator.java:59)
-	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:120)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.register(EurekaHttpClientDecorator.java:56)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$1.execute(EurekaHttpClientDecorator.java:59)
-	at com.netflix.discovery.shared.transport.decorator.SessionedEurekaHttpClient.execute(SessionedEurekaHttpClient.java:77)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.register(EurekaHttpClientDecorator.java:56)
-	at com.netflix.discovery.DiscoveryClient.register(DiscoveryClient.java:820)
-	at com.netflix.discovery.InstanceInfoReplicator.run(InstanceInfoReplicator.java:121)
-	at com.netflix.discovery.InstanceInfoReplicator$1.run(InstanceInfoReplicator.java:101)
-	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
-	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:309)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1095)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:619)
-	at java.base/java.lang.Thread.run(Thread.java:1447)
-Caused by: org.apache.hc.core5.http.NoHttpResponseException: The target server failed to respond
-	at org.apache.hc.core5.http.impl.io.DefaultBHttpClientConnection.receiveResponseHeader(DefaultBHttpClientConnection.java:301)
-	at org.apache.hc.core5.http.impl.io.HttpRequestExecutor.execute(HttpRequestExecutor.java:175)
-	at org.apache.hc.core5.http.impl.io.HttpRequestExecutor.execute(HttpRequestExecutor.java:218)
-	at org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager$InternalConnectionEndpoint.execute(PoolingHttpClientConnectionManager.java:712)
-	at org.apache.hc.client5.http.impl.classic.InternalExecRuntime.execute(InternalExecRuntime.java:216)
-	at org.apache.hc.client5.http.impl.classic.MainClientExec.execute(MainClientExec.java:116)
-	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
-	at org.apache.hc.client5.http.impl.classic.ConnectExec.execute(ConnectExec.java:188)
-	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
-	at org.apache.hc.client5.http.impl.classic.ProtocolExec.execute(ProtocolExec.java:192)
-	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
-	at org.apache.hc.client5.http.impl.classic.HttpRequestRetryExec.execute(HttpRequestRetryExec.java:96)
-	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
-	at org.apache.hc.client5.http.impl.classic.ContentCompressionExec.execute(ContentCompressionExec.java:152)
-	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
-	at org.apache.hc.client5.http.impl.classic.RedirectExec.execute(RedirectExec.java:115)
-	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
-	at org.apache.hc.client5.http.impl.classic.InternalHttpClient.doExecute(InternalHttpClient.java:170)
-	at org.apache.hc.client5.http.impl.classic.CloseableHttpClient.execute(CloseableHttpClient.java:87)
-	at org.apache.hc.client5.http.impl.classic.CloseableHttpClient.execute(CloseableHttpClient.java:55)
-	at org.apache.hc.client5.http.classic.HttpClient.executeOpen(HttpClient.java:183)
-	at org.springframework.http.client.HttpComponentsClientHttpRequest.executeInternal(HttpComponentsClientHttpRequest.java:95)
-	at org.springframework.http.client.AbstractStreamingClientHttpRequest.executeInternal(AbstractStreamingClientHttpRequest.java:70)
-	at org.springframework.http.client.AbstractClientHttpRequest.execute(AbstractClientHttpRequest.java:66)
-	at org.springframework.http.client.InterceptingClientHttpRequest$InterceptingRequestExecution.execute(InterceptingClientHttpRequest.java:101)
-	at org.springframework.cloud.netflix.eureka.http.RestTemplateTransportClientFactory.lambda$restTemplate$0(RestTemplateTransportClientFactory.java:143)
-	at org.springframework.http.client.InterceptingClientHttpRequest$InterceptingRequestExecution.execute(InterceptingClientHttpRequest.java:87)
-	at org.springframework.http.client.InterceptingClientHttpRequest.executeInternal(InterceptingClientHttpRequest.java:71)
-	at org.springframework.http.client.AbstractBufferingClientHttpRequest.executeInternal(AbstractBufferingClientHttpRequest.java:48)
-	at org.springframework.http.client.AbstractClientHttpRequest.execute(AbstractClientHttpRequest.java:66)
-	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:879)
-	... 21 more
+2025-07-11 16:44:43 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-07-11 16:44:44 [main] INFO  o.s.c.n.e.c.DiscoveryClientOptionalArgsConfiguration - Eureka HTTP Client uses RestTemplate.
+2025-07-11 16:44:44 [main] WARN  o.s.c.l.c.LoadBalancerCacheAutoConfiguration$LoadBalancerCaffeineWarnLogger - Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2025-07-11 16:44:44 [main] INFO  o.s.c.n.eureka.InstanceInfoFactory - Setting initial instance status as: STARTING
+2025-07-11 16:44:44 [main] INFO  c.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
+2025-07-11 16:44:44 [main] INFO  c.netflix.discovery.DiscoveryClient - Client configured to neither register nor query for data.
+2025-07-11 16:44:44 [main] INFO  c.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1752223484163 with initial instances count: 0
+2025-07-11 16:44:44 [main] INFO  o.s.c.n.e.s.EurekaServiceRegistry - Registering application VENUE-SERVICE with eureka with status UP
+2025-07-11 16:44:44 [main] INFO  o.s.c.n.e.s.EurekaServiceRegistry - Unregistering application VENUE-SERVICE with eureka with status DOWN
+2025-07-11 16:44:44 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-07-11 16:44:44 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-07-11 16:44:44 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-07-11 16:44:44 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-07-11 16:44:44 [main] INFO  c.netflix.discovery.DiscoveryClient - Shutting down DiscoveryClient ...
+2025-07-11 16:44:44 [main] INFO  c.netflix.discovery.DiscoveryClient - Completed shut down of DiscoveryClient
+2025-07-11 16:44:44 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2025-07-11 16:44:44 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
 
-[2m2025-07-08T17:08:14.507+08:00[0;39m [33m WARN[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [nfoReplicator-0][0;39m [2m[0;39m[36mc.n.d.s.t.d.RetryableEurekaHttpClient   [0;39m [2m:[0;39m Request execution failed with message: I/O error on POST request for "http://localhost:8761/eureka/apps/VENUE-SERVICE": The target server failed to respond
-[2m2025-07-08T17:08:14.520+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [nfoReplicator-0][0;39m [2m[0;39m[36mc.n.d.s.t.d.RedirectingEurekaHttpClient [0;39m [2m:[0;39m Request execution error. endpoint=DefaultEndpoint{ serviceUrl='http://localhost:8761/eureka/}, exception=I/O error on POST request for "http://localhost:8761/eureka/apps/VENUE-SERVICE": Connection reset stacktrace=org.springframework.web.client.ResourceAccessException: I/O error on POST request for "http://localhost:8761/eureka/apps/VENUE-SERVICE": Connection reset
-	at org.springframework.web.client.RestTemplate.createResourceAccessException(RestTemplate.java:905)
-	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:885)
-	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:781)
-	at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:663)
-	at org.springframework.cloud.netflix.eureka.http.RestTemplateEurekaHttpClient.register(RestTemplateEurekaHttpClient.java:77)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$1.execute(EurekaHttpClientDecorator.java:59)
-	at com.netflix.discovery.shared.transport.decorator.RedirectingEurekaHttpClient.executeOnNewServer(RedirectingEurekaHttpClient.java:121)
-	at com.netflix.discovery.shared.transport.decorator.RedirectingEurekaHttpClient.execute(RedirectingEurekaHttpClient.java:80)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.register(EurekaHttpClientDecorator.java:56)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$1.execute(EurekaHttpClientDecorator.java:59)
-	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:120)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.register(EurekaHttpClientDecorator.java:56)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$1.execute(EurekaHttpClientDecorator.java:59)
-	at com.netflix.discovery.shared.transport.decorator.SessionedEurekaHttpClient.execute(SessionedEurekaHttpClient.java:77)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.register(EurekaHttpClientDecorator.java:56)
-	at com.netflix.discovery.DiscoveryClient.register(DiscoveryClient.java:820)
-	at com.netflix.discovery.InstanceInfoReplicator.run(InstanceInfoReplicator.java:121)
-	at com.netflix.discovery.InstanceInfoReplicator$1.run(InstanceInfoReplicator.java:101)
-	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
-	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:309)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1095)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:619)
-	at java.base/java.lang.Thread.run(Thread.java:1447)
-Caused by: java.net.SocketException: Connection reset
-	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:317)
-	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:345)
-	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:790)
-	at java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:983)
-	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:970)
-	at org.apache.hc.core5.http.impl.io.SessionInputBufferImpl.fillBuffer(SessionInputBufferImpl.java:149)
-	at org.apache.hc.core5.http.impl.io.SessionInputBufferImpl.readLine(SessionInputBufferImpl.java:280)
-	at org.apache.hc.core5.http.impl.io.AbstractMessageParser.parse(AbstractMessageParser.java:247)
-	at org.apache.hc.core5.http.impl.io.AbstractMessageParser.parse(AbstractMessageParser.java:54)
-	at org.apache.hc.core5.http.impl.io.DefaultBHttpClientConnection.receiveResponseHeader(DefaultBHttpClientConnection.java:299)
-	at org.apache.hc.core5.http.impl.io.HttpRequestExecutor.execute(HttpRequestExecutor.java:175)
-	at org.apache.hc.core5.http.impl.io.HttpRequestExecutor.execute(HttpRequestExecutor.java:218)
-	at org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager$InternalConnectionEndpoint.execute(PoolingHttpClientConnectionManager.java:712)
-	at org.apache.hc.client5.http.impl.classic.InternalExecRuntime.execute(InternalExecRuntime.java:216)
-	at org.apache.hc.client5.http.impl.classic.MainClientExec.execute(MainClientExec.java:116)
-	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
-	at org.apache.hc.client5.http.impl.classic.ConnectExec.execute(ConnectExec.java:188)
-	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
-	at org.apache.hc.client5.http.impl.classic.ProtocolExec.execute(ProtocolExec.java:192)
-	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
-	at org.apache.hc.client5.http.impl.classic.HttpRequestRetryExec.execute(HttpRequestRetryExec.java:96)
-	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
-	at org.apache.hc.client5.http.impl.classic.ContentCompressionExec.execute(ContentCompressionExec.java:152)
-	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
-	at org.apache.hc.client5.http.impl.classic.RedirectExec.execute(RedirectExec.java:115)
-	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
-	at org.apache.hc.client5.http.impl.classic.InternalHttpClient.doExecute(InternalHttpClient.java:170)
-	at org.apache.hc.client5.http.impl.classic.CloseableHttpClient.execute(CloseableHttpClient.java:87)
-	at org.apache.hc.client5.http.impl.classic.CloseableHttpClient.execute(CloseableHttpClient.java:55)
-	at org.apache.hc.client5.http.classic.HttpClient.executeOpen(HttpClient.java:183)
-	at org.springframework.http.client.HttpComponentsClientHttpRequest.executeInternal(HttpComponentsClientHttpRequest.java:95)
-	at org.springframework.http.client.AbstractStreamingClientHttpRequest.executeInternal(AbstractStreamingClientHttpRequest.java:70)
-	at org.springframework.http.client.AbstractClientHttpRequest.execute(AbstractClientHttpRequest.java:66)
-	at org.springframework.http.client.InterceptingClientHttpRequest$InterceptingRequestExecution.execute(InterceptingClientHttpRequest.java:101)
-	at org.springframework.cloud.netflix.eureka.http.RestTemplateTransportClientFactory.lambda$restTemplate$0(RestTemplateTransportClientFactory.java:143)
-	at org.springframework.http.client.InterceptingClientHttpRequest$InterceptingRequestExecution.execute(InterceptingClientHttpRequest.java:87)
-	at org.springframework.http.client.InterceptingClientHttpRequest.executeInternal(InterceptingClientHttpRequest.java:71)
-	at org.springframework.http.client.AbstractBufferingClientHttpRequest.executeInternal(AbstractBufferingClientHttpRequest.java:48)
-	at org.springframework.http.client.AbstractClientHttpRequest.execute(AbstractClientHttpRequest.java:66)
-	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:879)
-	... 22 more
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-07-11 16:44:44 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
 
-[2m2025-07-08T17:08:14.520+08:00[0;39m [33m WARN[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [nfoReplicator-0][0;39m [2m[0;39m[36mc.n.d.s.t.d.RetryableEurekaHttpClient   [0;39m [2m:[0;39m Request execution failed with message: I/O error on POST request for "http://localhost:8761/eureka/apps/VENUE-SERVICE": Connection reset
-[2m2025-07-08T17:08:14.520+08:00[0;39m [33m WARN[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [nfoReplicator-0][0;39m [2m[0;39m[36mcom.netflix.discovery.DiscoveryClient   [0;39m [2m:[0;39m DiscoveryClient_VENUE-SERVICE/192.168.139.206:venue-service:8082 - registration failed Cannot execute request on any known server
+***************************
+APPLICATION FAILED TO START
+***************************
 
-com.netflix.discovery.shared.transport.TransportException: Cannot execute request on any known server
-	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:112) ~[eureka-client-2.0.1.jar:2.0.1]
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.register(EurekaHttpClientDecorator.java:56) ~[eureka-client-2.0.1.jar:2.0.1]
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$1.execute(EurekaHttpClientDecorator.java:59) ~[eureka-client-2.0.1.jar:2.0.1]
-	at com.netflix.discovery.shared.transport.decorator.SessionedEurekaHttpClient.execute(SessionedEurekaHttpClient.java:77) ~[eureka-client-2.0.1.jar:2.0.1]
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.register(EurekaHttpClientDecorator.java:56) ~[eureka-client-2.0.1.jar:2.0.1]
-	at com.netflix.discovery.DiscoveryClient.register(DiscoveryClient.java:820) ~[eureka-client-2.0.1.jar:2.0.1]
-	at com.netflix.discovery.InstanceInfoReplicator.run(InstanceInfoReplicator.java:121) ~[eureka-client-2.0.1.jar:2.0.1]
-	at com.netflix.discovery.InstanceInfoReplicator$1.run(InstanceInfoReplicator.java:101) ~[eureka-client-2.0.1.jar:2.0.1]
-	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545) ~[na:na]
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328) ~[na:na]
-	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:309) ~[na:na]
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1095) ~[na:na]
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:619) ~[na:na]
-	at java.base/java.lang.Thread.run(Thread.java:1447) ~[na:na]
+Description:
 
-[2m2025-07-08T17:08:14.523+08:00[0;39m [33m WARN[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [nfoReplicator-0][0;39m [2m[0;39m[36mc.n.discovery.InstanceInfoReplicator    [0;39m [2m:[0;39m There was a problem with the instance info replicator
+Web server failed to start. Port 8082 was already in use.
 
-com.netflix.discovery.shared.transport.TransportException: Cannot execute request on any known server
-	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:112) ~[eureka-client-2.0.1.jar:2.0.1]
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.register(EurekaHttpClientDecorator.java:56) ~[eureka-client-2.0.1.jar:2.0.1]
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$1.execute(EurekaHttpClientDecorator.java:59) ~[eureka-client-2.0.1.jar:2.0.1]
-	at com.netflix.discovery.shared.transport.decorator.SessionedEurekaHttpClient.execute(SessionedEurekaHttpClient.java:77) ~[eureka-client-2.0.1.jar:2.0.1]
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.register(EurekaHttpClientDecorator.java:56) ~[eureka-client-2.0.1.jar:2.0.1]
-	at com.netflix.discovery.DiscoveryClient.register(DiscoveryClient.java:820) ~[eureka-client-2.0.1.jar:2.0.1]
-	at com.netflix.discovery.InstanceInfoReplicator.run(InstanceInfoReplicator.java:121) ~[eureka-client-2.0.1.jar:2.0.1]
-	at com.netflix.discovery.InstanceInfoReplicator$1.run(InstanceInfoReplicator.java:101) ~[eureka-client-2.0.1.jar:2.0.1]
-	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545) ~[na:na]
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328) ~[na:na]
-	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:309) ~[na:na]
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1095) ~[na:na]
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:619) ~[na:na]
-	at java.base/java.lang.Thread.run(Thread.java:1447) ~[na:na]
+Action:
 
-[2m2025-07-08T17:08:25.538+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [ionShutdownHook][0;39m [2m[0;39m[36mj.LocalContainerEntityManagerFactoryBean[0;39m [2m:[0;39m Closing JPA EntityManagerFactory for persistence unit 'default'
-[2m2025-07-08T17:08:25.540+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [ionShutdownHook][0;39m [2m[0;39m[36mcom.zaxxer.hikari.HikariDataSource      [0;39m [2m:[0;39m HikariPool-1 - Shutdown initiated...
-[2m2025-07-08T17:08:25.545+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [ionShutdownHook][0;39m [2m[0;39m[36mcom.zaxxer.hikari.HikariDataSource      [0;39m [2m:[0;39m HikariPool-1 - Shutdown completed.
-[2m2025-07-08T17:08:25.546+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [ionShutdownHook][0;39m [2m[0;39m[36mcom.netflix.discovery.DiscoveryClient   [0;39m [2m:[0;39m Shutting down DiscoveryClient ...
-[2m2025-07-08T17:08:28.554+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [ionShutdownHook][0;39m [2m[0;39m[36mcom.netflix.discovery.DiscoveryClient   [0;39m [2m:[0;39m Unregistering ...
-[2m2025-07-08T17:08:28.562+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [ionShutdownHook][0;39m [2m[0;39m[36mc.n.d.s.t.d.RedirectingEurekaHttpClient [0;39m [2m:[0;39m Request execution error. endpoint=DefaultEndpoint{ serviceUrl='http://localhost:8761/eureka/}, exception=I/O error on DELETE request for "http://localhost:8761/eureka/apps/VENUE-SERVICE/192.168.139.206:venue-service:8082": Connect to http://localhost:8761 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused stacktrace=org.springframework.web.client.ResourceAccessException: I/O error on DELETE request for "http://localhost:8761/eureka/apps/VENUE-SERVICE/192.168.139.206:venue-service:8082": Connect to http://localhost:8761 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused
-	at org.springframework.web.client.RestTemplate.createResourceAccessException(RestTemplate.java:905)
-	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:885)
-	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:781)
-	at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:663)
-	at org.springframework.cloud.netflix.eureka.http.RestTemplateEurekaHttpClient.cancel(RestTemplateEurekaHttpClient.java:87)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$2.execute(EurekaHttpClientDecorator.java:74)
-	at com.netflix.discovery.shared.transport.decorator.RedirectingEurekaHttpClient.executeOnNewServer(RedirectingEurekaHttpClient.java:121)
-	at com.netflix.discovery.shared.transport.decorator.RedirectingEurekaHttpClient.execute(RedirectingEurekaHttpClient.java:80)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.cancel(EurekaHttpClientDecorator.java:71)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$2.execute(EurekaHttpClientDecorator.java:74)
-	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:120)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.cancel(EurekaHttpClientDecorator.java:71)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$2.execute(EurekaHttpClientDecorator.java:74)
-	at com.netflix.discovery.shared.transport.decorator.SessionedEurekaHttpClient.execute(SessionedEurekaHttpClient.java:77)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.cancel(EurekaHttpClientDecorator.java:71)
-	at com.netflix.discovery.DiscoveryClient.unregister(DiscoveryClient.java:916)
-	at com.netflix.discovery.DiscoveryClient.shutdown(DiscoveryClient.java:892)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
-	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMethod.invoke(InitDestroyAnnotationBeanPostProcessor.java:457)
-	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMetadata.invokeDestroyMethods(InitDestroyAnnotationBeanPostProcessor.java:415)
-	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor.postProcessBeforeDestruction(InitDestroyAnnotationBeanPostProcessor.java:239)
-	at org.springframework.beans.factory.support.DisposableBeanAdapter.destroy(DisposableBeanAdapter.java:202)
-	at org.springframework.beans.factory.support.DisposableBeanAdapter.run(DisposableBeanAdapter.java:195)
-	at org.springframework.cloud.context.scope.GenericScope$BeanLifecycleWrapper.destroy(GenericScope.java:389)
-	at org.springframework.cloud.context.scope.GenericScope.destroy(GenericScope.java:136)
-	at org.springframework.beans.factory.support.DisposableBeanAdapter.destroy(DisposableBeanAdapter.java:211)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroyBean(DefaultSingletonBeanRegistry.java:587)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingleton(DefaultSingletonBeanRegistry.java:559)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingleton(DefaultListableBeanFactory.java:1200)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingletons(DefaultSingletonBeanRegistry.java:520)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingletons(DefaultListableBeanFactory.java:1193)
-	at org.springframework.context.support.AbstractApplicationContext.destroyBeans(AbstractApplicationContext.java:1125)
-	at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:1086)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.doClose(ServletWebServerApplicationContext.java:174)
-	at org.springframework.context.support.AbstractApplicationContext.close(AbstractApplicationContext.java:1037)
-	at org.springframework.boot.SpringApplicationShutdownHook.closeAndWait(SpringApplicationShutdownHook.java:145)
-	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
-	at org.springframework.boot.SpringApplicationShutdownHook.run(SpringApplicationShutdownHook.java:114)
-	at java.base/java.lang.Thread.run(Thread.java:1447)
-Caused by: org.apache.hc.client5.http.HttpHostConnectException: Connect to http://localhost:8761 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused
-	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
-	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:628)
-	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:540)
-	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:583)
-	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:282)
-	at java.base/java.net.Socket.connect(Socket.java:665)
-	at org.apache.hc.client5.http.socket.PlainConnectionSocketFactory.lambda$connectSocket$0(PlainConnectionSocketFactory.java:85)
-	at java.base/java.security.AccessController.doPrivileged(AccessController.java:251)
-	at org.apache.hc.client5.http.socket.PlainConnectionSocketFactory.connectSocket(PlainConnectionSocketFactory.java:84)
-	at org.apache.hc.client5.http.socket.ConnectionSocketFactory.connectSocket(ConnectionSocketFactory.java:113)
-	at org.apache.hc.client5.http.impl.io.DefaultHttpClientConnectionOperator.connect(DefaultHttpClientConnectionOperator.java:181)
-	at org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager.connect(PoolingHttpClientConnectionManager.java:447)
-	at org.apache.hc.client5.http.impl.classic.InternalExecRuntime.connectEndpoint(InternalExecRuntime.java:162)
-	at org.apache.hc.client5.http.impl.classic.InternalExecRuntime.connectEndpoint(InternalExecRuntime.java:172)
-	at org.apache.hc.client5.http.impl.classic.ConnectExec.execute(ConnectExec.java:142)
-	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
-	at org.apache.hc.client5.http.impl.classic.ProtocolExec.execute(ProtocolExec.java:192)
-	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
-	at org.apache.hc.client5.http.impl.classic.HttpRequestRetryExec.execute(HttpRequestRetryExec.java:96)
-	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
-	at org.apache.hc.client5.http.impl.classic.ContentCompressionExec.execute(ContentCompressionExec.java:152)
-	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
-	at org.apache.hc.client5.http.impl.classic.RedirectExec.execute(RedirectExec.java:115)
-	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
-	at org.apache.hc.client5.http.impl.classic.InternalHttpClient.doExecute(InternalHttpClient.java:170)
-	at org.apache.hc.client5.http.impl.classic.CloseableHttpClient.execute(CloseableHttpClient.java:87)
-	at org.apache.hc.client5.http.impl.classic.CloseableHttpClient.execute(CloseableHttpClient.java:55)
-	at org.apache.hc.client5.http.classic.HttpClient.executeOpen(HttpClient.java:183)
-	at org.springframework.http.client.HttpComponentsClientHttpRequest.executeInternal(HttpComponentsClientHttpRequest.java:95)
-	at org.springframework.http.client.AbstractStreamingClientHttpRequest.executeInternal(AbstractStreamingClientHttpRequest.java:70)
-	at org.springframework.http.client.AbstractClientHttpRequest.execute(AbstractClientHttpRequest.java:66)
-	at org.springframework.http.client.InterceptingClientHttpRequest$InterceptingRequestExecution.execute(InterceptingClientHttpRequest.java:101)
-	at org.springframework.cloud.netflix.eureka.http.RestTemplateTransportClientFactory.lambda$restTemplate$0(RestTemplateTransportClientFactory.java:143)
-	at org.springframework.http.client.InterceptingClientHttpRequest$InterceptingRequestExecution.execute(InterceptingClientHttpRequest.java:87)
-	at org.springframework.http.client.InterceptingClientHttpRequest.executeInternal(InterceptingClientHttpRequest.java:71)
-	at org.springframework.http.client.AbstractBufferingClientHttpRequest.executeInternal(AbstractBufferingClientHttpRequest.java:48)
-	at org.springframework.http.client.AbstractClientHttpRequest.execute(AbstractClientHttpRequest.java:66)
-	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:879)
-	... 38 more
+Identify and stop the process that's listening on port 8082 or configure this application to listen on another port.
 
-[2m2025-07-08T17:08:28.562+08:00[0;39m [33m WARN[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [ionShutdownHook][0;39m [2m[0;39m[36mc.n.d.s.t.d.RetryableEurekaHttpClient   [0;39m [2m:[0;39m Request execution failed with message: I/O error on DELETE request for "http://localhost:8761/eureka/apps/VENUE-SERVICE/192.168.139.206:venue-service:8082": Connect to http://localhost:8761 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused
-[2m2025-07-08T17:08:28.562+08:00[0;39m [31mERROR[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [ionShutdownHook][0;39m [2m[0;39m[36mcom.netflix.discovery.DiscoveryClient   [0;39m [2m:[0;39m DiscoveryClient_VENUE-SERVICE/192.168.139.206:venue-service:8082 - de-registration failedCannot execute request on any known server
-
-com.netflix.discovery.shared.transport.TransportException: Cannot execute request on any known server
-	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:112) ~[eureka-client-2.0.1.jar:2.0.1]
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.cancel(EurekaHttpClientDecorator.java:71) ~[eureka-client-2.0.1.jar:2.0.1]
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$2.execute(EurekaHttpClientDecorator.java:74) ~[eureka-client-2.0.1.jar:2.0.1]
-	at com.netflix.discovery.shared.transport.decorator.SessionedEurekaHttpClient.execute(SessionedEurekaHttpClient.java:77) ~[eureka-client-2.0.1.jar:2.0.1]
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.cancel(EurekaHttpClientDecorator.java:71) ~[eureka-client-2.0.1.jar:2.0.1]
-	at com.netflix.discovery.DiscoveryClient.unregister(DiscoveryClient.java:916) ~[eureka-client-2.0.1.jar:2.0.1]
-	at com.netflix.discovery.DiscoveryClient.shutdown(DiscoveryClient.java:892) ~[eureka-client-2.0.1.jar:2.0.1]
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
-	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[na:na]
-	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMethod.invoke(InitDestroyAnnotationBeanPostProcessor.java:457) ~[spring-beans-6.1.1.jar:6.1.1]
-	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMetadata.invokeDestroyMethods(InitDestroyAnnotationBeanPostProcessor.java:415) ~[spring-beans-6.1.1.jar:6.1.1]
-	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor.postProcessBeforeDestruction(InitDestroyAnnotationBeanPostProcessor.java:239) ~[spring-beans-6.1.1.jar:6.1.1]
-	at org.springframework.beans.factory.support.DisposableBeanAdapter.destroy(DisposableBeanAdapter.java:202) ~[spring-beans-6.1.1.jar:6.1.1]
-	at org.springframework.beans.factory.support.DisposableBeanAdapter.run(DisposableBeanAdapter.java:195) ~[spring-beans-6.1.1.jar:6.1.1]
-	at org.springframework.cloud.context.scope.GenericScope$BeanLifecycleWrapper.destroy(GenericScope.java:389) ~[spring-cloud-context-4.1.0.jar:4.1.0]
-	at org.springframework.cloud.context.scope.GenericScope.destroy(GenericScope.java:136) ~[spring-cloud-context-4.1.0.jar:4.1.0]
-	at org.springframework.beans.factory.support.DisposableBeanAdapter.destroy(DisposableBeanAdapter.java:211) ~[spring-beans-6.1.1.jar:6.1.1]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroyBean(DefaultSingletonBeanRegistry.java:587) ~[spring-beans-6.1.1.jar:6.1.1]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingleton(DefaultSingletonBeanRegistry.java:559) ~[spring-beans-6.1.1.jar:6.1.1]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingleton(DefaultListableBeanFactory.java:1200) ~[spring-beans-6.1.1.jar:6.1.1]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingletons(DefaultSingletonBeanRegistry.java:520) ~[spring-beans-6.1.1.jar:6.1.1]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingletons(DefaultListableBeanFactory.java:1193) ~[spring-beans-6.1.1.jar:6.1.1]
-	at org.springframework.context.support.AbstractApplicationContext.destroyBeans(AbstractApplicationContext.java:1125) ~[spring-context-6.1.1.jar:6.1.1]
-	at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:1086) ~[spring-context-6.1.1.jar:6.1.1]
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.doClose(ServletWebServerApplicationContext.java:174) ~[spring-boot-3.2.0.jar:3.2.0]
-	at org.springframework.context.support.AbstractApplicationContext.close(AbstractApplicationContext.java:1037) ~[spring-context-6.1.1.jar:6.1.1]
-	at org.springframework.boot.SpringApplicationShutdownHook.closeAndWait(SpringApplicationShutdownHook.java:145) ~[spring-boot-3.2.0.jar:3.2.0]
-	at java.base/java.lang.Iterable.forEach(Iterable.java:75) ~[na:na]
-	at org.springframework.boot.SpringApplicationShutdownHook.run(SpringApplicationShutdownHook.java:114) ~[spring-boot-3.2.0.jar:3.2.0]
-	at java.base/java.lang.Thread.run(Thread.java:1447) ~[na:na]
-
-[2m2025-07-08T17:08:28.566+08:00[0;39m [32m INFO[0;39m [35m9357[0;39m [2m---[0;39m [2m[venue-service] [ionShutdownHook][0;39m [2m[0;39m[36mcom.netflix.discovery.DiscoveryClient   [0;39m [2m:[0;39m Completed shut down of DiscoveryClient
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  14.498 s
+[INFO] Finished at: 2025-07-11T16:44:45+08:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:3.2.0:run (default-cli) on project sport-venue-venue: Process terminated with exit code: 1 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

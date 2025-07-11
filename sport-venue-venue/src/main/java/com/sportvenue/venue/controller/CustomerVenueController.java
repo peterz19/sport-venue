@@ -45,7 +45,7 @@ public class CustomerVenueController {
      * 根据ID获取场馆详情（C端用户）
      */
     @GetMapping("/{id}")
-    public ApiResponse<VenueDTO> getVenueById(@PathVariable Long id) {
+    public ApiResponse<VenueDTO> getVenueById(@PathVariable("id") Long id) {
         log.info("C端用户获取场馆详情请求，ID：{}", id);
         return venueService.getVenueById(id);
     }
@@ -54,7 +54,7 @@ public class CustomerVenueController {
      * 根据场馆类型查询（C端用户）
      */
     @GetMapping("/type/{type}")
-    public ApiResponse<List<VenueDTO>> getVenuesByType(@PathVariable String type) {
+    public ApiResponse<List<VenueDTO>> getVenuesByType(@PathVariable("type") String type) {
         log.info("C端用户查询场馆类型请求，类型：{}", type);
         return venueService.getVenuesByType(Venue.VenueType.valueOf(type.toUpperCase()));
     }
@@ -63,7 +63,7 @@ public class CustomerVenueController {
      * 根据场馆子类型查询（C端用户）
      */
     @GetMapping("/subtype/{subType}")
-    public ApiResponse<List<VenueDTO>> getVenuesBySubType(@PathVariable String subType) {
+    public ApiResponse<List<VenueDTO>> getVenuesBySubType(@PathVariable("subType") String subType) {
         log.info("C端用户查询场馆子类型请求，子类型：{}", subType);
         return venueService.getVenuesBySubType(Venue.VenueSubType.valueOf(subType.toUpperCase()));
     }
@@ -73,9 +73,9 @@ public class CustomerVenueController {
      */
     @GetMapping("/nearby")
     public ApiResponse<List<VenueDTO>> searchNearbyVenues(
-            @RequestParam BigDecimal longitude,
-            @RequestParam BigDecimal latitude,
-            @RequestParam(defaultValue = "0.01") BigDecimal radius) {
+            @RequestParam("longitude") BigDecimal longitude,
+            @RequestParam("latitude") BigDecimal latitude,
+            @RequestParam(value = "radius", defaultValue = "0.01") BigDecimal radius) {
         log.info("C端用户搜索附近场馆请求，经度：{}，纬度：{}，半径：{}", longitude, latitude, radius);
         return venueService.searchNearbyVenues(longitude, latitude, radius);
     }
@@ -84,7 +84,7 @@ public class CustomerVenueController {
      * 获取热门场馆（C端用户）
      */
     @GetMapping("/popular")
-    public ApiResponse<List<VenueDTO>> getPopularVenues(@RequestParam(defaultValue = "10") Integer limit) {
+    public ApiResponse<List<VenueDTO>> getPopularVenues(@RequestParam(value = "limit", defaultValue = "10") Integer limit) {
         log.info("C端用户获取热门场馆请求，限制：{}", limit);
         return venueService.getPopularVenues(limit);
     }
@@ -93,7 +93,7 @@ public class CustomerVenueController {
      * 根据场馆名称搜索（C端用户）
      */
     @GetMapping("/search")
-    public ApiResponse<List<VenueDTO>> searchVenuesByName(@RequestParam String name) {
+    public ApiResponse<List<VenueDTO>> searchVenuesByName(@RequestParam("name") String name) {
         log.info("C端用户搜索场馆请求，名称：{}", name);
         return venueService.searchVenuesByName(name);
     }
@@ -121,9 +121,9 @@ public class CustomerVenueController {
      */
     @GetMapping("/recommended")
     public ApiResponse<List<VenueDTO>> getRecommendedVenues(
-            @RequestParam(required = false) BigDecimal longitude,
-            @RequestParam(required = false) BigDecimal latitude,
-            @RequestParam(defaultValue = "10") Integer limit) {
+            @RequestParam(value = "longitude", required = false) BigDecimal longitude,
+            @RequestParam(value = "latitude", required = false) BigDecimal latitude,
+            @RequestParam(value = "limit", defaultValue = "10") Integer limit) {
         log.info("C端用户获取推荐场馆请求，经度：{}，纬度：{}，限制：{}", longitude, latitude, limit);
         return venueService.getRecommendedVenues(longitude, latitude, limit);
     }
@@ -132,7 +132,7 @@ public class CustomerVenueController {
      * 获取场馆实时信息（在线人数、可用性等）
      */
     @GetMapping("/{id}/realtime")
-    public ApiResponse<Map<String, Object>> getVenueRealtimeInfo(@PathVariable Long id) {
+    public ApiResponse<Map<String, Object>> getVenueRealtimeInfo(@PathVariable("id") Long id) {
         log.info("C端用户获取场馆实时信息请求，场馆ID：{}", id);
         return venueService.getVenueRealtimeInfo(id);
     }

@@ -41,6 +41,10 @@ public class VenueQueryDTO {
      */
     private Venue.VenueStatus status;
     
+    public void setStatus(Venue.VenueStatus status) {
+        this.status = status;
+    }
+    
     /**
      * 最小评分
      */
