@@ -3,6 +3,7 @@
 /Users/peter/Desktop/file/code/pri/java/sport-venue/sport-venue-venue/src/main/java/com/sportvenue/venue/service/impl/UserServiceImpl.java
 /Users/peter/Desktop/file/code/pri/java/sport-venue/sport-venue-venue/src/main/java/com/sportvenue/venue/repository/VenuePriceRepository.java
 /Users/peter/Desktop/file/code/pri/java/sport-venue/sport-venue-venue/src/main/java/com/sportvenue/venue/entity/Role.java
+/Users/peter/Desktop/file/code/pri/java/sport-venue/sport-venue-venue/src/main/java/com/sportvenue/venue/config/OpenApiConfig.java
 /Users/peter/Desktop/file/code/pri/java/sport-venue/sport-venue-venue/src/main/java/com/sportvenue/venue/repository/VenueReservationRepository.java
 /Users/peter/Desktop/file/code/pri/java/sport-venue/sport-venue-venue/src/main/java/com/sportvenue/venue/controller/VenueController.java
 /Users/peter/Desktop/file/code/pri/java/sport-venue/sport-venue-venue/src/main/java/com/sportvenue/venue/entity/VenuePrice.java

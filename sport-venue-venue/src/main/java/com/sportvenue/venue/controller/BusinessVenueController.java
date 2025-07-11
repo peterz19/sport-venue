@@ -5,6 +5,9 @@ import com.sportvenue.venue.dto.VenueDTO;
 import com.sportvenue.venue.dto.VenueQueryDTO;
 import com.sportvenue.venue.entity.Venue;
 import com.sportvenue.venue.service.VenueService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +21,7 @@ import java.util.Map;
  * B端商户场馆控制器
  * 提供B端商户管理场馆、查看统计等功能的API
  */
+@Tag(name = "B端场馆管理", description = "B端商户场馆管理接口")
 @Slf4j
 @RestController
 @RequestMapping("/business/venues")

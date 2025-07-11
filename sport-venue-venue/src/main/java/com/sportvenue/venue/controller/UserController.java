@@ -3,6 +3,9 @@ package com.sportvenue.venue.controller;
 import com.sportvenue.common.model.ApiResponse;
 import com.sportvenue.venue.entity.User;
 import com.sportvenue.venue.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,6 +18,7 @@ import java.util.Map;
  * 用户管理控制器
  * 提供用户管理、权限管理等功能的API
  */
+@Tag(name = "用户管理", description = "用户注册、登录、管理接口")
 @Slf4j
 @RestController
 @RequestMapping("/users")

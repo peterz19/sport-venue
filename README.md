@@ -28,15 +28,15 @@ docker-compose up -d
 ```
 
 ### 服务访问地址
-| 服务 | 地址 | 说明 |
-|------|------|------|
-| 配置中心 | http://localhost:8888 | Spring Cloud Config |
-| 注册中心 | http://localhost:8761 | Eureka Server |
-| 网关服务 | http://localhost:8080 | Spring Cloud Gateway |
-| 用户服务 | http://localhost:8081 | 用户管理服务 |
-| 场馆服务 | http://localhost:8082 | 场馆管理服务 |
-| 预测服务 | http://localhost:8083 | 预测分析服务 |
-| 社交服务 | http://localhost:8084 | 社交功能服务 |
+| 服务 | 地址 | API文档 | 说明 |
+|------|------|---------|------|
+| 配置中心 | http://localhost:8888 | - | Spring Cloud Config |
+| 注册中心 | http://localhost:8761 | - | Eureka Server |
+| 网关服务 | http://localhost:8080 | - | Spring Cloud Gateway |
+| 用户服务 | http://localhost:8081 | http://localhost:8081/swagger-ui.html | 用户管理服务 |
+| 场馆服务 | http://localhost:8082 | http://localhost:8082/swagger-ui.html | 场馆管理服务 |
+| 预测服务 | http://localhost:8083 | http://localhost:8083/swagger-ui.html | 预测分析服务 |
+| 社交服务 | http://localhost:8084 | http://localhost:8084/swagger-ui.html | 社交功能服务 |
 
 ### 详细文档
 - [本地环境设置指南](LOCAL_SETUP.md) - 本地运行详细说明
@@ -76,6 +76,7 @@ docker-compose up -d
 | 实时通信	 | WebSocket（SockJS） + STOMP协议	                  | 毫秒级推送场馆人数变化|
 | 预测引擎	 | Python Flask + TensorFlow	                    | 通过gRPC与Java服务通信|
 | 消息队列	 | Kafka 3.5	                                    | 削峰填谷，保证积分事务最终一致性|
+| API文档	 | SpringDoc OpenAPI 3.0	                        | 自动生成API文档，支持在线调试|
 | 监控运维	 | Prometheus + Grafana + ELK	                   | 全链路监控与日志分析|
 
 # 三、关键架构设计

@@ -5,6 +5,9 @@ import com.sportvenue.venue.dto.VenueDTO;
 import com.sportvenue.venue.dto.VenueQueryDTO;
 import com.sportvenue.venue.entity.Venue;
 import com.sportvenue.venue.service.VenueService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +21,7 @@ import java.util.Map;
  * 场馆管理控制器
  * 提供场馆的CRUD操作和查询功能
  */
+@Tag(name = "场馆管理", description = "场馆基础管理接口")
 @Slf4j
 @RestController
 @RequestMapping("/venues")
@@ -29,6 +33,7 @@ public class VenueController {
     /**
      * 创建场馆
      */
+    @Operation(summary = "创建场馆", description = "创建新的场馆信息")
     @PostMapping
     public ApiResponse<VenueDTO> createVenue(@RequestBody Venue venue) {
         log.info("创建场馆请求：{}", venue.getName());
