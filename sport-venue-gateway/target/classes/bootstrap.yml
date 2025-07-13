@@ -1,9 +1,0 @@
-spring:
-  application:
-    name: gateway-service
-  cloud:
-    config:
-      uri: http://localhost:8888
-      name: gateway-service
-      profile: dev
-      label: main 
