@@ -299,7 +299,24 @@ public class UserServiceImpl implements UserService {
             User user = userRepository.findByUsername(username)
                     .orElseThrow(() -> new BusinessException("用户名或密码错误"));
 
-            if (!passwordEncoder.matches(password, user.getPassword())) {
+            log.info("=== 密码验证调试信息 ===");
+            log.info("输入密码: {}", password);
+            log.info("数据库密码: {}", user.getPassword());
+            log.info("密码长度: {}", password.length());
+            log.info("数据库密码长度: {}", user.getPassword().length());
+            
+            // 测试密码编码器
+            String testEncoded = passwordEncoder.encode("123456");
+            log.info("测试编码123456: {}", testEncoded);
+            boolean testMatch = passwordEncoder.matches("123456", testEncoded);
+            log.info("测试匹配结果: {}", testMatch);
+            
+            // 实际匹配
+            boolean actualMatch = passwordEncoder.matches(password, user.getPassword());
+            log.info("实际匹配结果: {}", actualMatch);
+            log.info("=== 调试信息结束 ===");
+            
+            if (!actualMatch) {
                 throw new BusinessException("用户名或密码错误");
             }
 
@@ -310,12 +327,8 @@ public class UserServiceImpl implements UserService {
             // 更新最后登录信息
             user.setLastLoginTime(LocalDateTime.now());
             userRepository.save(user);
-
-            // 生成登录token
-            String token = generateToken(user);
             
             Map<String, Object> result = new HashMap<>();
-            result.put("token", token);
             result.put("user", user);
             
             log.info("用户登录成功，用户名：{}", username);
@@ -341,9 +354,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public ApiResponse<User> getCurrentUser(String token) {
         try {
-            // TODO: 实现根据token获取当前用户逻辑
-            User user = null;
-            return ApiResponse.success(user);
+            // 这个方法现在由AuthController处理，这里保留接口兼容性
+            return ApiResponse.error("请使用 /auth/user/info 接口获取当前用户信息");
         } catch (Exception e) {
             log.error("获取当前用户失败：{}", e.getMessage(), e);
             return ApiResponse.error("获取当前用户失败：" + e.getMessage());

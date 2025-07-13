@@ -1,6 +1,6 @@
-com/sportvenue/social/service/SocialService.class
-com/sportvenue/social/controller/HealthController.class
-com/sportvenue/social/service/impl/SocialServiceImpl.class
-com/sportvenue/social/controller/SocialController.class
-com/sportvenue/social/task/ScheduledTask.class
-com/sportvenue/social/SocialApplication.class
+com\sportvenue\social\task\ScheduledTask.class
+com\sportvenue\social\controller\SocialController.class
+com\sportvenue\social\service\impl\SocialServiceImpl.class
+com\sportvenue\social\service\SocialService.class
+com\sportvenue\social\controller\HealthController.class
+com\sportvenue\social\SocialApplication.class

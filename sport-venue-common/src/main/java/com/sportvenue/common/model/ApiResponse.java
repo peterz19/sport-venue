@@ -18,6 +18,20 @@ public class ApiResponse<T> {
     private T data;
     private long timestamp;
 
+    /**
+     * 判断响应是否成功
+     */
+    public boolean isSuccess() {
+        return code == 200;
+    }
+
+    /**
+     * 判断响应是否失败
+     */
+    public boolean isError() {
+        return !isSuccess();
+    }
+
     public static <T> ApiResponse<T> success(T data) {
         return ApiResponse.<T>builder()
                 .code(200)

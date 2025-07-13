@@ -40,18 +40,25 @@ public class Venue {
     private String description;
     
     /**
-     * 场馆类型：INDOOR(室内), OUTDOOR(室外), INSTITUTION(机构), PARK(公园), PAID(付费), FREE(免费)
+     * 场馆类型：PARK(公园), INSTITUTION(机构), STADIUM(体育场), GYM(健身房)等
      */
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private VenueType type;
-    
+
     /**
-     * 场馆子类型：BASKETBALL(篮球), FOOTBALL(足球), TENNIS(网球), SWIMMING(游泳), GYM(健身房)等
+     * 空间类型：INDOOR(室内), OUTDOOR(室外)
      */
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private VenueSubType subType;
+    private VenueSpaceType spaceType;
+
+    /**
+     * 付费类型：PAID(付费), FREE(免费)
+     */
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private VenueChargeType chargeType;
     
     /**
      * 商户ID（支持多商户）
@@ -189,56 +196,39 @@ public class Venue {
     private Long updateBy;
     
     /**
-     * 场馆类型枚举
+     * 场馆类型枚举（只保留场所属性）
      */
     public enum VenueType {
-        INDOOR("室内"),
-        OUTDOOR("室外"),
-        INSTITUTION("机构"),
         PARK("公园"),
+        INSTITUTION("机构"),
+        STADIUM("体育场"),
+        GYM("健身房"),
+        OTHER("其他");
+        private final String description;
+        VenueType(String description) { this.description = description; }
+        public String getDescription() { return description; }
+    }
+
+    /**
+     * 空间类型枚举
+     */
+    public enum VenueSpaceType {
+        INDOOR("室内"),
+        OUTDOOR("室外");
+        private final String description;
+        VenueSpaceType(String description) { this.description = description; }
+        public String getDescription() { return description; }
+    }
+
+    /**
+     * 付费类型枚举
+     */
+    public enum VenueChargeType {
         PAID("付费"),
         FREE("免费");
-        
         private final String description;
-        
-        VenueType(String description) {
-            this.description = description;
-        }
-        
-        public String getDescription() {
-            return description;
-        }
-    }
-    
-    /**
-     * 场馆子类型枚举
-     */
-    public enum VenueSubType {
-        BASKETBALL("篮球"),
-        FOOTBALL("足球"),
-        TENNIS("网球"),
-        SWIMMING("游泳"),
-        GYM("健身房"),
-        BADMINTON("羽毛球"),
-        TABLE_TENNIS("乒乓球"),
-        VOLLEYBALL("排球"),
-        BASEBALL("棒球"),
-        RUNNING("跑步"),
-        YOGA("瑜伽"),
-        DANCE("舞蹈"),
-        BOXING("拳击"),
-        MARTIAL_ARTS("武术"),
-        OTHER("其他");
-        
-        private final String description;
-        
-        VenueSubType(String description) {
-            this.description = description;
-        }
-        
-        public String getDescription() {
-            return description;
-        }
+        VenueChargeType(String description) { this.description = description; }
+        public String getDescription() { return description; }
     }
     
     /**

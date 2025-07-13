@@ -1,4 +1,4 @@
-com/sportvenue/prediction/PredictionApplication.class
-com/sportvenue/prediction/service/impl/PredictionServiceImpl.class
-com/sportvenue/prediction/controller/PredictionController.class
-com/sportvenue/prediction/service/PredictionService.class
+com\sportvenue\prediction\service\impl\PredictionServiceImpl.class
+com\sportvenue\prediction\PredictionApplication.class
+com\sportvenue\prediction\controller\PredictionController.class
+com\sportvenue\prediction\service\PredictionService.class

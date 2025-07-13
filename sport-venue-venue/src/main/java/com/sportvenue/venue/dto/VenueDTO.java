@@ -19,8 +19,10 @@ public class VenueDTO {
     private String description;
     private Venue.VenueType type;
     private String typeDescription;
-    private Venue.VenueSubType subType;
-    private String subTypeDescription;
+    private Venue.VenueSpaceType spaceType;
+    private String spaceTypeDescription;
+    private Venue.VenueChargeType chargeType;
+    private String chargeTypeDescription;
     private Long merchantId;
     private String merchantName;
     private String address;
@@ -69,8 +71,10 @@ public class VenueDTO {
         dto.setDescription(venue.getDescription());
         dto.setType(venue.getType());
         dto.setTypeDescription(venue.getType().getDescription());
-        dto.setSubType(venue.getSubType());
-        dto.setSubTypeDescription(venue.getSubType().getDescription());
+        dto.setSpaceType(venue.getSpaceType());
+        dto.setSpaceTypeDescription(venue.getSpaceType().getDescription());
+        dto.setChargeType(venue.getChargeType());
+        dto.setChargeTypeDescription(venue.getChargeType().getDescription());
         dto.setMerchantId(venue.getMerchantId());
         dto.setMerchantName(venue.getMerchantName());
         dto.setAddress(venue.getAddress());

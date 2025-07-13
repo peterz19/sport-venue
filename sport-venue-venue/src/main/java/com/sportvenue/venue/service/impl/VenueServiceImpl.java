@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -86,7 +87,8 @@ public class VenueServiceImpl implements VenueService {
             existingVenue.setName(venue.getName());
             existingVenue.setDescription(venue.getDescription());
             existingVenue.setType(venue.getType());
-            existingVenue.setSubType(venue.getSubType());
+            existingVenue.setSpaceType(venue.getSpaceType());
+            existingVenue.setChargeType(venue.getChargeType());
             existingVenue.setAddress(venue.getAddress());
             existingVenue.setLongitude(venue.getLongitude());
             existingVenue.setLatitude(venue.getLatitude());
@@ -180,8 +182,11 @@ public class VenueServiceImpl implements VenueService {
             } else if (queryDTO.getType() != null) {
                 List<Venue> venues = venueRepository.findByType(queryDTO.getType());
                 venuePage = createPageFromList(venues, pageable);
-            } else if (queryDTO.getSubType() != null) {
-                List<Venue> venues = venueRepository.findBySubType(queryDTO.getSubType());
+            } else if (queryDTO.getSpaceType() != null) {
+                List<Venue> venues = venueRepository.findBySpaceType(queryDTO.getSpaceType());
+                venuePage = createPageFromList(venues, pageable);
+            } else if (queryDTO.getChargeType() != null) {
+                List<Venue> venues = venueRepository.findByChargeType(queryDTO.getChargeType());
                 venuePage = createPageFromList(venues, pageable);
             } else if (queryDTO.getStatus() != null) {
                 List<Venue> venues = venueRepository.findByStatus(queryDTO.getStatus());
@@ -229,21 +234,6 @@ public class VenueServiceImpl implements VenueService {
         } catch (Exception e) {
             log.error("查询场馆类型列表异常：", e);
             return ApiResponse.error("查询场馆类型列表失败");
-        }
-    }
-    
-    @Override
-    public ApiResponse<List<VenueDTO>> getVenuesBySubType(Venue.VenueSubType subType) {
-        try {
-            List<Venue> venues = venueRepository.findBySubType(subType);
-            List<VenueDTO> dtoList = venues.stream()
-                    .map(VenueDTO::fromEntity)
-                    .collect(Collectors.toList());
-            
-            return ApiResponse.success(dtoList);
-        } catch (Exception e) {
-            log.error("查询场馆子类型列表异常：", e);
-            return ApiResponse.error("查询场馆子类型列表失败");
         }
     }
     
@@ -538,7 +528,7 @@ public class VenueServiceImpl implements VenueService {
             
             BigDecimal newRating = currentRating.multiply(BigDecimal.valueOf(currentCount))
                     .add(rating)
-                    .divide(BigDecimal.valueOf(currentCount + 1), 2, BigDecimal.ROUND_HALF_UP);
+                    .divide(BigDecimal.valueOf(currentCount + 1), 2, RoundingMode.HALF_UP);
             
             venue.setRating(newRating);
             venue.setRatingCount(currentCount + 1);
@@ -620,25 +610,6 @@ public class VenueServiceImpl implements VenueService {
     }
     
     @Override
-    public ApiResponse<Map<String, Long>> getVenueSubTypeStatistics(Long merchantId) {
-        try {
-            List<Object[]> subTypeStats = venueRepository.countBySubTypeAndMerchantId(merchantId);
-            Map<String, Long> statistics = new HashMap<>();
-            
-            for (Object[] stat : subTypeStats) {
-                String subType = stat[0].toString();
-                Long count = (Long) stat[1];
-                statistics.put(subType, count);
-            }
-            
-            return ApiResponse.success(statistics);
-        } catch (Exception e) {
-            log.error("获取场馆子类型统计异常：", e);
-            return ApiResponse.error("获取场馆子类型统计失败");
-        }
-    }
-    
-    @Override
     public ApiResponse<Boolean> checkVenueNameExists(String name, Long merchantId) {
         try {
             boolean exists = venueRepository.findByNameAndMerchantId(name, merchantId).isPresent();
@@ -665,25 +636,6 @@ public class VenueServiceImpl implements VenueService {
         } catch (Exception e) {
             log.error("获取场馆类型枚举异常：", e);
             return ApiResponse.error("获取场馆类型枚举失败");
-        }
-    }
-    
-    @Override
-    public ApiResponse<List<Map<String, String>>> getVenueSubTypes() {
-        try {
-            List<Map<String, String>> subTypes = Arrays.stream(Venue.VenueSubType.values())
-                    .map(subType -> {
-                        Map<String, String> map = new HashMap<>();
-                        map.put("code", subType.name());
-                        map.put("description", subType.getDescription());
-                        return map;
-                    })
-                    .collect(Collectors.toList());
-            
-            return ApiResponse.success(subTypes);
-        } catch (Exception e) {
-            log.error("获取场馆子类型枚举异常：", e);
-            return ApiResponse.error("获取场馆子类型枚举失败");
         }
     }
     
@@ -771,8 +723,11 @@ public class VenueServiceImpl implements VenueService {
         if (venue.getType() == null) {
             throw new BusinessException("场馆类型不能为空");
         }
-        if (venue.getSubType() == null) {
-            throw new BusinessException("场馆子类型不能为空");
+        if (venue.getSpaceType() == null) {
+            throw new BusinessException("场馆空间类型不能为空");
+        }
+        if (venue.getChargeType() == null) {
+            throw new BusinessException("场馆收费类型不能为空");
         }
         if (venue.getMerchantId() == null) {
             throw new BusinessException("商户ID不能为空");

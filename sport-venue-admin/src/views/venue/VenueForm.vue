@@ -35,6 +35,36 @@
           </el-select>
         </el-form-item>
         
+        <el-form-item label="空间类型" prop="spaceType">
+          <el-select
+            v-model="form.spaceType"
+            placeholder="请选择空间类型"
+            style="width: 100%"
+          >
+            <el-option
+              v-for="type in venueSpaceTypes"
+              :key="type.value"
+              :label="type.label"
+              :value="type.value"
+            />
+          </el-select>
+        </el-form-item>
+        
+        <el-form-item label="付费类型" prop="chargeType">
+          <el-select
+            v-model="form.chargeType"
+            placeholder="请选择付费类型"
+            style="width: 100%"
+          >
+            <el-option
+              v-for="type in venueChargeTypes"
+              :key="type.value"
+              :label="type.label"
+              :value="type.value"
+            />
+          </el-select>
+        </el-form-item>
+        
         <el-form-item label="场馆状态" prop="status">
           <el-select
             v-model="form.status"
@@ -50,9 +80,9 @@
           </el-select>
         </el-form-item>
         
-        <el-form-item label="最大容量" prop="maxCapacity">
+        <el-form-item label="最大容量" prop="capacity">
           <el-input-number
-            v-model="form.maxCapacity"
+            v-model="form.capacity"
             :min="1"
             :max="1000"
             style="width: 100%"
@@ -64,7 +94,7 @@
           <el-input-number
             v-model="form.currentOccupancy"
             :min="0"
-            :max="form.maxCapacity || 1000"
+            :max="form.capacity || 1000"
             style="width: 100%"
             placeholder="请输入当前人数"
           />
@@ -77,6 +107,8 @@
             show-score
             text-color="#ff9900"
             score-template="{value}"
+            :model-value="Number(form.rating)"
+            @update:model-value="form.rating = Number($event)"
           />
         </el-form-item>
         
@@ -100,12 +132,21 @@
           />
         </el-form-item>
         
-        <el-form-item label="商户ID" prop="merchantId">
-          <el-input
+        <el-form-item label="所属商户" prop="merchantId">
+          <el-select
             v-model="form.merchantId"
-            placeholder="请输入商户ID"
+            placeholder="请选择商户"
+            style="width: 100%"
+            filterable
             clearable
-          />
+          >
+            <el-option
+              v-for="merchant in merchants"
+              :key="merchant.id"
+              :label="merchant.name"
+              :value="merchant.id"
+            />
+          </el-select>
         </el-form-item>
         
         <el-form-item>
@@ -124,6 +165,7 @@ import { ref, reactive, computed, onMounted } from "vue"
 import { useRoute, useRouter } from "vue-router"
 import { ElMessage } from "element-plus"
 import { venueApi } from "@/api/venue"
+import { merchantApi } from "@/api/merchant"
 
 export default {
   name: "VenueForm",
@@ -133,7 +175,10 @@ export default {
     const formRef = ref()
     const loading = ref(false)
     const venueTypes = ref([])
+    const venueSpaceTypes = ref([])
+    const venueChargeTypes = ref([])
     const venueStatuses = ref([])
+    const merchants = ref([])
 
     // 判断是否为编辑模式
     const isEdit = computed(() => !!route.params.id)
@@ -142,13 +187,15 @@ export default {
     const form = reactive({
       name: "",
       type: "",
+      spaceType: "INDOOR",
+      chargeType: "FREE",
       status: "ACTIVE",
-      maxCapacity: 100,
+      capacity: 100,
       currentOccupancy: 0,
       rating: 5,
       address: "",
       description: "",
-      merchantId: "merchant001"
+      merchantId: null
     })
 
     // 表单验证规则
@@ -160,10 +207,16 @@ export default {
       type: [
         { required: true, message: "请选择场馆类型", trigger: "change" }
       ],
+      spaceType: [
+        { required: true, message: "请选择空间类型", trigger: "change" }
+      ],
+      chargeType: [
+        { required: true, message: "请选择付费类型", trigger: "change" }
+      ],
       status: [
         { required: true, message: "请选择场馆状态", trigger: "change" }
       ],
-      maxCapacity: [
+      capacity: [
         { required: true, message: "请输入最大容量", trigger: "blur" },
         { type: "number", min: 1, message: "最大容量必须大于0", trigger: "blur" }
       ],
@@ -175,7 +228,7 @@ export default {
         { required: true, message: "请输入场馆地址", trigger: "blur" }
       ],
       merchantId: [
-        { required: true, message: "请输入商户ID", trigger: "blur" }
+        { required: true, message: "请选择商户", trigger: "change" }
       ]
     }
 
@@ -183,9 +236,41 @@ export default {
     const getVenueTypes = async () => {
       try {
         const data = await venueApi.getVenueTypes()
-        venueTypes.value = data || []
+        // 转换数据格式：{code, description} -> {value, label}
+        venueTypes.value = (data || []).map(item => ({
+          value: item.code,
+          label: item.description
+        }))
       } catch (error) {
         console.error("获取场馆类型失败:", error)
+      }
+    }
+
+    // 获取空间类型
+    const getVenueSpaceTypes = async () => {
+      try {
+        const data = await venueApi.getVenueSpaceTypes()
+        // 转换数据格式：{code, description} -> {value, label}
+        venueSpaceTypes.value = (data || []).map(item => ({
+          value: item.code,
+          label: item.description
+        }))
+      } catch (error) {
+        console.error("获取空间类型失败:", error)
+      }
+    }
+
+    // 获取付费类型
+    const getVenueChargeTypes = async () => {
+      try {
+        const data = await venueApi.getVenueChargeTypes()
+        // 转换数据格式：{code, description} -> {value, label}
+        venueChargeTypes.value = (data || []).map(item => ({
+          value: item.code,
+          label: item.description
+        }))
+      } catch (error) {
+        console.error("获取付费类型失败:", error)
       }
     }
 
@@ -193,9 +278,29 @@ export default {
     const getVenueStatuses = async () => {
       try {
         const data = await venueApi.getVenueStatuses()
-        venueStatuses.value = data || []
+        // 转换数据格式：{code, description} -> {value, label}
+        venueStatuses.value = (data || []).map(item => ({
+          value: item.code,
+          label: item.description
+        }))
       } catch (error) {
         console.error("获取场馆状态失败:", error)
+      }
+    }
+
+    // 获取商户列表
+    const getMerchants = async () => {
+      try {
+        const data = await merchantApi.getMerchants()
+        merchants.value = data || []
+      } catch (error) {
+        console.error("获取商户列表失败:", error)
+        // 如果API不存在，使用模拟数据
+        merchants.value = [
+          { id: 1, name: '星光体育' },
+          { id: 2, name: '网球天地' },
+          { id: 3, name: '健身中心' }
+        ]
       }
     }
 
@@ -240,7 +345,10 @@ export default {
 
     onMounted(async () => {
       await getVenueTypes()
+      await getVenueSpaceTypes()
+      await getVenueChargeTypes()
       await getVenueStatuses()
+      await getMerchants()
       
       if (isEdit.value) {
         await getVenueDetail(route.params.id)
@@ -254,7 +362,10 @@ export default {
       loading,
       isEdit,
       venueTypes,
+      venueSpaceTypes,
+      venueChargeTypes,
       venueStatuses,
+      merchants,
       handleSubmit,
       handleCancel
     }

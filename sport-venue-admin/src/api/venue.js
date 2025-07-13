@@ -94,5 +94,21 @@ export const venueApi = {
       url: "/venues/statuses",
       method: "get"
     })
+  },
+
+  // 获取空间类型列表
+  getVenueSpaceTypes() {
+    return request({
+      url: "/venues/space-types",
+      method: "get"
+    })
+  },
+
+  // 获取付费类型列表
+  getVenueChargeTypes() {
+    return request({
+      url: "/venues/charge-types",
+      method: "get"
+    })
   }
 }

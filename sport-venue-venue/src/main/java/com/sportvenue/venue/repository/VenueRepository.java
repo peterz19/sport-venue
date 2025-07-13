@@ -35,9 +35,14 @@ public interface VenueRepository extends JpaRepository<Venue, Long> {
     List<Venue> findByType(Venue.VenueType type);
     
     /**
-     * 根据场馆子类型查询
+     * 根据场馆空间类型查询
      */
-    List<Venue> findBySubType(Venue.VenueSubType subType);
+    List<Venue> findBySpaceType(Venue.VenueSpaceType spaceType);
+    
+    /**
+     * 根据场馆收费类型查询
+     */
+    List<Venue> findByChargeType(Venue.VenueChargeType chargeType);
     
     /**
      * 根据场馆状态查询
@@ -103,24 +108,13 @@ public interface VenueRepository extends JpaRepository<Venue, Long> {
     List<Venue> findByMerchantIdAndType(Long merchantId, Venue.VenueType type);
     
     /**
-     * 根据商户ID和场馆子类型查询
-     */
-    List<Venue> findByMerchantIdAndSubType(Long merchantId, Venue.VenueSubType subType);
-    
-    /**
      * 复合查询：商户ID + 类型 + 状态
      */
     List<Venue> findByMerchantIdAndTypeAndStatus(Long merchantId, 
                                                 Venue.VenueType type, 
                                                 Venue.VenueStatus status);
     
-    /**
-     * 复合查询：商户ID + 子类型 + 状态
-     */
-    List<Venue> findByMerchantIdAndSubTypeAndStatus(Long merchantId, 
-                                                   Venue.VenueSubType subType, 
-                                                   Venue.VenueStatus status);
-    
+
     /**
      * 根据场馆名称和商户ID查询
      */
@@ -141,12 +135,6 @@ public interface VenueRepository extends JpaRepository<Venue, Long> {
      */
     @Query("SELECT v.type, COUNT(v) FROM Venue v WHERE v.merchantId = :merchantId GROUP BY v.type")
     List<Object[]> countByTypeAndMerchantId(@Param("merchantId") Long merchantId);
-    
-    /**
-     * 统计各子类型场馆数量
-     */
-    @Query("SELECT v.subType, COUNT(v) FROM Venue v WHERE v.merchantId = :merchantId GROUP BY v.subType")
-    List<Object[]> countBySubTypeAndMerchantId(@Param("merchantId") Long merchantId);
     
     /**
      * 查询热门场馆（按评分排序）

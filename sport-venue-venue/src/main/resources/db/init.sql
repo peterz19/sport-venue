@@ -4,6 +4,43 @@ CREATE DATABASE IF NOT EXISTS sport_venue CHARACTER SET utf8mb4 COLLATE utf8mb4_
 -- 使用数据库
 USE sport_venue;
 
+-- 创建商户表
+CREATE TABLE IF NOT EXISTS merchants (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    merchant_code VARCHAR(50) NOT NULL UNIQUE COMMENT '商户编码',
+    name VARCHAR(100) NOT NULL COMMENT '商户名称',
+    short_name VARCHAR(50) COMMENT '商户简称',
+    merchant_type VARCHAR(20) NOT NULL COMMENT '商户类型：INDIVIDUAL(个人), COMPANY(企业), CHAIN(连锁)',
+    status VARCHAR(20) NOT NULL DEFAULT 'ACTIVE' COMMENT '商户状态：ACTIVE(正常), INACTIVE(停用), SUSPENDED(暂停)',
+    contact_name VARCHAR(50) COMMENT '联系人姓名',
+    contact_phone VARCHAR(20) COMMENT '联系人手机号',
+    contact_email VARCHAR(100) COMMENT '联系人邮箱',
+    address VARCHAR(200) COMMENT '商户地址',
+    business_license VARCHAR(50) COMMENT '营业执照号',
+    legal_person VARCHAR(50) COMMENT '法人姓名',
+    legal_person_id VARCHAR(20) COMMENT '法人身份证号',
+    registered_capital DECIMAL(15, 2) COMMENT '注册资本',
+    establishment_date DATETIME COMMENT '成立日期',
+    business_hours VARCHAR(100) COMMENT '营业时间',
+    description VARCHAR(1000) COMMENT '商户简介',
+    logo VARCHAR(200) COMMENT '商户logo',
+    images VARCHAR(1000) COMMENT '商户图片',
+    tags VARCHAR(500) COMMENT '商户标签',
+    rating DECIMAL(3, 2) DEFAULT 0.00 COMMENT '评分',
+    rating_count INT DEFAULT 0 COMMENT '评分人数',
+    venue_count INT DEFAULT 0 COMMENT '场馆数量',
+    total_revenue DECIMAL(15, 2) DEFAULT 0.00 COMMENT '总营业额',
+    monthly_revenue DECIMAL(15, 2) DEFAULT 0.00 COMMENT '本月营业额',
+    remark VARCHAR(500) COMMENT '备注',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    create_by BIGINT COMMENT '创建人ID',
+    update_by BIGINT COMMENT '更新人ID',
+    INDEX idx_merchant_code (merchant_code),
+    INDEX idx_name (name),
+    INDEX idx_status (status)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='商户表';
+
 -- 创建场馆表
 CREATE TABLE IF NOT EXISTS venues (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -95,8 +132,14 @@ CREATE TABLE IF NOT EXISTS venue_check_ins (
     INDEX idx_check_in_time (check_in_time)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='场馆打卡表';
 
--- 插入测试数据
-INSERT INTO venues (name, description, type, sub_type, merchant_id, merchant_name, address, longitude, latitude, phone, open_time, close_time, capacity, area, facilities, rating, rating_count) VALUES
-('星光篮球馆', '专业室内篮球场，配备标准篮球架和木地板', 'INDOOR', 'BASKETBALL', 1, '星光体育', '北京市朝阳区建国路88号', 116.4074, 39.9042, '010-12345678', '09:00', '22:00', 50, 800.00, '木地板,标准篮球架,更衣室,淋浴', 4.5, 120),
-('绿茵足球场', '11人制标准足球场，天然草坪', 'OUTDOOR', 'FOOTBALL', 1, '星光体育', '北京市海淀区中关村大街1号', 116.3074, 39.9842, '010-87654321', '08:00', '21:00', 22, 7000.00, '天然草坪,标准球门,照明设备', 4.8, 85),
-('网球中心', '专业网球场地，硬地材质', 'INDOOR', 'TENNIS', 2, '网球天地', '上海市浦东新区陆家嘴路100号', 121.5074, 31.2042, '021-12345678', '07:00', '23:00', 8, 1200.00, '硬地材质,标准网球场,休息区', 4.6, 95); 
+-- 插入商户测试数据
+INSERT INTO merchants (merchant_code, name, short_name, merchant_type, status, contact_name, contact_phone, contact_email, address, description, rating, rating_count) VALUES
+('M001', '星光体育', '星光', 'COMPANY', 'ACTIVE', '张三', '13800138001', 'zhangsan@xingguang.com', '北京市朝阳区建国路88号', '专业体育场馆运营商，提供篮球、足球、网球等多种运动场地', 4.5, 120),
+('M002', '网球天地', '网球', 'COMPANY', 'ACTIVE', '李四', '13800138002', 'lisi@tennis.com', '上海市浦东新区陆家嘴路100号', '专业网球场地运营商，提供室内外网球场地', 4.6, 95),
+('M003', '健身中心', '健身', 'COMPANY', 'ACTIVE', '王五', '13800138003', 'wangwu@fitness.com', '广州市天河区珠江路200号', '综合性健身中心，提供器械健身、瑜伽、游泳等服务', 4.3, 80);
+
+-- 插入场馆测试数据
+INSERT INTO venues (name, description, type, space_type, charge_type, merchant_id, merchant_name, address, longitude, latitude, phone, open_time, close_time, capacity, area, facilities, rating, rating_count) VALUES
+('星光篮球馆', '专业室内篮球场，配备标准篮球架和木地板', 'GYM', 'INDOOR', 'PAID', 1, '星光体育', '北京市朝阳区建国路88号', 116.4074, 39.9042, '010-12345678', '09:00', '22:00', 50, 800.00, '木地板,标准篮球架,更衣室,淋浴', 4.5, 120),
+('绿茵足球场', '11人制标准足球场，天然草坪', 'STADIUM', 'OUTDOOR', 'FREE', 1, '星光体育', '北京市海淀区中关村大街1号', 116.3074, 39.9842, '010-87654321', '08:00', '21:00', 22, 7000.00, '天然草坪,标准球门,照明设备', 4.8, 85),
+('网球中心', '专业网球场地，硬地材质', 'GYM', 'INDOOR', 'PAID', 2, '网球天地', '上海市浦东新区陆家嘴路100号', 121.5074, 31.2042, '021-12345678', '07:00', '23:00', 8, 1200.00, '硬地材质,标准网球场,休息区', 4.6, 95); 

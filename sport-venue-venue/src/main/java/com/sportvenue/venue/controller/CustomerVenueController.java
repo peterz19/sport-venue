@@ -60,15 +60,6 @@ public class CustomerVenueController {
     }
 
     /**
-     * 根据场馆子类型查询（C端用户）
-     */
-    @GetMapping("/subtype/{subType}")
-    public ApiResponse<List<VenueDTO>> getVenuesBySubType(@PathVariable("subType") String subType) {
-        log.info("C端用户查询场馆子类型请求，子类型：{}", subType);
-        return venueService.getVenuesBySubType(Venue.VenueSubType.valueOf(subType.toUpperCase()));
-    }
-
-    /**
      * 搜索附近场馆（C端用户）
      */
     @GetMapping("/nearby")
@@ -105,15 +96,6 @@ public class CustomerVenueController {
     public ApiResponse<List<Map<String, String>>> getVenueTypes() {
         log.info("C端用户获取场馆类型列表请求");
         return venueService.getVenueTypes();
-    }
-
-    /**
-     * 获取场馆子类型列表（C端用户）
-     */
-    @GetMapping("/subtypes")
-    public ApiResponse<List<Map<String, String>>> getVenueSubTypes() {
-        log.info("C端用户获取场馆子类型列表请求");
-        return venueService.getVenueSubTypes();
     }
 
     /**

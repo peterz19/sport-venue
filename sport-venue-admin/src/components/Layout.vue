@@ -39,14 +39,25 @@
           </el-breadcrumb>
         </div>
         <div class="header-right">
-          <el-dropdown>
+          <span class="welcome-text">欢迎，{{ userInfo.realName || userInfo.username }}</span>
+          <el-dropdown @command="handleCommand">
             <span class="user-info">
-              管理员 <el-icon><ArrowDown /></el-icon>
+              <el-avatar :size="32" :src="userInfo.avatar">
+                {{ (userInfo.realName || userInfo.username || 'A').charAt(0) }}
+              </el-avatar>
+              <span class="username">{{ userInfo.realName || userInfo.username }}</span>
+              <el-icon><ArrowDown /></el-icon>
             </span>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item>个人信息</el-dropdown-item>
-                <el-dropdown-item>退出登录</el-dropdown-item>
+                <el-dropdown-item command="profile">
+                  <el-icon><User /></el-icon>
+                  个人信息
+                </el-dropdown-item>
+                <el-dropdown-item command="logout" divided>
+                  <el-icon><SwitchButton /></el-icon>
+                  退出登录
+                </el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
@@ -62,14 +73,65 @@
 </template>
 
 <script>
-import { DataBoard, Location, ArrowDown } from "@element-plus/icons-vue"
+import { computed } from "vue"
+import { useRouter } from "vue-router"
+import { ElMessageBox, ElMessage } from "element-plus"
+import { DataBoard, Location, ArrowDown, User, SwitchButton } from "@element-plus/icons-vue"
+import request from "@/utils/request"
 
 export default {
   name: "Layout",
   components: {
     DataBoard,
     Location,
-    ArrowDown
+    ArrowDown,
+    User,
+    SwitchButton
+  },
+  setup() {
+    const router = useRouter()
+    
+    const userInfo = computed(() => {
+      return JSON.parse(localStorage.getItem("userInfo") || "{}")
+    })
+
+    const handleCommand = async (command) => {
+      if (command === "logout") {
+        try {
+          await ElMessageBox.confirm("确定要退出登录吗？", "确认退出", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          })
+          
+          // 调用登出接口
+          try {
+            await request({
+              url: "/auth/logout",
+              method: "post"
+            })
+          } catch (error) {
+            console.error("登出接口调用失败:", error)
+          }
+          
+          // 清除本地存储
+          localStorage.removeItem("token")
+          localStorage.removeItem("userInfo")
+          
+          ElMessage.success("已退出登录")
+          router.push("/login")
+        } catch (error) {
+          // 用户取消
+        }
+      } else if (command === "profile") {
+        ElMessage.info("个人信息功能开发中...")
+      }
+    }
+
+    return {
+      userInfo,
+      handleCommand
+    }
   }
 }
 </script>
@@ -119,6 +181,12 @@ export default {
 .header-right {
   display: flex;
   align-items: center;
+  gap: 20px;
+}
+
+.welcome-text {
+  color: #606266;
+  font-size: 14px;
 }
 
 .user-info {
@@ -126,6 +194,18 @@ export default {
   align-items: center;
   cursor: pointer;
   color: #606266;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.user-info:hover {
+  background-color: #f5f7fa;
+}
+
+.username {
+  margin: 0 8px;
+  font-weight: 500;
 }
 
 .main {

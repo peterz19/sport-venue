@@ -26,6 +26,36 @@
             />
           </el-select>
         </el-form-item>
+        <el-form-item label="空间类型">
+          <el-select
+            v-model="searchForm.spaceType"
+            placeholder="请选择空间类型"
+            clearable
+            style="width: 120px"
+          >
+            <el-option
+              v-for="type in venueSpaceTypes"
+              :key="type.value"
+              :label="type.label"
+              :value="type.value"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="付费类型">
+          <el-select
+            v-model="searchForm.chargeType"
+            placeholder="请选择付费类型"
+            clearable
+            style="width: 120px"
+          >
+            <el-option
+              v-for="type in venueChargeTypes"
+              :key="type.value"
+              :label="type.label"
+              :value="type.value"
+            />
+          </el-select>
+        </el-form-item>
         <el-form-item label="场馆状态">
           <el-select
             v-model="searchForm.status"
@@ -81,6 +111,20 @@
           <template #default="{ row }">
             <el-tag :type="getTypeTagType(row.type)">
               {{ getTypeLabel(row.type) }}
+            </el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column prop="spaceType" label="空间类型" width="100">
+          <template #default="{ row }">
+            <el-tag :type="getSpaceTypeTagType(row.spaceType)">
+              {{ getSpaceTypeLabel(row.spaceType) }}
+            </el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column prop="chargeType" label="付费类型" width="100">
+          <template #default="{ row }">
+            <el-tag :type="getChargeTypeTagType(row.chargeType)">
+              {{ getChargeTypeLabel(row.chargeType) }}
             </el-tag>
           </template>
         </el-table-column>
@@ -153,13 +197,17 @@ export default {
     const loading = ref(false)
     const venueList = ref([])
     const venueTypes = ref([])
+    const venueSpaceTypes = ref([])
+    const venueChargeTypes = ref([])
     const venueStatuses = ref([])
 
     // 搜索表单
     const searchForm = reactive({
       name: "",
       type: "",
-      status: ""
+      status: "",
+      spaceType: "",
+      chargeType: ""
     })
 
     // 分页
@@ -193,7 +241,11 @@ export default {
     const getVenueTypes = async () => {
       try {
         const data = await venueApi.getVenueTypes()
-        venueTypes.value = data || []
+        // 转换数据格式：{code, description} -> {value, label}
+        venueTypes.value = (data || []).map(item => ({
+          value: item.code,
+          label: item.description
+        }))
       } catch (error) {
         console.error("获取场馆类型失败:", error)
       }
@@ -203,9 +255,41 @@ export default {
     const getVenueStatuses = async () => {
       try {
         const data = await venueApi.getVenueStatuses()
-        venueStatuses.value = data || []
+        // 转换数据格式：{code, description} -> {value, label}
+        venueStatuses.value = (data || []).map(item => ({
+          value: item.code,
+          label: item.description
+        }))
       } catch (error) {
         console.error("获取场馆状态失败:", error)
+      }
+    }
+
+    // 获取空间类型
+    const getVenueSpaceTypes = async () => {
+      try {
+        const data = await venueApi.getVenueSpaceTypes()
+        // 转换数据格式：{code, description} -> {value, label}
+        venueSpaceTypes.value = (data || []).map(item => ({
+          value: item.code,
+          label: item.description
+        }))
+      } catch (error) {
+        console.error("获取空间类型失败:", error)
+      }
+    }
+
+    // 获取付费类型
+    const getVenueChargeTypes = async () => {
+      try {
+        const data = await venueApi.getVenueChargeTypes()
+        // 转换数据格式：{code, description} -> {value, label}
+        venueChargeTypes.value = (data || []).map(item => ({
+          value: item.code,
+          label: item.description
+        }))
+      } catch (error) {
+        console.error("获取付费类型失败:", error)
       }
     }
 
@@ -220,7 +304,9 @@ export default {
       Object.assign(searchForm, {
         name: "",
         type: "",
-        status: ""
+        status: "",
+        spaceType: "",
+        chargeType: ""
       })
       pagination.page = 1
       getVenueList()
@@ -307,6 +393,46 @@ export default {
       return typeMap[type] || type
     }
 
+    // 获取空间类型标签样式
+    const getSpaceTypeTagType = (type) => {
+      const typeMap = {
+        "PRIVATE": "success",
+        "GROUP": "primary",
+        "PUBLIC": "warning"
+      }
+      return typeMap[type] || "info"
+    }
+
+    // 获取空间类型标签文本
+    const getSpaceTypeLabel = (type) => {
+      const typeMap = {
+        "PRIVATE": "私密",
+        "GROUP": "团体",
+        "PUBLIC": "公开"
+      }
+      return typeMap[type] || type
+    }
+
+    // 获取付费类型标签样式
+    const getChargeTypeTagType = (type) => {
+      const typeMap = {
+        "FREE": "success",
+        "PAID": "primary",
+        "MEMBER": "warning"
+      }
+      return typeMap[type] || "info"
+    }
+
+    // 获取付费类型标签文本
+    const getChargeTypeLabel = (type) => {
+      const typeMap = {
+        "FREE": "免费",
+        "PAID": "付费",
+        "MEMBER": "会员"
+      }
+      return typeMap[type] || type
+    }
+
     // 获取状态标签样式
     const getStatusTagType = (status) => {
       const statusMap = {
@@ -325,6 +451,8 @@ export default {
 
     onMounted(() => {
       getVenueTypes()
+      getVenueSpaceTypes()
+      getVenueChargeTypes()
       getVenueStatuses()
       getVenueList()
     })
@@ -333,6 +461,8 @@ export default {
       loading,
       venueList,
       venueTypes,
+      venueSpaceTypes,
+      venueChargeTypes,
       venueStatuses,
       searchForm,
       pagination,
@@ -347,6 +477,10 @@ export default {
       handleCurrentChange,
       getTypeTagType,
       getTypeLabel,
+      getSpaceTypeTagType,
+      getSpaceTypeLabel,
+      getChargeTypeTagType,
+      getChargeTypeLabel,
       getStatusTagType,
       getStatusLabel
     }

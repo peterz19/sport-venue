@@ -95,15 +95,6 @@ public class VenueController {
     }
 
     /**
-     * 根据场馆子类型查询
-     */
-    @GetMapping("/subtype/{subType}")
-    public ApiResponse<List<VenueDTO>> getVenuesBySubType(@PathVariable("subType") String subType) {
-        log.info("查询场馆子类型请求，子类型：{}", subType);
-        return venueService.getVenuesBySubType(Venue.VenueSubType.valueOf(subType.toUpperCase()));
-    }
-
-    /**
      * 搜索附近场馆
      */
     @GetMapping("/nearby")
@@ -161,20 +152,36 @@ public class VenueController {
     }
 
     /**
-     * 获取场馆子类型列表
-     */
-    @GetMapping("/subtypes")
-    public ApiResponse<List<Map<String, String>>> getVenueSubTypes() {
-        log.info("获取场馆子类型列表请求");
-        return venueService.getVenueSubTypes();
-    }
-
-    /**
      * 获取场馆状态列表
      */
     @GetMapping("/statuses")
     public ApiResponse<List<Map<String, String>>> getVenueStatuses() {
         log.info("获取场馆状态列表请求");
         return venueService.getVenueStatuses();
+    }
+
+    /**
+     * 获取空间类型列表
+     */
+    @GetMapping("/space-types")
+    public ApiResponse<List<Map<String, String>>> getVenueSpaceTypes() {
+        log.info("获取空间类型列表请求");
+        // 枚举转为{code, description}
+        List<Map<String, String>> list = java.util.Arrays.stream(Venue.VenueSpaceType.values())
+            .map(type -> java.util.Map.of("code", type.name(), "description", type.getDescription()))
+            .toList();
+        return ApiResponse.success(list);
+    }
+
+    /**
+     * 获取付费类型列表
+     */
+    @GetMapping("/charge-types")
+    public ApiResponse<List<Map<String, String>>> getVenueChargeTypes() {
+        log.info("获取付费类型列表请求");
+        List<Map<String, String>> list = java.util.Arrays.stream(Venue.VenueChargeType.values())
+            .map(type -> java.util.Map.of("code", type.name(), "description", type.getDescription()))
+            .toList();
+        return ApiResponse.success(list);
     }
 } 

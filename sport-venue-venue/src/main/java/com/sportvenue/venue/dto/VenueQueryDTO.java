@@ -32,11 +32,6 @@ public class VenueQueryDTO {
     private Venue.VenueType type;
     
     /**
-     * 场馆子类型
-     */
-    private Venue.VenueSubType subType;
-    
-    /**
      * 场馆状态
      */
     private Venue.VenueStatus status;
@@ -79,6 +74,15 @@ public class VenueQueryDTO {
      * 是否支持积分
      */
     private Boolean pointsEnabled;
+    
+    /**
+     * 空间类型
+     */
+    private Venue.VenueSpaceType spaceType;
+    /**
+     * 付费类型
+     */
+    private Venue.VenueChargeType chargeType;
     
     /**
      * 地理位置查询

@@ -139,15 +139,6 @@ public class BusinessVenueController {
     }
 
     /**
-     * 获取场馆子类型统计（B端商户）
-     */
-    @GetMapping("/statistics/subtypes")
-    public ApiResponse<Map<String, Long>> getVenueSubTypeStatistics(@RequestParam("merchantId") Long merchantId) {
-        log.info("B端商户获取场馆子类型统计请求，商户ID：{}", merchantId);
-        return venueService.getVenueSubTypeStatistics(merchantId);
-    }
-
-    /**
      * 获取场馆实时数据（B端商户）
      */
     @GetMapping("/{id}/realtime")

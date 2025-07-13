@@ -24,6 +24,10 @@ spring:
     consul:
       host: localhost
       port: 8500
+  security:
+    user:
+      name: admin
+      password: 123456
 
 management:
   endpoints:
@@ -32,4 +36,10 @@ management:
         include: health,info,metrics
   endpoint:
     health:
-      show-details: always 
+      show-details: always
+
+# JWT配置
+jwt:
+  secret: sport-venue-secret-key-2024-very-long-and-secure-key-for-jwt-signing
+  expiration: 86400000 # 24小时
+

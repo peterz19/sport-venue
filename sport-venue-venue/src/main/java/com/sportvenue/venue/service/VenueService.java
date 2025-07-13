@@ -57,11 +57,6 @@ public interface VenueService {
     ApiResponse<List<VenueDTO>> getVenuesByType(Venue.VenueType type);
     
     /**
-     * 根据子类型查询场馆列表
-     */
-    ApiResponse<List<VenueDTO>> getVenuesBySubType(Venue.VenueSubType subType);
-    
-    /**
      * 根据状态查询场馆列表
      */
     ApiResponse<List<VenueDTO>> getVenuesByStatus(Venue.VenueStatus status);
@@ -122,11 +117,6 @@ public interface VenueService {
     ApiResponse<Map<String, Long>> getVenueTypeStatistics(Long merchantId);
     
     /**
-     * 统计各子类型场馆数量
-     */
-    ApiResponse<Map<String, Long>> getVenueSubTypeStatistics(Long merchantId);
-    
-    /**
      * 获取场馆实时数据（B端）
      */
     ApiResponse<Map<String, Object>> getVenueRealtimeData(Long id);
@@ -155,11 +145,6 @@ public interface VenueService {
      * 获取场馆类型枚举
      */
     ApiResponse<List<Map<String, String>>> getVenueTypes();
-    
-    /**
-     * 获取场馆子类型枚举
-     */
-    ApiResponse<List<Map<String, String>>> getVenueSubTypes();
     
     /**
      * 获取场馆状态枚举

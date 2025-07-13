@@ -1,0 +1,3 @@
+-- 新增空间类型和付费类型字段
+ALTER TABLE venues ADD COLUMN space_type VARCHAR(32) NOT NULL DEFAULT 'INDOOR';
+ALTER TABLE venues ADD COLUMN charge_type VARCHAR(32) NOT NULL DEFAULT 'FREE'; 

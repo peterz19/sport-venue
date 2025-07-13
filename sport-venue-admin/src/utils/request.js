@@ -1,5 +1,6 @@
 import axios from "axios"
 import { ElMessage } from "element-plus"
+import router from "@/router"
 
 // 创建axios实例
 const request = axios.create({
@@ -10,7 +11,11 @@ const request = axios.create({
 // 请求拦截器
 request.interceptors.request.use(
   config => {
-    // 可以在这里添加token等认证信息
+    // 添加token认证
+    const token = localStorage.getItem("token")
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
     return config
   },
   error => {
@@ -37,6 +42,30 @@ request.interceptors.response.use(
   },
   error => {
     console.error("请求错误:", error)
+    
+    // 处理401未授权错误
+    if (error.response && error.response.status === 401) {
+      ElMessage.error("登录已过期，请重新登录")
+      // 清除本地存储
+      localStorage.removeItem("token")
+      localStorage.removeItem("userInfo")
+      // 跳转到登录页
+      router.push("/login")
+      return Promise.reject(error)
+    }
+    
+    // 处理403禁止访问错误
+    if (error.response && error.response.status === 403) {
+      ElMessage.error("没有权限访问该资源")
+      return Promise.reject(error)
+    }
+    
+    // 处理500服务器错误
+    if (error.response && error.response.status === 500) {
+      ElMessage.error("服务器内部错误")
+      return Promise.reject(error)
+    }
+    
     ElMessage.error(error.message || "网络错误")
     return Promise.reject(error)
   }
