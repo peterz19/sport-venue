@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高德地图API测试（修复版）</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #map-container {
+            width: 100%;
+            height: 400px;
+            border: 1px solid #ccc;
+            margin: 20px 0;
+        }
+        .test-info {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+        .warning {
+            color: orange;
+        }
+    </style>
+</head>
+<body>
+    <h1>高德地图API测试（修复版）</h1>
+    
+    <div class="test-info">
+        <h3>当前配置</h3>
+        <p><strong>API密钥:</strong> <span id="api-key">d16c4f8b60ffec2c8af025b192686cc5</span></p>
+        <p><strong>安全密钥:</strong> <span id="security-key">ddaa63cdcc534f87953433fa1557f4de</span></p>
+        <p><strong>测试时间:</strong> <span id="test-time"></span></p>
+    </div>
+    
+    <div>
+        <button onclick="testMapLoad()">测试地图加载</button>
+        <button onclick="testGeocoding()">测试地理编码</button>
+        <button onclick="testReverseGeocoding()">测试逆地理编码</button>
+        <button onclick="testGeolocation()">测试定位</button>
+        <button onclick="testAll()">测试所有功能</button>
+    </div>
+    
+    <div id="map-container"></div>
+    
+    <div id="test-results" class="test-info">
+        <h3>测试结果</h3>
+        <div id="results-content"></div>
+    </div>
+
+    <script>
+        // 更新测试时间
+        document.getElementById('test-time').textContent = new Date().toLocaleString();
+        
+        let map = null;
+        let geocoder = null;
+        let geolocation = null;
+        let AMapInstance = null;
+        
+        function addResult(message, type = 'info') {
+            const resultsDiv = document.getElementById('results-content');
+            const div = document.createElement('div');
+            div.className = type;
+            div.innerHTML = `<strong>[${new Date().toLocaleTimeString()}]</strong> ${message}`;
+            resultsDiv.appendChild(div);
+            resultsDiv.scrollTop = resultsDiv.scrollHeight;
+        }
+        
+        async function testMapLoad() {
+            addResult('开始测试地图加载...');
+            
+            try {
+                // 动态加载高德地图API
+                const script = document.createElement('script');
+                script.src = `https://webapi.amap.com/maps?v=2.0&key=d16c4f8b60ffec2c8af025b192686cc5&securityJsCode=ddaa63cdcc534f87953433fa1557f4de&plugin=AMap.Geocoder,AMap.PlaceSearch,AMap.Geolocation`;
+                
+                script.onload = () => {
+                    addResult('高德地图API加载成功', 'success');
+                    
+                    // 检查插件是否可用
+                    if (typeof AMap !== 'undefined') {
+                        AMapInstance = AMap;
+                        addResult('AMap对象可用', 'success');
+                        
+                        // 检查插件
+                        if (AMap.Geocoder) {
+                            addResult('Geocoder插件可用', 'success');
+                        } else {
+                            addResult('Geocoder插件不可用', 'error');
+                        }
+                        
+                        if (AMap.Geolocation) {
+                            addResult('Geolocation插件可用', 'success');
+                        } else {
+                            addResult('Geolocation插件不可用', 'error');
+                        }
+                        
+                        // 创建地图实例
+                        map = new AMap.Map('map-container', {
+                            zoom: 13,
+                            center: [116.397428, 39.90923]
+                        });
+                        
+                        map.on('complete', () => {
+                            addResult('地图初始化完成', 'success');
+                        });
+                        
+                        map.on('error', (error) => {
+                            addResult(`地图错误: ${error.message}`, 'error');
+                        });
+                        
+                    } else {
+                        addResult('AMap对象不可用', 'error');
+                    }
+                };
+                
+                script.onerror = () => {
+                    addResult('高德地图API加载失败', 'error');
+                };
+                
+                document.head.appendChild(script);
+                
+            } catch (error) {
+                addResult(`地图加载异常: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testGeocoding() {
+            if (!map || !AMapInstance) {
+                addResult('请先加载地图', 'error');
+                return;
+            }
+            
+            addResult('开始测试地理编码（地址转坐标）...');
+            
+            try {
+                if (!AMapInstance.Geocoder) {
+                    addResult('Geocoder插件不可用', 'error');
+                    return;
+                }
+                
+                geocoder = new AMapInstance.Geocoder();
+                geocoder.getLocation('北京市朝阳区阜通东大街6号', (status, result) => {
+                    if (status === 'complete' && result.info === 'OK') {
+                        const location = result.geocodes[0].location;
+                        addResult(`地理编码成功: ${location.getLng()}, ${location.getLat()}`, 'success');
+                    } else {
+                        addResult(`地理编码失败: ${status} - ${result.info}`, 'error');
+                    }
+                });
+            } catch (error) {
+                addResult(`地理编码异常: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testReverseGeocoding() {
+            if (!map || !AMapInstance) {
+                addResult('请先加载地图', 'error');
+                return;
+            }
+            
+            addResult('开始测试逆地理编码（坐标转地址）...');
+            
+            try {
+                if (!AMapInstance.Geocoder) {
+                    addResult('Geocoder插件不可用', 'error');
+                    return;
+                }
+                
+                if (!geocoder) {
+                    geocoder = new AMapInstance.Geocoder();
+                }
+                
+                const lnglat = new AMapInstance.LngLat(116.397428, 39.90923);
+                geocoder.getAddress(lnglat, (status, result) => {
+                    if (status === 'complete' && result.info === 'OK') {
+                        const address = result.regeocode.formattedAddress;
+                        addResult(`逆地理编码成功: ${address}`, 'success');
+                    } else {
+                        addResult(`逆地理编码失败: ${status} - ${result.info}`, 'error');
+                    }
+                });
+            } catch (error) {
+                addResult(`逆地理编码异常: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testGeolocation() {
+            if (!map || !AMapInstance) {
+                addResult('请先加载地图', 'error');
+                return;
+            }
+            
+            addResult('开始测试定位功能...');
+            
+            try {
+                if (!AMapInstance.Geolocation) {
+                    addResult('Geolocation插件不可用', 'error');
+                    return;
+                }
+                
+                geolocation = new AMapInstance.Geolocation({
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    zoomToAccuracy: true
+                });
+                
+                map.addControl(geolocation);
+                
+                geolocation.getCurrentPosition((status, result) => {
+                    if (status === 'complete') {
+                        const position = result.position;
+                        addResult(`定位成功: ${position.getLng()}, ${position.getLat()}`, 'success');
+                    } else {
+                        addResult(`定位失败: ${status} - ${result.info}`, 'error');
+                    }
+                });
+            } catch (error) {
+                addResult(`定位异常: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testAll() {
+            addResult('开始测试所有功能...', 'warning');
+            await testMapLoad();
+            
+            // 等待地图加载完成后再测试其他功能
+            setTimeout(async () => {
+                await testGeocoding();
+                setTimeout(async () => {
+                    await testReverseGeocoding();
+                    setTimeout(async () => {
+                        await testGeolocation();
+                    }, 1000);
+                }, 1000);
+            }, 2000);
+        }
+        
+        // 页面加载完成后自动测试地图加载
+        window.onload = function() {
+            setTimeout(() => {
+                testMapLoad();
+            }, 1000);
+        };
+    </script>
+</body>
+</html> 

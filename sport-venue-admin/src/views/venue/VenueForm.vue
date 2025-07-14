@@ -112,13 +112,12 @@
           />
         </el-form-item>
         
-        <el-form-item label="地址" prop="address">
-          <el-input
-            v-model="form.address"
-            type="textarea"
-            :rows="3"
-            placeholder="请输入场馆地址"
-            clearable
+        <el-form-item label="场馆地址" prop="address">
+          <MapPicker
+            v-model:address="form.address"
+            v-model:longitude="form.longitude"
+            v-model:latitude="form.latitude"
+            @change="handleLocationChange"
           />
         </el-form-item>
         
@@ -166,9 +165,13 @@ import { useRoute, useRouter } from "vue-router"
 import { ElMessage } from "element-plus"
 import { venueApi } from "@/api/venue"
 import { merchantApi } from "@/api/merchant"
+import MapPicker from "@/components/MapPicker.vue"
 
 export default {
   name: "VenueForm",
+  components: {
+    MapPicker
+  },
   setup() {
     const route = useRoute()
     const router = useRouter()
@@ -194,6 +197,8 @@ export default {
       currentOccupancy: 0,
       rating: 5,
       address: "",
+      longitude: "",
+      latitude: "",
       description: "",
       merchantId: null
     })
@@ -338,6 +343,13 @@ export default {
       }
     }
 
+    // 处理位置变化
+    const handleLocationChange = (location) => {
+      form.address = location.address
+      form.longitude = location.longitude
+      form.latitude = location.latitude
+    }
+
     // 取消
     const handleCancel = () => {
       router.push("/venue/list")
@@ -367,7 +379,8 @@ export default {
       venueStatuses,
       merchants,
       handleSubmit,
-      handleCancel
+      handleCancel,
+      handleLocationChange
     }
   }
 }
