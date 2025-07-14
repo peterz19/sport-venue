@@ -33,7 +33,7 @@ public class MerchantController {
      * 根据ID获取商户详情
      */
     @GetMapping("/{id}")
-    public ApiResponse<Merchant> getMerchantById(@PathVariable Long id) {
+    public ApiResponse<Merchant> getMerchantById(@PathVariable("id") Long id) {
         log.info("获取商户详情请求，商户ID：{}", id);
         return merchantService.getMerchantById(id);
     }

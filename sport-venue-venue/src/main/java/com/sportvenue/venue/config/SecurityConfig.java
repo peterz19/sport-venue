@@ -1,13 +1,16 @@
 package com.sportvenue.venue.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -19,7 +22,11 @@ import java.util.Arrays;
  */
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
+
+    @Autowired
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -33,18 +40,20 @@ public class SecurityConfig {
             // 配置授权规则
             .authorizeHttpRequests(authz -> authz
                 // 允许认证相关接口
-                .requestMatchers("/auth/login", "/auth/register").permitAll()
-                // 允许开发专用接口
-                .requestMatchers("/auth/dev/**").permitAll()
+                .requestMatchers("/auth/login", "/auth/register", "/auth/dev/**").permitAll()
                 // 允许健康检查接口
-                .requestMatchers("/health", "/actuator/health").permitAll()
+                .requestMatchers("/health/**", "/actuator/**").permitAll()
                 // 允许Swagger文档
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
                 // 允许静态资源
                 .requestMatchers("/favicon.ico", "/error").permitAll()
+                // 其他API接口需要认证
+                .requestMatchers("/**").hasAnyRole("ADMIN", "USER", "MERCHANT")
                 // 其他所有请求需要认证
                 .anyRequest().authenticated()
             )
+            // 添加JWT过滤器
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
             // 禁用HTTP Basic认证
             .httpBasic(basic -> basic.disable())
             // 禁用表单登录

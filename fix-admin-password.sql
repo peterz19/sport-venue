@@ -5,9 +5,9 @@ USE sport_venue;
 DELETE FROM user_roles WHERE user_id IN (SELECT id FROM users WHERE username='admin');
 DELETE FROM users WHERE username='admin';
 
--- 2. 重新插入admin用户（使用新的BCrypt密码）
+-- 2. 重新插入admin用户（使用正确的BCrypt密码）
 INSERT INTO users (username, password, real_name, user_type, status, create_by) VALUES
-('admin', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '系统管理员', 'ADMIN', 'ACTIVE', 1);
+('admin', '$2a$10$D5DcwKbvdMUm5YPCnj9eaej4pjxDOubETfDPFYBwbv6EpHURmUWWS', '系统管理员', 'ADMIN', 'ACTIVE', 1);
 
 -- 3. 重新分配ADMIN角色
 INSERT INTO user_roles (user_id, role_id, create_by)

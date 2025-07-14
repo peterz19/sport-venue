@@ -53,7 +53,7 @@ public class AuthController {
             // 调用用户服务进行登录验证
             ApiResponse<Map<String, Object>> loginResult = userService.login(username, password);
             
-            if (loginResult.isSuccess()) {
+            if (loginResult.getCode() == 200) {
                 Map<String, Object> data = loginResult.getData();
                 User user = (User) data.get("user");
                 
@@ -130,7 +130,7 @@ public class AuthController {
             
             // 获取用户详细信息
             ApiResponse<User> userResult = userService.getUserById(userId);
-            if (userResult.isSuccess()) {
+            if (userResult.getCode() == 200) {
                 User user = userResult.getData();
                 // 清除敏感信息
                 user.setPassword(null);
@@ -147,7 +147,7 @@ public class AuthController {
     /**
      * 刷新token
      */
-    @Operation(summary = "刷新token", description = "刷新用户登录token")
+    @Operation(summary = "刷新token", description = "刷新用户token")
     @PostMapping("/refresh")
     public ApiResponse<Map<String, Object>> refreshToken(@RequestHeader("Authorization") String token) {
         log.info("刷新token请求");
@@ -168,7 +168,11 @@ public class AuthController {
                 return ApiResponse.error("token解析失败");
             }
             
-            // 生成新的token
+            if (jwtConfig.isTokenExpired(actualToken)) {
+                return ApiResponse.error("token已过期");
+            }
+            
+            // 生成新token
             String newToken = jwtConfig.generateToken(username, userId, userType);
             
             Map<String, Object> result = new HashMap<>();
@@ -183,7 +187,7 @@ public class AuthController {
     }
 
     /**
-     * 验证token有效性
+     * 验证token
      */
     @Operation(summary = "验证token", description = "验证token是否有效")
     @PostMapping("/verify")
@@ -226,15 +230,27 @@ public class AuthController {
     /**
      * 开发专用：重置admin密码
      */
-    @Operation(summary = "开发专用：重置admin密码", description = "传入明文密码，自动BCrypt加密后写入数据库，仅开发环境可用")
+    @Operation(summary = "重置admin密码", description = "开发专用，重置admin用户密码为123456")
     @PostMapping("/dev/reset-admin-password")
-    public ApiResponse<Void> resetAdminPassword(@RequestParam("newPassword") String newPassword) {
-        User user = userRepository.findByUsername("admin").orElse(null);
-        if (user == null) {
-            return ApiResponse.error("admin用户不存在");
+    public ApiResponse<Void> resetAdminPassword() {
+        log.info("重置admin密码请求");
+        
+        try {
+            User adminUser = userRepository.findByUsername("admin").orElse(null);
+            if (adminUser == null) {
+                return ApiResponse.error("admin用户不存在");
+            }
+            
+            // 重置密码为123456
+            adminUser.setPassword(passwordEncoder.encode("123456"));
+            adminUser.setUpdateTime(java.time.LocalDateTime.now());
+            userRepository.save(adminUser);
+            
+            log.info("admin密码重置成功");
+            return ApiResponse.success();
+        } catch (Exception e) {
+            log.error("重置admin密码失败：{}", e.getMessage(), e);
+            return ApiResponse.error("重置admin密码失败：" + e.getMessage());
         }
-        user.setPassword(passwordEncoder.encode(newPassword));
-        userRepository.save(user);
-        return ApiResponse.success();
     }
 } 

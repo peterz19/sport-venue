@@ -152,6 +152,16 @@ public interface VenueService {
     ApiResponse<List<Map<String, String>>> getVenueStatuses();
     
     /**
+     * 获取场馆收费类型枚举
+     */
+    ApiResponse<List<Map<String, String>>> getVenueChargeTypes();
+    
+    /**
+     * 获取场馆空间类型枚举
+     */
+    ApiResponse<List<Map<String, String>>> getVenueSpaceTypes();
+    
+    /**
      * 导入场馆数据
      */
     ApiResponse<Void> importVenues(List<Venue> venues);

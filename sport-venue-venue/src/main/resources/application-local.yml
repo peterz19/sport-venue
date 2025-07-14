@@ -2,13 +2,17 @@ server:
   port: 8082
   servlet:
     context-path: /api
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
 
 spring:
   application:
     name: venue-service
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/sport_venue?useSSL=false&characterEncoding=utf8&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/sport_venue?useSSL=false&characterEncoding=utf8&useUnicode=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
     username: root
     password: Aa123456
     hikari:
@@ -37,6 +41,9 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
         use_sql_comments: true
+        connection:
+          characterEncoding: utf8
+          useUnicode: true
   cloud:
     consul:
       host: localhost

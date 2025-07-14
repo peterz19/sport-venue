@@ -171,7 +171,17 @@ public class VenueServiceImpl implements VenueService {
     public ApiResponse<Page<VenueDTO>> getVenueList(VenueQueryDTO queryDTO) {
         try {
             // 构建分页和排序
-            Sort sort = Sort.by(Sort.Direction.fromString(queryDTO.getSortDirection()), queryDTO.getSortBy());
+            String sortBy = queryDTO.getSortBy() != null ? queryDTO.getSortBy() : "createTime";
+            String sortDirection = queryDTO.getSortDirection() != null ? queryDTO.getSortDirection() : "DESC";
+            
+            Sort sort;
+            try {
+                sort = Sort.by(Sort.Direction.fromString(sortDirection), sortBy);
+            } catch (IllegalArgumentException e) {
+                log.warn("无效的排序方向：{}，使用默认排序", sortDirection);
+                sort = Sort.by(Sort.Direction.DESC, "createTime");
+            }
+            
             Pageable pageable = PageRequest.of(queryDTO.getPage(), queryDTO.getSize(), sort);
             
             // 根据查询条件获取场馆列表
@@ -642,19 +652,51 @@ public class VenueServiceImpl implements VenueService {
     @Override
     public ApiResponse<List<Map<String, String>>> getVenueStatuses() {
         try {
-            List<Map<String, String>> statuses = Arrays.stream(Venue.VenueStatus.values())
-                    .map(status -> {
-                        Map<String, String> map = new HashMap<>();
-                        map.put("code", status.name());
-                        map.put("description", status.getDescription());
-                        return map;
-                    })
-                    .collect(Collectors.toList());
-            
+            List<Map<String, String>> statuses = new ArrayList<>();
+            for (Venue.VenueStatus status : Venue.VenueStatus.values()) {
+                Map<String, String> statusMap = new HashMap<>();
+                statusMap.put("code", status.name());
+                statusMap.put("description", status.getDescription());
+                statuses.add(statusMap);
+            }
             return ApiResponse.success(statuses);
         } catch (Exception e) {
-            log.error("获取场馆状态枚举异常：", e);
-            return ApiResponse.error("获取场馆状态枚举失败");
+            log.error("获取场馆状态列表异常：", e);
+            return ApiResponse.error("获取场馆状态列表失败");
+        }
+    }
+
+    @Override
+    public ApiResponse<List<Map<String, String>>> getVenueChargeTypes() {
+        try {
+            List<Map<String, String>> chargeTypes = new ArrayList<>();
+            for (Venue.VenueChargeType chargeType : Venue.VenueChargeType.values()) {
+                Map<String, String> chargeTypeMap = new HashMap<>();
+                chargeTypeMap.put("code", chargeType.name());
+                chargeTypeMap.put("description", chargeType.getDescription());
+                chargeTypes.add(chargeTypeMap);
+            }
+            return ApiResponse.success(chargeTypes);
+        } catch (Exception e) {
+            log.error("获取场馆收费类型列表异常：", e);
+            return ApiResponse.error("获取场馆收费类型列表失败");
+        }
+    }
+
+    @Override
+    public ApiResponse<List<Map<String, String>>> getVenueSpaceTypes() {
+        try {
+            List<Map<String, String>> spaceTypes = new ArrayList<>();
+            for (Venue.VenueSpaceType spaceType : Venue.VenueSpaceType.values()) {
+                Map<String, String> spaceTypeMap = new HashMap<>();
+                spaceTypeMap.put("code", spaceType.name());
+                spaceTypeMap.put("description", spaceType.getDescription());
+                spaceTypes.add(spaceTypeMap);
+            }
+            return ApiResponse.success(spaceTypes);
+        } catch (Exception e) {
+            log.error("获取场馆空间类型列表异常：", e);
+            return ApiResponse.error("获取场馆空间类型列表失败");
         }
     }
     

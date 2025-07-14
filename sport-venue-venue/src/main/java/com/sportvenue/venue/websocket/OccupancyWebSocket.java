@@ -2,6 +2,7 @@ package com.sportvenue.venue.websocket;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +23,7 @@ public class OccupancyWebSocket {
     private static final ConcurrentHashMap<String, Session> SESSIONS = new ConcurrentHashMap<>();
 
     @Autowired
+    @Qualifier("integerRedisTemplate")
     public void setRedisTemplate(RedisTemplate<String, Integer> redisTemplate) {
         OccupancyWebSocket.redisTemplate = redisTemplate;
     }
