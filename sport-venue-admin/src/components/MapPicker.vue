@@ -26,9 +26,12 @@
       <el-form-item label="详细地址" prop="address">
         <el-input
           v-model="selectedAddress"
-          placeholder="请在地图上选择位置或搜索地址"
-          readonly
+          placeholder="请在地图上选择位置或搜索地址，也可手动输入"
+          @input="onAddressInput"
         />
+        <div class="address-tip">
+          <small>💡 提示：如果地址解析失败，您可以手动输入详细地址</small>
+        </div>
       </el-form-item>
       
       <el-row :gutter="10">
@@ -214,21 +217,81 @@ export default {
               console.error('详细错误信息:', JSON.stringify(result))
             }
             
-            // 如果是API密钥问题，给出具体提示
-            if (result?.info === 'INVALID_USER_SCODE' || result?.info === 'INVALID_USER_KEY') {
-              ElMessage.error('地图API密钥配置有误，请联系管理员')
-            } else if (result?.info === 'error') {
-              ElMessage.warning('地址解析服务暂时不可用，但坐标已保存')
-            } else {
-              ElMessage.warning('地址解析失败，但坐标已保存')
-            }
+            // 尝试使用浏览器原生反向地理编码
+            tryBrowserReverseGeocode(lnglat)
           }
         })
       } catch (error) {
         console.error('逆地理编码初始化失败:', error)
         debugInfo.value = `逆地理编码初始化失败: ${error.message}`
-        ElMessage.warning('地址解析服务初始化失败，但坐标已保存')
+        // 尝试使用浏览器原生反向地理编码
+        tryBrowserReverseGeocode(lnglat)
       }
+    }
+    
+    // 尝试使用浏览器原生反向地理编码
+    const tryBrowserReverseGeocode = (lnglat) => {
+      // 尝试使用免费的Nominatim服务作为备用方案
+      tryNominatimGeocode(lnglat)
+    }
+    
+    // 使用Nominatim免费地理编码服务
+    const tryNominatimGeocode = async (lnglat) => {
+      try {
+        const lat = lnglat.getLat()
+        const lng = lnglat.getLng()
+        const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`
+        
+        const response = await fetch(url)
+        const data = await response.json()
+        
+        if (data.display_name) {
+          const address = data.display_name
+          selectedAddress.value = address
+          emit('update:address', address)
+          emit('change', {
+            address,
+            longitude: lnglat.getLng(),
+            latitude: lnglat.getLat()
+          })
+          debugInfo.value = `地址解析成功（备用服务）: ${address}`
+          ElMessage.success('地址解析成功（备用服务）')
+        } else {
+          handleGeocodeFailure(lnglat)
+        }
+      } catch (error) {
+        console.error('备用地理编码服务失败:', error)
+        handleGeocodeFailure(lnglat)
+      }
+    }
+    
+    // 处理地理编码失败的情况
+    const handleGeocodeFailure = (lnglat) => {
+      debugInfo.value = `地址解析服务不可用，请手动输入地址或联系管理员配置API密钥`
+      
+      // 提示用户手动输入地址
+      ElMessage.warning('地址解析服务暂时不可用，请手动输入详细地址')
+      
+      // 设置一个默认地址格式，用户可以编辑
+      const defaultAddress = `经度: ${lnglat.getLng().toFixed(6)}, 纬度: ${lnglat.getLat().toFixed(6)}`
+      selectedAddress.value = defaultAddress
+      emit('update:address', defaultAddress)
+      emit('change', {
+        address: defaultAddress,
+        longitude: lnglat.getLng(),
+        latitude: lnglat.getLat()
+      })
+    }
+    
+    // 处理地址输入
+    const onAddressInput = (value) => {
+      selectedAddress.value = value
+      emit('update:address', value)
+      emit('change', {
+        address: value,
+        longitude: selectedLongitude.value,
+        latitude: selectedLatitude.value
+      })
     }
     
     // 地理编码（地址转坐标）
@@ -323,16 +386,18 @@ export default {
           (position) => {
             const lat = position.coords.latitude
             const lng = position.coords.longitude
-            const lnglat = [lng, lat]
-            
-            map.value.setCenter(lnglat)
-            updateMarkerPosition(lnglat)
             
             debugInfo.value = `浏览器定位成功: ${lng}, ${lat}`
             ElMessage.success('定位成功，正在解析地址...')
             
-            // 创建高德地图LngLat对象进行逆地理编码
+            // 创建高德地图LngLat对象
             const amapLnglat = new AMapInstance.value.LngLat(lng, lat)
+            
+            // 更新地图中心点和标记位置
+            map.value.setCenter(amapLnglat)
+            updateMarkerPosition(amapLnglat)
+            
+            // 进行逆地理编码
             reverseGeocode(amapLnglat)
           },
           (error) => {
@@ -373,11 +438,13 @@ export default {
           
           if (status === 'complete') {
             const lnglat = result.position
-            map.value.setCenter(lnglat)
-            updateMarkerPosition(lnglat)
             
             debugInfo.value = `高德地图定位成功: ${lnglat.getLng()}, ${lnglat.getLat()}`
             ElMessage.success('定位成功，正在解析地址...')
+            
+            // 更新地图中心点和标记位置
+            map.value.setCenter(lnglat)
+            updateMarkerPosition(lnglat)
             
             // 高德地图定位返回的已经是LngLat对象，直接使用
             reverseGeocode(lnglat)
@@ -430,6 +497,7 @@ export default {
       selectedLatitude,
       searchLocation,
       getCurrentLocation,
+      onAddressInput,
       debugInfo
     }
   }
@@ -483,5 +551,11 @@ export default {
   border-radius: 4px;
   font-size: 12px;
   color: #606266;
+}
+
+.address-tip {
+  margin-top: 5px;
+  color: #909399;
+  font-size: 12px;
 }
 </style> 

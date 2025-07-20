@@ -1,6 +1,7 @@
 package com.sportvenue.venue.controller;
 
 import com.sportvenue.common.model.ApiResponse;
+import com.sportvenue.venue.config.JwtConfig;
 import com.sportvenue.venue.entity.User;
 import com.sportvenue.venue.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,6 +28,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private JwtConfig jwtConfig;
 
     /**
      * 创建用户
@@ -184,6 +188,131 @@ public class UserController {
     public ApiResponse<User> getCurrentUser(@RequestParam String token) {
         log.info("获取当前用户信息请求");
         return userService.getCurrentUser(token);
+    }
+
+    /**
+     * 获取当前用户个人信息
+     */
+    @Operation(summary = "获取当前用户个人信息", description = "获取当前登录用户的个人信息")
+    @GetMapping("/profile")
+    public ApiResponse<User> getUserProfile(@RequestHeader("Authorization") String token) {
+        log.info("获取用户个人信息请求");
+        try {
+            if (token == null || !token.startsWith("Bearer ")) {
+                return ApiResponse.error("无效的token");
+            }
+            
+            String actualToken = token.substring(7);
+            
+            // 从token中获取用户信息
+            String username = jwtConfig.getUsernameFromToken(actualToken);
+            Long userId = jwtConfig.getUserIdFromToken(actualToken);
+            
+            if (username == null || userId == null) {
+                return ApiResponse.error("token解析失败");
+            }
+            
+            // 验证token是否过期
+            if (jwtConfig.isTokenExpired(actualToken)) {
+                return ApiResponse.error("token已过期");
+            }
+            
+            // 获取用户详细信息
+            ApiResponse<User> userResult = userService.getUserById(userId);
+            if (userResult.getCode() == 200) {
+                User user = userResult.getData();
+                // 清除敏感信息
+                user.setPassword(null);
+                return ApiResponse.success(user);
+            } else {
+                return userResult;
+            }
+        } catch (Exception e) {
+            log.error("获取用户个人信息失败：{}", e.getMessage(), e);
+            return ApiResponse.error("获取用户个人信息失败：" + e.getMessage());
+        }
+    }
+
+    /**
+     * 更新当前用户个人信息
+     */
+    @Operation(summary = "更新当前用户个人信息", description = "更新当前登录用户的个人信息")
+    @PutMapping("/profile")
+    public ApiResponse<User> updateUserProfile(@RequestHeader("Authorization") String token, @RequestBody User userUpdate) {
+        log.info("更新用户个人信息请求");
+        try {
+            if (token == null || !token.startsWith("Bearer ")) {
+                return ApiResponse.error("无效的token");
+            }
+            
+            String actualToken = token.substring(7);
+            
+            // 从token中获取用户信息
+            String username = jwtConfig.getUsernameFromToken(actualToken);
+            Long userId = jwtConfig.getUserIdFromToken(actualToken);
+            
+            if (username == null || userId == null) {
+                return ApiResponse.error("token解析失败");
+            }
+            
+            // 验证token是否过期
+            if (jwtConfig.isTokenExpired(actualToken)) {
+                return ApiResponse.error("token已过期");
+            }
+            
+            // 只能更新自己的信息
+            if (!userId.equals(userUpdate.getId())) {
+                return ApiResponse.error("只能更新自己的个人信息");
+            }
+            
+            // 获取当前用户信息，确保保留原有字段
+            ApiResponse<User> currentUserResult = userService.getUserById(userId);
+            if (currentUserResult.getCode() != 200) {
+                return currentUserResult;
+            }
+            
+            User currentUser = currentUserResult.getData();
+            
+            // 只更新允许修改的字段，保留敏感字段和必填字段
+            if (userUpdate.getRealName() != null) {
+                currentUser.setRealName(userUpdate.getRealName());
+            }
+            if (userUpdate.getPhone() != null) {
+                currentUser.setPhone(userUpdate.getPhone());
+            }
+            if (userUpdate.getEmail() != null) {
+                currentUser.setEmail(userUpdate.getEmail());
+            }
+            if (userUpdate.getAvatar() != null) {
+                currentUser.setAvatar(userUpdate.getAvatar());
+            }
+            if (userUpdate.getRemark() != null) {
+                currentUser.setRemark(userUpdate.getRemark());
+            }
+            if (userUpdate.getStatus() != null) {
+                currentUser.setStatus(userUpdate.getStatus());
+            }
+            if (userUpdate.getMemberLevel() != null) {
+                currentUser.setMemberLevel(userUpdate.getMemberLevel());
+            }
+            if (userUpdate.getPoints() != null) {
+                currentUser.setPoints(userUpdate.getPoints());
+            }
+            
+            // 更新用户信息
+            ApiResponse<User> updateResult = userService.updateUser(userId, currentUser);
+            if (updateResult.getCode() == 200) {
+                User updatedUser = updateResult.getData();
+                // 清除敏感信息
+                updatedUser.setPassword(null);
+                return ApiResponse.success(updatedUser);
+            } else {
+                return updateResult;
+            }
+        } catch (Exception e) {
+            log.error("更新用户个人信息失败：{}", e.getMessage(), e);
+            return ApiResponse.error("更新用户个人信息失败：" + e.getMessage());
+        }
     }
 
     /**

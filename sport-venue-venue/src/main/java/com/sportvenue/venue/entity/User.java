@@ -1,5 +1,7 @@
 package com.sportvenue.venue.entity;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -168,6 +170,48 @@ public class User {
         public String getDescription() {
             return description;
         }
+        
+        /**
+         * JSON反序列化器 - 支持大小写不敏感
+         */
+        @JsonCreator
+        public static UserType fromString(String value) {
+            if (value == null) {
+                return C_USER; // 默认值
+            }
+            
+            // 转换为大写进行比较
+            String upperValue = value.toUpperCase();
+            
+            switch (upperValue) {
+                case "B_MERCHANT":
+                case "MERCHANT":
+                case "B端商户":
+                    return B_MERCHANT;
+                case "B_STAFF":
+                case "STAFF":
+                case "B端员工":
+                    return B_STAFF;
+                case "C_USER":
+                case "USER":
+                case "C端用户":
+                    return C_USER;
+                case "ADMIN":
+                case "系统管理员":
+                    return ADMIN;
+                default:
+                    // 如果无法识别，返回默认值
+                    return C_USER;
+            }
+        }
+        
+        /**
+         * JSON序列化器
+         */
+        @JsonValue
+        public String toValue() {
+            return this.name();
+        }
     }
     
     /**
@@ -186,6 +230,44 @@ public class User {
         
         public String getDescription() {
             return description;
+        }
+        
+        /**
+         * JSON反序列化器 - 支持大小写不敏感
+         */
+        @JsonCreator
+        public static UserStatus fromString(String value) {
+            if (value == null) {
+                return ACTIVE; // 默认值
+            }
+            
+            // 转换为大写进行比较
+            String upperValue = value.toUpperCase();
+            
+            switch (upperValue) {
+                case "ACTIVE":
+                case "NORMAL":
+                case "正常":
+                    return ACTIVE;
+                case "INACTIVE":
+                case "DISABLED":
+                case "停用":
+                    return INACTIVE;
+                case "LOCKED":
+                case "锁定":
+                    return LOCKED;
+                default:
+                    // 如果无法识别，返回默认值
+                    return ACTIVE;
+            }
+        }
+        
+        /**
+         * JSON序列化器
+         */
+        @JsonValue
+        public String toValue() {
+            return this.name();
         }
     }
     
@@ -213,6 +295,48 @@ public class User {
         
         public Integer getMinPoints() {
             return minPoints;
+        }
+        
+        /**
+         * JSON反序列化器 - 支持大小写不敏感
+         */
+        @JsonCreator
+        public static MemberLevel fromString(String value) {
+            if (value == null) {
+                return BRONZE; // 默认值
+            }
+            
+            // 转换为大写进行比较
+            String upperValue = value.toUpperCase();
+            
+            switch (upperValue) {
+                case "BRONZE":
+                case "青铜":
+                    return BRONZE;
+                case "SILVER":
+                case "白银":
+                    return SILVER;
+                case "GOLD":
+                case "黄金":
+                    return GOLD;
+                case "PLATINUM":
+                case "铂金":
+                    return PLATINUM;
+                case "DIAMOND":
+                case "钻石":
+                    return DIAMOND;
+                default:
+                    // 如果无法识别，返回默认值
+                    return BRONZE;
+            }
+        }
+        
+        /**
+         * JSON序列化器
+         */
+        @JsonValue
+        public String toValue() {
+            return this.name();
         }
     }
 } 

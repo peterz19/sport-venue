@@ -66,6 +66,12 @@ request.interceptors.response.use(
       return Promise.reject(error)
     }
     
+    // 对于404错误，显示错误消息
+    if (error.response && error.response.status === 404) {
+      ElMessage.error("请求的资源不存在")
+      return Promise.reject(error)
+    }
+    
     ElMessage.error(error.message || "网络错误")
     return Promise.reject(error)
   }
