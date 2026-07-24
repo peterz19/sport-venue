@@ -128,3 +128,117 @@ export const salesApi = {
     return request({ url: "/business/venues/mine", method: "get" })
   }
 }
+
+export const staffApi = {
+  list() {
+    return request({ url: "/business/staff", method: "get" })
+  },
+  options() {
+    return request({ url: "/business/staff/options", method: "get" })
+  },
+  create(data) {
+    return request({ url: "/business/staff", method: "post", data })
+  },
+  update(id, data) {
+    return request({ url: `/business/staff/${id}`, method: "put", data })
+  },
+  updateStatus(id, status) {
+    return request({ url: `/business/staff/${id}/status`, method: "put", data: { status } })
+  },
+  resetPassword(id, password) {
+    return request({ url: `/business/staff/${id}/password`, method: "put", data: { password } })
+  }
+}
+
+export const performanceApi = {
+  me(params) {
+    return request({ url: "/business/performance/me", method: "get", params })
+  },
+  rank(params) {
+    return request({ url: "/business/performance/staff", method: "get", params })
+  },
+  staff(id, params) {
+    return request({ url: `/business/performance/staff/${id}`, method: "get", params })
+  }
+}
+
+export const courtApi = {
+  list(params) {
+    return request({ url: "/business/courts", method: "get", params })
+  },
+  options(params) {
+    return request({ url: "/business/courts/options", method: "get", params })
+  },
+  create(data) {
+    return request({ url: "/business/courts", method: "post", data })
+  },
+  update(id, data) {
+    return request({ url: `/business/courts/${id}`, method: "put", data })
+  },
+  updateStatus(id, status) {
+    return request({ url: `/business/courts/${id}/status`, method: "put", data: { status } })
+  }
+}
+
+export const teamApi = {
+  list() {
+    return request({ url: "/business/teams", method: "get" })
+  },
+  options() {
+    return request({ url: "/business/teams/options", method: "get" })
+  },
+  detail(id) {
+    return request({ url: `/business/teams/${id}`, method: "get" })
+  },
+  create(data) {
+    return request({ url: "/business/teams", method: "post", data })
+  },
+  update(id, data) {
+    return request({ url: `/business/teams/${id}`, method: "put", data })
+  },
+  changeLiaison(id, data) {
+    return request({ url: `/business/teams/${id}/liaison`, method: "put", data })
+  },
+  updateStatus(id, status) {
+    return request({ url: `/business/teams/${id}/status`, method: "put", data: { status } })
+  },
+  audits(id) {
+    return request({ url: `/business/teams/${id}/audits`, method: "get" })
+  }
+}
+
+export const bookingApi = {
+  calendar(params) {
+    return request({ url: "/business/bookings/calendar", method: "get", params })
+  },
+  list(params) {
+    return request({ url: "/business/bookings", method: "get", params })
+  },
+  detail(id) {
+    return request({ url: `/business/bookings/${id}`, method: "get" })
+  },
+  create(data) {
+    return request({ url: "/business/bookings", method: "post", data })
+  },
+  cancel(id, data = {}) {
+    return request({ url: `/business/bookings/${id}/cancel`, method: "post", data })
+  },
+  complete(id) {
+    return request({ url: `/business/bookings/${id}/complete`, method: "post" })
+  }
+}
+
+export const matchApi = {
+  list() {
+    return request({ url: "/business/matches", method: "get" })
+  },
+  ranking() {
+    return request({ url: "/business/matches/ranking", method: "get" })
+  },
+  create(data) {
+    return request({ url: "/business/matches", method: "post", data })
+  },
+  update(id, data) {
+    return request({ url: `/business/matches/${id}`, method: "put", data })
+  }
+}

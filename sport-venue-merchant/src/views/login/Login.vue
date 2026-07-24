@@ -94,7 +94,9 @@ export default {
           merchantName: data.merchantName || `商户${data.merchantId}`,
           userId: data.userId,
           username: data.username,
-          userType: data.userType
+          userType: data.userType,
+          role: data.role || (data.userType === "B_MERCHANT" ? "OWNER" : "STAFF"),
+          realName: data.realName || data.username
         }
         localStorage.setItem("merchantInfo", JSON.stringify(merchantInfo))
         ElMessage.success("登录成功")

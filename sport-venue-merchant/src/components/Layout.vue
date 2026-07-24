@@ -20,9 +20,45 @@
           <el-icon><Goods /></el-icon>
           <span>商品管理</span>
         </el-menu-item>
+        <el-menu-item index="/booking/calendar">
+          <el-icon><Calendar /></el-icon>
+          <span>订场日历</span>
+        </el-menu-item>
+        <el-menu-item index="/booking/list">
+          <el-icon><List /></el-icon>
+          <span>订场列表</span>
+        </el-menu-item>
+        <el-menu-item index="/matches">
+          <el-icon><Trophy /></el-icon>
+          <span>赛果管理</span>
+        </el-menu-item>
+        <el-menu-item index="/courts">
+          <el-icon><Grid /></el-icon>
+          <span>片场管理</span>
+        </el-menu-item>
+        <el-menu-item index="/teams">
+          <el-icon><User /></el-icon>
+          <span>球队管理</span>
+        </el-menu-item>
+        <el-menu-item index="/ranking/teams">
+          <el-icon><Medal /></el-icon>
+          <span>球队排行榜</span>
+        </el-menu-item>
         <el-menu-item index="/sales/daily">
           <el-icon><TrendCharts /></el-icon>
           <span>销售报表</span>
+        </el-menu-item>
+        <el-menu-item index="/performance/me">
+          <el-icon><UserFilled /></el-icon>
+          <span>我的业绩</span>
+        </el-menu-item>
+        <el-menu-item v-if="isOwner" index="/performance/staff">
+          <el-icon><DataAnalysis /></el-icon>
+          <span>员工业绩</span>
+        </el-menu-item>
+        <el-menu-item v-if="isOwner" index="/staff">
+          <el-icon><Avatar /></el-icon>
+          <span>员工管理</span>
         </el-menu-item>
         <el-menu-item index="/dashboard">
           <el-icon><DataBoard /></el-icon>
@@ -44,7 +80,10 @@
           </el-breadcrumb>
         </div>
         <div class="header-right">
-          <span class="merchant-info">{{ merchantInfo.merchantName }}</span>
+          <span class="merchant-info">
+            {{ merchantInfo.merchantName }} · {{ displayName }}
+            <el-tag size="small" style="margin-left: 8px">{{ roleLabel }}</el-tag>
+          </span>
           <el-dropdown @command="handleCommand">
             <span class="user-info">
               <el-icon><User /></el-icon>
@@ -69,7 +108,10 @@
 import { computed } from "vue"
 import { useRouter } from "vue-router"
 import { ElMessageBox } from "element-plus"
-import { DataBoard, Location, User, ShoppingCart, Goods, TrendCharts } from "@element-plus/icons-vue"
+import {
+  DataBoard, Location, User, ShoppingCart, Goods, TrendCharts,
+  Avatar, UserFilled, DataAnalysis, Calendar, List, Trophy, Grid, Medal
+} from "@element-plus/icons-vue"
 import { authApi } from "@/api"
 
 export default {
@@ -80,7 +122,15 @@ export default {
     User,
     ShoppingCart,
     Goods,
-    TrendCharts
+    TrendCharts,
+    Avatar,
+    UserFilled,
+    DataAnalysis,
+    Calendar,
+    List,
+    Trophy,
+    Grid,
+    Medal
   },
   setup() {
     const router = useRouter()
@@ -88,6 +138,17 @@ export default {
     const merchantInfo = computed(() => {
       return JSON.parse(localStorage.getItem("merchantInfo") || "{}")
     })
+
+    const isOwner = computed(() => {
+      const info = merchantInfo.value
+      return info.role === "OWNER" || info.userType === "B_MERCHANT"
+    })
+
+    const displayName = computed(() => {
+      return merchantInfo.value.realName || merchantInfo.value.username || "-"
+    })
+
+    const roleLabel = computed(() => (isOwner.value ? "老板" : "店员"))
 
     const handleCommand = async (command) => {
       if (command === "logout") {
@@ -112,6 +173,9 @@ export default {
 
     return {
       merchantInfo,
+      isOwner,
+      displayName,
+      roleLabel,
       handleCommand
     }
   }
@@ -169,6 +233,8 @@ export default {
 .merchant-info {
   color: #606266;
   font-weight: 500;
+  display: flex;
+  align-items: center;
 }
 
 .user-info {

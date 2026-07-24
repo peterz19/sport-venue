@@ -227,6 +227,7 @@ public class SalesServiceImpl implements SalesService {
                                                        String payMethod, int page, int size) {
         try {
             Long merchantId = SecurityUtils.requireMerchantId();
+            Long operatorFilter = SecurityUtils.isOwner() ? null : SecurityUtils.currentUserId();
             LocalDate day = parseDate(date);
             LocalDateTime start = day == null ? null : day.atStartOfDay();
             LocalDateTime end = day == null ? null : day.plusDays(1).atStartOfDay();
@@ -236,7 +237,7 @@ public class SalesServiceImpl implements SalesService {
                     ? SalesOrder.PayMethod.valueOf(payMethod.toUpperCase()) : null;
 
             Page<SalesOrder> orders = salesOrderRepository.searchOrders(
-                    merchantId, venueId, statusEnum, payEnum, start, end, PageRequest.of(page, size));
+                    merchantId, venueId, statusEnum, payEnum, operatorFilter, start, end, PageRequest.of(page, size));
             Map<Long, String> venueNames = venueRepository.findByMerchantId(merchantId).stream()
                     .collect(Collectors.toMap(Venue::getId, Venue::getName, (a, b) -> a));
 
@@ -254,9 +255,10 @@ public class SalesServiceImpl implements SalesService {
     public ApiResponse<DailySummaryDTO> dailySummary(String date, Long venueId) {
         try {
             Long merchantId = SecurityUtils.requireMerchantId();
+            Long operatorFilter = SecurityUtils.isOwner() ? null : SecurityUtils.currentUserId();
             LocalDate day = parseDateRequired(date);
             List<SalesOrder> orders = salesOrderRepository.findPaidOrdersInRange(
-                    merchantId, venueId, day.atStartOfDay(), day.plusDays(1).atStartOfDay(),
+                    merchantId, venueId, operatorFilter, day.atStartOfDay(), day.plusDays(1).atStartOfDay(),
                     SalesOrder.OrderStatus.PAID);
 
             BigDecimal totalAmount = BigDecimal.ZERO;
@@ -300,9 +302,10 @@ public class SalesServiceImpl implements SalesService {
     public ApiResponse<DailyProductReportDTO> dailyProducts(String date, Long venueId) {
         try {
             Long merchantId = SecurityUtils.requireMerchantId();
+            Long operatorFilter = SecurityUtils.isOwner() ? null : SecurityUtils.currentUserId();
             LocalDate day = parseDateRequired(date);
             List<SalesOrder> orders = salesOrderRepository.findPaidOrdersInRange(
-                    merchantId, venueId, day.atStartOfDay(), day.plusDays(1).atStartOfDay(),
+                    merchantId, venueId, operatorFilter, day.atStartOfDay(), day.plusDays(1).atStartOfDay(),
                     SalesOrder.OrderStatus.PAID);
             if (orders.isEmpty()) {
                 return ApiResponse.success(DailyProductReportDTO.builder()

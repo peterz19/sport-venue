@@ -21,6 +21,7 @@ public interface SalesOrderRepository extends JpaRepository<SalesOrder, Long> {
            "AND (:venueId IS NULL OR o.venueId = :venueId) " +
            "AND (:status IS NULL OR o.status = :status) " +
            "AND (:payMethod IS NULL OR o.payMethod = :payMethod) " +
+           "AND (:operatorId IS NULL OR o.operatorId = :operatorId) " +
            "AND (:start IS NULL OR o.paidAt >= :start) " +
            "AND (:end IS NULL OR o.paidAt < :end) " +
            "ORDER BY o.createTime DESC")
@@ -28,6 +29,7 @@ public interface SalesOrderRepository extends JpaRepository<SalesOrder, Long> {
                                   @Param("venueId") Long venueId,
                                   @Param("status") SalesOrder.OrderStatus status,
                                   @Param("payMethod") SalesOrder.PayMethod payMethod,
+                                  @Param("operatorId") Long operatorId,
                                   @Param("start") LocalDateTime start,
                                   @Param("end") LocalDateTime end,
                                   Pageable pageable);
@@ -35,9 +37,22 @@ public interface SalesOrderRepository extends JpaRepository<SalesOrder, Long> {
     @Query("SELECT o FROM SalesOrder o WHERE o.merchantId = :merchantId " +
            "AND o.status = :paidStatus " +
            "AND (:venueId IS NULL OR o.venueId = :venueId) " +
+           "AND (:operatorId IS NULL OR o.operatorId = :operatorId) " +
            "AND o.paidAt >= :start AND o.paidAt < :end")
     List<SalesOrder> findPaidOrdersInRange(@Param("merchantId") Long merchantId,
                                            @Param("venueId") Long venueId,
+                                           @Param("operatorId") Long operatorId,
+                                           @Param("start") LocalDateTime start,
+                                           @Param("end") LocalDateTime end,
+                                           @Param("paidStatus") SalesOrder.OrderStatus paidStatus);
+
+    @Query("SELECT o.operatorId, COUNT(o), COALESCE(SUM(o.totalAmount), 0), COALESCE(SUM(o.totalQty), 0) " +
+           "FROM SalesOrder o WHERE o.merchantId = :merchantId " +
+           "AND o.status = :paidStatus " +
+           "AND o.paidAt >= :start AND o.paidAt < :end " +
+           "AND o.operatorId IS NOT NULL " +
+           "GROUP BY o.operatorId")
+    List<Object[]> aggregatePaidByOperator(@Param("merchantId") Long merchantId,
                                            @Param("start") LocalDateTime start,
                                            @Param("end") LocalDateTime end,
                                            @Param("paidStatus") SalesOrder.OrderStatus paidStatus);

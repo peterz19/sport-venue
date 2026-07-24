@@ -34,6 +34,12 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
      */
     List<User> findByMerchantId(Long merchantId);
 
+    List<User> findByMerchantIdAndUserTypeIn(Long merchantId, List<User.UserType> userTypes);
+
+    List<User> findByMerchantIdAndUserTypeInAndStatus(Long merchantId, List<User.UserType> userTypes, User.UserStatus status);
+
+    Optional<User> findByIdAndMerchantId(Long id, Long merchantId);
+
     /**
      * 根据用户状态查找用户列表
      */

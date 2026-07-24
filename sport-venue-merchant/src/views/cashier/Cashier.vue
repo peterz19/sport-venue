@@ -97,7 +97,7 @@ export default {
     const activeCategory = ref("全部")
 
     const merchantInfo = JSON.parse(localStorage.getItem("merchantInfo") || "{}")
-    const operatorName = merchantInfo.username || merchantInfo.merchantName || "-"
+    const operatorName = merchantInfo.realName || merchantInfo.username || merchantInfo.merchantName || "-"
 
     const categories = computed(() => {
       const set = new Set()

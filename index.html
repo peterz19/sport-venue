@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>爱马仕新品检测工具</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: #000;
+            color: #fff;
+            padding: 25px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .logo {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            color: #e6c9a8;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+
+        .url {
+            font-size: 0.9rem;
+            word-break: break-all;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+
+        .main-content {
+            padding: 30px;
+        }
+
+        .status-card {
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: center;
+            border-left: 4px solid #e6c9a8;
+        }
+
+        .status-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .status {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #e6c9a8;
+            margin: 15px 0;
+        }
+
+        .new-products {
+            color: #d9534f;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            background: #000;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #333;
+            transform: translateY(-2px);
+        }
+
+        .check-now {
+            background: #e6c9a8;
+            color: #000;
+        }
+
+        .check-now:hover {
+            background: #d4b08c;
+        }
+
+        .history {
+            margin-top: 40px;
+        }
+
+        .history h2 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            color: #555;
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+        }
+
+        .history-time {
+            font-weight: bold;
+            color: #777;
+        }
+
+        .history-status {
+            font-weight: bold;
+        }
+
+        .has-new {
+            color: #d9534f;
+        }
+
+        .no-new {
+            color: #5cb85c;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #d9534f;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transform: translateX(100%);
+            transition: transform 0.4s ease;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .frequency {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .frequency input {
+            padding: 10px;
+            width: 70px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+            color: #777;
+            background: #f9f9f9;
+            border-top: 1px solid #eee;
+        }
+
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <div class="logo">HERMÈS</div>
+        <h1>新品检测工具</h1>
+        <p class="subtitle">监控爱马仕男士包袋和小皮革制品的新品上线情况</p>
+        <div class="url">https://www.hermes.com/jp/ja/category/men/bags-and-small-leather-goods/bags/</div>
+    </header>
+
+    <div class="main-content">
+        <div class="status-card">
+            <div class="status-title">当前状态</div>
+            <div class="status" id="current-status">正在检查...</div>
+            <div id="product-count">已加载产品: --</div>
+        </div>
+
+        <div class="frequency">
+            <label>检查频率: 每 <input type="number" id="check-frequency" min="1" max="60" value="5"> 分钟</label>
+        </div>
+
+        <div class="controls">
+            <button class="check-now" id="check-now">立即检查</button>
+            <button id="toggle-monitoring">暂停监控</button>
+        </div>
+
+        <div class="history">
+            <h2>检查历史</h2>
+            <div id="history-list">
+                <!-- 历史记录将在这里动态生成 -->
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>此工具仅用于演示目的，实际产品检测可能需要后端服务支持</p>
+        <p>© 2023 爱马仕新品检测工具</p>
+    </footer>
+</div>
+
+<div class="notification" id="notification">
+    检测到新品上线！
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const statusElement = document.getElementById('current-status');
+        const productCountElement = document.getElementById('product-count');
+        const checkNowButton = document.getElementById('check-now');
+        const toggleMonitoringButton = document.getElementById('toggle-monitoring');
+        const historyList = document.getElementById('history-list');
+        const notification = document.getElementById('notification');
+        const frequencyInput = document.getElementById('check-frequency');
+
+        let monitoringInterval;
+        let isMonitoring = true;
+        let checkFrequency = 5;
+
+        // 模拟产品数据
+        let previousProducts = generateRandomProducts(12);
+        let currentProducts = [...previousProducts];
+
+        // 初始化
+        updateProductCount();
+        startMonitoring();
+        addHistoryItem('初始产品加载', previousProducts.length);
+
+        // 立即检查按钮
+        checkNowButton.addEventListener('click', function() {
+            checkForNewProducts();
+        });
+
+        // 切换监控按钮
+        toggleMonitoringButton.addEventListener('click', function() {
+            isMonitoring = !isMonitoring;
+
+            if (isMonitoring) {
+                startMonitoring();
+                toggleMonitoringButton.textContent = '暂停监控';
+            } else {
+                stopMonitoring();
+                toggleMonitoringButton.textContent = '开始监控';
+            }
+        });
+
+        // 频率更改
+        frequencyInput.addEventListener('change', function() {
+            checkFrequency = Math.max(1, Math.min(60, parseInt(this.value) || 5));
+            if (isMonitoring) {
+                stopMonitoring();
+                startMonitoring();
+            }
+        });
+
+        // 开始监控
+        function startMonitoring() {
+            stopMonitoring();
+            monitoringInterval = setInterval(checkForNewProducts, checkFrequency * 60 * 1000);
+        }
+
+        // 停止监控
+        function stopMonitoring() {
+            if (monitoringInterval) {
+                clearInterval(monitoringInterval);
+            }
+        }
+
+        // 检查新产品
+        function checkForNewProducts() {
+            statusElement.textContent = '检查中...';
+
+            // 模拟网络请求延迟
+            setTimeout(() => {
+                // 随机决定是否添加新产品
+                if (Math.random() > 0.7) {
+                    // 添加1-3个新产品
+                    const newCount = Math.floor(Math.random() * 3) + 1;
+                    for (let i = 0; i < newCount; i++) {
+                        currentProducts.push(generateRandomProduct());
+                    }
+
+                    statusElement.innerHTML = '<span class="new-products">发现新品!</span>';
+                    productCountElement.textContent = `已加载产品: ${currentProducts.length} (新增 ${newCount} 个)`;
+
+                    // 显示通知
+                    showNotification();
+
+                    addHistoryItem(`发现 ${newCount} 个新品`, currentProducts.length);
+                } else {
+                    statusElement.textContent = '暂无新品';
+                    productCountElement.textContent = `已加载产品: ${currentProducts.length}`;
+                    addHistoryItem('无新品', currentProducts.length);
+                }
+            }, 1500);
+        }
+
+        // 显示通知
+        function showNotification() {
+            notification.classList.add('show');
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 5000);
+        }
+
+        // 添加历史记录
+        function addHistoryItem(status, count) {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString();
+            const dateString = now.toLocaleDateString();
+
+            const historyItem = document.createElement('div');
+            historyItem.classList.add('history-item');
+
+            const statusClass = status.includes('新品') ? 'has-new' : 'no-new';
+
+            historyItem.innerHTML = `
+                    <div class="history-time">${dateString} ${timeString}</div>
+                    <div class="history-status ${statusClass}">${status}</div>
+                    <div>产品数: ${count}</div>
+                `;
+
+            historyList.insertBefore(historyItem, historyList.firstChild);
+
+            // 限制历史记录数量
+            if (historyList.children.length > 10) {
+                historyList.removeChild(historyList.lastChild);
+            }
+        }
+
+        // 更新产品计数
+        function updateProductCount() {
+            productCountElement.textContent = `已加载产品: ${currentProducts.length}`;
+        }
+
+        // 生成随机产品
+        function generateRandomProduct() {
+            const brands = ['Birkin', 'Kelly', 'Constance', 'Evelyne', 'Herbag', 'Lindy', 'Picotin', 'Jypsiere'];
+            const materials = ['小牛皮', '鳄鱼皮', '鸵鸟皮', '山羊皮', '帆布'];
+            const colors = ['黑色', '金色', '大象灰', '勃艮第红', '深蓝色', '绿色', '橙色'];
+
+            return {
+                name: `${brands[Math.floor(Math.random() * brands.length)]} ${Math.floor(Math.random() * 40) + 20}`,
+                material: materials[Math.floor(Math.random() * materials.length)],
+                color: colors[Math.floor(Math.random() * colors.length)],
+                price: `${Math.floor(Math.random() * 10000) + 5000} USD`
+            };
+        }
+
+        // 生成多个随机产品
+        function generateRandomProducts(count) {
+            const products = [];
+            for (let i = 0; i < count; i++) {
+                products.push(generateRandomProduct());
+            }
+            return products;
+        }
+    });
+</script>
+</body>
+</html>

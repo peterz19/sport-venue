@@ -42,4 +42,17 @@ public final class SecurityUtils {
         }
         return user.getUsername();
     }
+
+    /** 产品角色：老板 */
+    public static boolean isOwner() {
+        User user = requireCurrentUser();
+        return user.getUserType() == User.UserType.B_MERCHANT
+                || user.getUserType() == User.UserType.ADMIN;
+    }
+
+    public static void requireOwner() {
+        if (!isOwner()) {
+            throw new BusinessException(403, "仅老板可执行此操作");
+        }
+    }
 }

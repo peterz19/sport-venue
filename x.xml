@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transaction>
+    <header>
+        <msg>
+            <sndAppCd>SCIS</sndAppCd>
+            <sndDt>20251105</sndDt>
+            <sndTm>150803755</sndTm>
+            <seqNb>DCFP2511051082126457</seqNb>
+            <msgCd>SCIS.10010071.01</msgCd>
+            <callTyp>SYN</callTyp>
+            <replyToQ>REP.TCP.GWOUT</replyToQ>
+            <rcvAppCd>DCFP</rcvAppCd>
+            <refSeqNb>DCFP2511051082126457</refSeqNb>
+            <refMsgCd>SCIS.10010070.01</refMsgCd>
+            <refSndAppCd>DCFP</refSndAppCd>
+            <refSndDt>20251105</refSndDt>
+            <srcAppCd>DCFP</srcAppCd>
+            <srcNb>GDCFP202511057264108191</srcNb>
+        </msg>
+        <status>
+            <retCd>710313</retCd>
+            <appCd>SCIS</appCd>
+            <desc>710313</desc>
+            <ip>127.0.0.1</ip>
+        </status>
+    </header>
+    <body>
+        <response/>
+    </body>
+</transaction>

@@ -28,3 +28,8 @@
 `/business/sales/**`  
 `/business/venues/mine`  
 `/auth/merchant/login`
+
+组织经营相关 API 见：`../b-end-org/05-实现说明.md` 与 `../00-技术总览.md`。
+
+操作说明见：`../操作手册-商户端.md`。
+

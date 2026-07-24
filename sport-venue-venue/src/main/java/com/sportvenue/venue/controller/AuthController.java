@@ -93,6 +93,9 @@ public class AuthController {
                 result.put("merchantId", user.getMerchantId());
                 result.put("merchantName", user.getMerchantName());
                 result.put("userType", user.getUserType().name());
+                result.put("role", user.getUserType() == User.UserType.B_MERCHANT ? "OWNER" : 
+                        (user.getUserType() == User.UserType.B_STAFF ? "STAFF" : user.getUserType().name()));
+                result.put("realName", user.getRealName());
                 result.put("expiresIn", 86400);
                 
                 log.info("登录成功，用户名：{}，用户类型：{}", username, user.getUserType());
