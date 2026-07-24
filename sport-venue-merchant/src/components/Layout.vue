@@ -1,6 +1,5 @@
 <template>
   <el-container class="layout-container">
-    <!-- 侧边栏 -->
     <el-aside width="200px" class="aside">
       <div class="logo">
         <h2>商户管理</h2>
@@ -13,6 +12,18 @@
         text-color="#bfcbd9"
         active-text-color="#409EFF"
       >
+        <el-menu-item index="/cashier">
+          <el-icon><ShoppingCart /></el-icon>
+          <span>收银台</span>
+        </el-menu-item>
+        <el-menu-item index="/products">
+          <el-icon><Goods /></el-icon>
+          <span>商品管理</span>
+        </el-menu-item>
+        <el-menu-item index="/sales/daily">
+          <el-icon><TrendCharts /></el-icon>
+          <span>销售报表</span>
+        </el-menu-item>
         <el-menu-item index="/dashboard">
           <el-icon><DataBoard /></el-icon>
           <span>数据看板</span>
@@ -24,13 +35,11 @@
       </el-menu>
     </el-aside>
 
-    <!-- 主内容区 -->
     <el-container>
-      <!-- 顶部导航 -->
       <el-header class="header">
         <div class="header-left">
           <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/cashier' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item>{{ $route.meta.title }}</el-breadcrumb-item>
           </el-breadcrumb>
         </div>
@@ -42,7 +51,6 @@
             </span>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item command="profile">个人信息</el-dropdown-item>
                 <el-dropdown-item command="logout" divided>退出登录</el-dropdown-item>
               </el-dropdown-menu>
             </template>
@@ -50,7 +58,6 @@
         </div>
       </el-header>
 
-      <!-- 内容区 -->
       <el-main class="main">
         <router-view />
       </el-main>
@@ -59,21 +66,25 @@
 </template>
 
 <script>
-import { ref, computed } from "vue"
+import { computed } from "vue"
 import { useRouter } from "vue-router"
 import { ElMessageBox } from "element-plus"
-import { DataBoard, Location, User } from "@element-plus/icons-vue"
+import { DataBoard, Location, User, ShoppingCart, Goods, TrendCharts } from "@element-plus/icons-vue"
+import { authApi } from "@/api"
 
 export default {
   name: "Layout",
   components: {
     DataBoard,
     Location,
-    User
+    User,
+    ShoppingCart,
+    Goods,
+    TrendCharts
   },
   setup() {
     const router = useRouter()
-    
+
     const merchantInfo = computed(() => {
       return JSON.parse(localStorage.getItem("merchantInfo") || "{}")
     })
@@ -86,15 +97,16 @@ export default {
             cancelButtonText: "取消",
             type: "warning"
           })
-          
+          try {
+            await authApi.logout()
+          } catch (e) {
+            // ignore
+          }
           localStorage.removeItem("merchantInfo")
           router.push("/login")
         } catch (error) {
-          // 用户取消
+          // cancel
         }
-      } else if (command === "profile") {
-        // 处理个人信息
-        console.log("个人信息")
       }
     }
 
@@ -166,7 +178,6 @@ export default {
   color: #606266;
   padding: 8px;
   border-radius: 4px;
-  transition: background-color 0.3s;
 }
 
 .user-info:hover {
@@ -177,4 +188,4 @@ export default {
   background-color: #f0f2f5;
   padding: 20px;
 }
-</style> 
+</style>

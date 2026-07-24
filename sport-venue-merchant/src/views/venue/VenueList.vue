@@ -210,17 +210,20 @@ export default {
     const getVenueList = async () => {
       loading.value = true
       try {
-        const params = {
-          page: pagination.page - 1,
-          size: pagination.size,
-          ...searchForm
+        const data = await merchantVenueApi.getVenueList()
+        const all = Array.isArray(data) ? data : (data.content || [])
+        let filtered = all
+        if (searchForm.name) {
+          filtered = filtered.filter(v => (v.name || "").includes(searchForm.name))
         }
-        const data = await merchantVenueApi.getVenueList(params)
-        venueList.value = data.content || []
-        pagination.total = data.totalElements || 0
+        if (searchForm.status) {
+          filtered = filtered.filter(v => v.status === searchForm.status)
+        }
+        pagination.total = filtered.length
+        const start = (pagination.page - 1) * pagination.size
+        venueList.value = filtered.slice(start, start + pagination.size)
       } catch (error) {
         console.error("获取场馆列表失败:", error)
-        ElMessage.error("获取场馆列表失败")
       } finally {
         loading.value = false
       }
@@ -228,22 +231,22 @@ export default {
 
     // 获取场馆类型
     const getVenueTypes = async () => {
-      try {
-        const data = await merchantVenueApi.getVenueTypes()
-        venueTypes.value = data || []
-      } catch (error) {
-        console.error("获取场馆类型失败:", error)
-      }
+      venueTypes.value = [
+        { label: "公园", value: "PARK" },
+        { label: "机构", value: "INSTITUTION" },
+        { label: "体育场", value: "STADIUM" },
+        { label: "健身房", value: "GYM" },
+        { label: "其他", value: "OTHER" }
+      ]
     }
 
     // 获取场馆状态
     const getVenueStatuses = async () => {
-      try {
-        const data = await merchantVenueApi.getVenueStatuses()
-        venueStatuses.value = data || []
-      } catch (error) {
-        console.error("获取场馆状态失败:", error)
-      }
+      venueStatuses.value = [
+        { label: "正常", value: "ACTIVE" },
+        { label: "停用", value: "INACTIVE" },
+        { label: "维护中", value: "MAINTENANCE" }
+      ]
     }
 
     // 搜索

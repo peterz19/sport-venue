@@ -1,8 +1,6 @@
 import request from "@/utils/request"
 
-// 商户认证API
 export const authApi = {
-  // 商户登录
   login(data) {
     return request({
       url: "/auth/merchant/login",
@@ -11,35 +9,30 @@ export const authApi = {
     })
   },
 
-  // 商户登出
   logout() {
     return request({
-      url: "/auth/merchant/logout",
+      url: "/auth/logout",
       method: "post"
     })
   },
 
-  // 获取商户信息
   getMerchantInfo() {
     return request({
-      url: "/auth/merchant/info",
+      url: "/auth/user/info",
       method: "get"
     })
   }
 }
 
-// 商户场馆管理API
 export const merchantVenueApi = {
-  // 获取商户的场馆列表
   getVenueList(params) {
     return request({
-      url: "/venues/merchant",
+      url: "/business/venues/mine",
       method: "get",
       params
     })
   },
 
-  // 获取场馆详情
   getVenueById(id) {
     return request({
       url: `/venues/${id}`,
@@ -47,7 +40,6 @@ export const merchantVenueApi = {
     })
   },
 
-  // 更新场馆信息
   updateVenue(id, data) {
     return request({
       url: `/venues/${id}`,
@@ -56,7 +48,6 @@ export const merchantVenueApi = {
     })
   },
 
-  // 更新场馆状态
   updateVenueStatus(id, status) {
     return request({
       url: `/venues/${id}/status`,
@@ -65,7 +56,6 @@ export const merchantVenueApi = {
     })
   },
 
-  // 更新场馆使用人数
   updateVenueOccupancy(id, occupancy) {
     return request({
       url: `/venues/${id}/occupancy`,
@@ -74,20 +64,67 @@ export const merchantVenueApi = {
     })
   },
 
-  // 更新场馆评分
-  updateVenueRating(id, rating) {
-    return request({
-      url: `/venues/${id}/rating`,
-      method: "put",
-      params: { rating }
-    })
-  },
-
-  // 获取场馆统计数据
   getVenueStats() {
     return request({
-      url: "/venues/merchant/stats",
+      url: "/venues/statistics",
       method: "get"
     })
+  }
+}
+
+export const productApi = {
+  list(params) {
+    return request({ url: "/business/products", method: "get", params })
+  },
+  cashierList(venueId) {
+    return request({ url: "/business/products/cashier", method: "get", params: { venueId } })
+  },
+  categories() {
+    return request({ url: "/business/products/categories", method: "get" })
+  },
+  create(data) {
+    return request({ url: "/business/products", method: "post", data })
+  },
+  update(id, data) {
+    return request({ url: `/business/products/${id}`, method: "put", data })
+  },
+  updateStatus(id, status) {
+    return request({ url: `/business/products/${id}/status`, method: "put", data: { status } })
+  },
+  remove(id) {
+    return request({ url: `/business/products/${id}`, method: "delete" })
+  }
+}
+
+export const salesApi = {
+  preview(data) {
+    return request({ url: "/business/sales/preview", method: "post", data })
+  },
+  createOrder(data) {
+    return request({ url: "/business/sales/orders", method: "post", data })
+  },
+  payCash(orderId, data = {}) {
+    return request({ url: `/business/sales/orders/${orderId}/pay/cash`, method: "post", data })
+  },
+  cancelOrder(orderId, data = {}) {
+    return request({ url: `/business/sales/orders/${orderId}/cancel`, method: "post", data })
+  },
+  getOrder(id) {
+    return request({ url: `/business/sales/orders/${id}`, method: "get" })
+  },
+  getOrderStatus(id) {
+    return request({ url: `/business/sales/orders/${id}/status`, method: "get" })
+  },
+  listOrders(params) {
+    return request({ url: "/business/sales/orders", method: "get", params })
+  },
+  dailySummary(params) {
+    return request({ url: "/business/sales/daily/summary", method: "get", params })
+  },
+  dailyProducts(params) {
+    return request({ url: "/business/sales/daily/products", method: "get", params })
+  },
+  myVenues() {
+    return request({ url: "/business/venues/mine", method: "get" })
   }
 }

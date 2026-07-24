@@ -11,7 +11,7 @@ const routes = [
   {
     path: "/",
     component: Layout,
-    redirect: "/dashboard",
+    redirect: "/cashier",
     children: [
       {
         path: "/dashboard",
@@ -30,6 +30,36 @@ const routes = [
         name: "VenueDetail",
         component: () => import("@/views/venue/VenueDetail.vue"),
         meta: { title: "场馆详情", requiresAuth: true }
+      },
+      {
+        path: "/cashier",
+        name: "Cashier",
+        component: () => import("@/views/cashier/Cashier.vue"),
+        meta: { title: "收银台", requiresAuth: true }
+      },
+      {
+        path: "/cashier/pay/:orderId",
+        name: "CashierPay",
+        component: () => import("@/views/cashier/Pay.vue"),
+        meta: { title: "收款", requiresAuth: true }
+      },
+      {
+        path: "/products",
+        name: "ProductList",
+        component: () => import("@/views/products/ProductList.vue"),
+        meta: { title: "商品管理", requiresAuth: true }
+      },
+      {
+        path: "/sales/daily",
+        name: "SalesDaily",
+        component: () => import("@/views/sales/DailyReport.vue"),
+        meta: { title: "销售报表", requiresAuth: true }
+      },
+      {
+        path: "/sales/orders",
+        name: "SalesOrders",
+        component: () => import("@/views/sales/OrderList.vue"),
+        meta: { title: "订单明细", requiresAuth: true }
       }
     ]
   }
@@ -40,14 +70,18 @@ const router = createRouter({
   routes
 })
 
-// 路由守卫
 router.beforeEach((to, from, next) => {
   const merchantInfo = JSON.parse(localStorage.getItem("merchantInfo") || "{}")
-  
-  if (to.meta.requiresAuth && !merchantInfo.merchantId) {
+  const loggedIn = !!(merchantInfo.token && merchantInfo.merchantId)
+
+  if (to.meta.title) {
+    document.title = to.meta.title + " - 商户管理"
+  }
+
+  if (to.meta.requiresAuth && !loggedIn) {
     next("/login")
-  } else if (to.path === "/login" && merchantInfo.merchantId) {
-    next("/")
+  } else if (to.path === "/login" && loggedIn) {
+    next("/cashier")
   } else {
     next()
   }

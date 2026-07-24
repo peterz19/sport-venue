@@ -44,29 +44,58 @@ public class AuthController {
     @Operation(summary = "用户登录", description = "用户名密码登录，返回token和用户信息")
     @PostMapping("/login")
     public ApiResponse<Map<String, Object>> login(@RequestBody Map<String, String> loginRequest) {
+        return doLogin(loginRequest, false);
+    }
+
+    /**
+     * 商户登录
+     */
+    @Operation(summary = "商户登录", description = "B端商户/员工登录，返回token和商户信息")
+    @PostMapping("/merchant/login")
+    public ApiResponse<Map<String, Object>> merchantLogin(@RequestBody Map<String, String> loginRequest) {
+        return doLogin(loginRequest, true);
+    }
+
+    private ApiResponse<Map<String, Object>> doLogin(Map<String, String> loginRequest, boolean merchantOnly) {
         String username = loginRequest.get("username");
+        if (username == null || username.isBlank()) {
+            username = loginRequest.get("merchantId");
+        }
         String password = loginRequest.get("password");
         
-        log.info("用户登录请求，用户名：{}", username);
+        log.info("{}登录请求，用户名：{}", merchantOnly ? "商户" : "用户", username);
         
         try {
-            // 调用用户服务进行登录验证
             ApiResponse<Map<String, Object>> loginResult = userService.login(username, password);
             
             if (loginResult.getCode() == 200) {
                 Map<String, Object> data = loginResult.getData();
                 User user = (User) data.get("user");
+
+                if (merchantOnly) {
+                    if (user.getUserType() != User.UserType.B_MERCHANT
+                            && user.getUserType() != User.UserType.B_STAFF) {
+                        return ApiResponse.error(403, "非商户账号，无法登录商户端");
+                    }
+                    if (user.getMerchantId() == null) {
+                        return ApiResponse.error(403, "账号未绑定商户");
+                    }
+                }
                 
-                // 生成JWT token
                 String token = jwtConfig.generateToken(user.getUsername(), user.getId(), user.getUserType().name());
+                user.setPassword(null);
                 
-                // 构建返回数据
                 Map<String, Object> result = new HashMap<>();
                 result.put("token", token);
                 result.put("user", user);
-                result.put("expiresIn", 86400); // 24小时
+                result.put("userId", user.getId());
+                result.put("username", user.getUsername());
+                result.put("merchantId", user.getMerchantId());
+                result.put("merchantName", user.getMerchantName());
+                result.put("userType", user.getUserType().name());
+                result.put("expiresIn", 86400);
                 
-                log.info("用户登录成功，用户名：{}，用户类型：{}", username, user.getUserType());
+                log.info("登录成功，用户名：{}，用户类型：{}", username, user.getUserType());
                 return ApiResponse.success(result);
             } else {
                 return loginResult;

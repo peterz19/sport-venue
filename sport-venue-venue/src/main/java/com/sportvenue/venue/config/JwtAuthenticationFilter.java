@@ -43,7 +43,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         log.debug("JWT过滤器检查路径: {}", path);
         
         // 跳过不需要认证的路径
+        String servletPath = request.getServletPath();
+        if (StringUtils.hasText(servletPath)) {
+            path = servletPath;
+        } else {
+            String contextPath = request.getContextPath();
+            if (StringUtils.hasText(contextPath) && path.startsWith(contextPath)) {
+                path = path.substring(contextPath.length());
+            }
+        }
+
         boolean shouldSkip = pathMatcher.match("/auth/login", path) ||
+               pathMatcher.match("/auth/merchant/login", path) ||
                pathMatcher.match("/auth/register", path) ||
                pathMatcher.match("/auth/dev/**", path) ||
                pathMatcher.match("/health/**", path) ||
@@ -90,6 +101,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         if ("ADMIN".equals(userType)) {
                             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
                             authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+                            authorities.add(new SimpleGrantedAuthority("ROLE_MERCHANT"));
+                        }
+
+                        // B端商户/员工兼容 ROLE_MERCHANT，便于业务接口授权
+                        if ("B_MERCHANT".equals(userType) || "B_STAFF".equals(userType)) {
                             authorities.add(new SimpleGrantedAuthority("ROLE_MERCHANT"));
                         }
                         

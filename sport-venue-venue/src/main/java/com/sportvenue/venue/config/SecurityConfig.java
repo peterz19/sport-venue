@@ -40,15 +40,17 @@ public class SecurityConfig {
             // 配置授权规则
             .authorizeHttpRequests(authz -> authz
                 // 允许认证相关接口
-                .requestMatchers("/auth/login", "/auth/register", "/auth/dev/**").permitAll()
+                .requestMatchers("/auth/login", "/auth/merchant/login", "/auth/register", "/auth/dev/**").permitAll()
                 // 允许健康检查接口
                 .requestMatchers("/health/**", "/actuator/**").permitAll()
                 // 允许Swagger文档
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
                 // 允许静态资源
                 .requestMatchers("/favicon.ico", "/error").permitAll()
+                // B端收银与商品：商户/员工/管理员
+                .requestMatchers("/business/**").hasAnyRole("ADMIN", "MERCHANT", "B_MERCHANT", "B_STAFF")
                 // 其他API接口需要认证
-                .requestMatchers("/**").hasAnyRole("ADMIN", "USER", "MERCHANT")
+                .requestMatchers("/**").hasAnyRole("ADMIN", "USER", "MERCHANT", "B_MERCHANT", "B_STAFF", "C_USER")
                 // 其他所有请求需要认证
                 .anyRequest().authenticated()
             )
