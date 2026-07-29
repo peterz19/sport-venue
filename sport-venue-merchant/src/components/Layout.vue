@@ -48,6 +48,10 @@
           <el-icon><TrendCharts /></el-icon>
           <span>销售报表</span>
         </el-menu-item>
+        <el-menu-item index="/sales/orders">
+          <el-icon><Tickets /></el-icon>
+          <span>订单明细</span>
+        </el-menu-item>
         <el-menu-item index="/performance/me">
           <el-icon><UserFilled /></el-icon>
           <span>我的业绩</span>
@@ -110,7 +114,7 @@ import { useRouter } from "vue-router"
 import { ElMessageBox } from "element-plus"
 import {
   DataBoard, Location, User, ShoppingCart, Goods, TrendCharts,
-  Avatar, UserFilled, DataAnalysis, Calendar, List, Trophy, Grid, Medal
+  Avatar, UserFilled, DataAnalysis, Calendar, List, Trophy, Grid, Medal, Tickets
 } from "@element-plus/icons-vue"
 import { authApi } from "@/api"
 
@@ -130,7 +134,8 @@ export default {
     List,
     Trophy,
     Grid,
-    Medal
+    Medal,
+    Tickets
   },
   setup() {
     const router = useRouter()

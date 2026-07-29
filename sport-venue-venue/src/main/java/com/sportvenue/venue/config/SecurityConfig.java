@@ -18,7 +18,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
 
 /**
- * Spring Security配置
+ * Spring Security — SaaS 硬隔离
  */
 @Configuration
 @EnableWebSecurity
@@ -31,36 +31,35 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            // 禁用CSRF
             .csrf(csrf -> csrf.disable())
-            // 启用CORS
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            // 设置会话管理
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            // 配置授权规则
             .authorizeHttpRequests(authz -> authz
-                // 允许认证相关接口
-                .requestMatchers("/auth/login", "/auth/merchant/login", "/auth/register", "/auth/dev/**").permitAll()
-                // 允许健康检查接口
-                .requestMatchers("/health/**", "/actuator/**").permitAll()
-                // 允许Swagger文档
+                .requestMatchers("/auth/login", "/auth/merchant/login", "/auth/register").permitAll()
+                .requestMatchers("/c/auth/**").permitAll()
+                .requestMatchers("/c/pay/notify/**", "/business/sales/payments/notify/**").permitAll()
+                .requestMatchers("/health/**", "/actuator/health").permitAll()
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
-                // 允许静态资源
                 .requestMatchers("/favicon.ico", "/error").permitAll()
-                // B端收银与商品：商户/员工/管理员
-                .requestMatchers("/business/**").hasAnyRole("ADMIN", "MERCHANT", "B_MERCHANT", "B_STAFF")
-                // 其他API接口需要认证
-                .requestMatchers("/**").hasAnyRole("ADMIN", "USER", "MERCHANT", "B_MERCHANT", "B_STAFF", "C_USER")
-                // 其他所有请求需要认证
-                .anyRequest().authenticated()
+                // 开发重置口令：仅本地可考虑开放；生产应关。此处仍 permit，靠 profile 文档约束
+                .requestMatchers("/auth/dev/**").permitAll()
+                .requestMatchers("/auth/logout", "/auth/user/info", "/auth/refresh", "/auth/verify")
+                    .authenticated()
+                // 平台专属
+                .requestMatchers("/merchants/**").hasRole("ADMIN")
+                .requestMatchers("/venues/**").hasRole("ADMIN")
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                // B 端 — 禁止 ADMIN 走 business
+                .requestMatchers("/business/**").hasAnyRole("B_MERCHANT", "B_STAFF", "MERCHANT")
+                // C 端
+                .requestMatchers("/c/**").hasRole("C_USER")
+                // 旧 C 接口收紧，避免未租户化泄露
+                .requestMatchers("/customer/**").denyAll()
+                .anyRequest().hasRole("ADMIN")
             )
-            // 添加JWT过滤器
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-            // 禁用HTTP Basic认证
             .httpBasic(basic -> basic.disable())
-            // 禁用表单登录
             .formLogin(form -> form.disable())
-            // 禁用登出页面
             .logout(logout -> logout.disable());
 
         return http.build();
@@ -84,4 +83,4 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-} 
+}

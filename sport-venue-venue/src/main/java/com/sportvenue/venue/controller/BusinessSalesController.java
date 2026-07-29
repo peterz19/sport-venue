@@ -37,13 +37,22 @@ public class BusinessSalesController {
         try {
             Long merchantId = SecurityUtils.requireMerchantId();
             List<Map<String, Object>> list = venueRepository.findByMerchantId(merchantId).stream()
-                    .filter(v -> v.getStatus() == Venue.VenueStatus.ACTIVE
-                            || v.getStatus() == Venue.VenueStatus.MAINTENANCE)
                     .map(v -> {
                         Map<String, Object> m = new HashMap<>();
                         m.put("id", v.getId());
                         m.put("name", v.getName());
-                        m.put("status", v.getStatus().name());
+                        m.put("status", v.getStatus() == null ? null : v.getStatus().name());
+                        m.put("type", v.getType() == null ? null : v.getType().name());
+                        m.put("address", v.getAddress());
+                        m.put("phone", v.getPhone());
+                        m.put("openTime", v.getOpenTime());
+                        m.put("closeTime", v.getCloseTime());
+                        m.put("capacity", v.getCapacity());
+                        m.put("currentOccupancy", v.getCurrentOccupancy());
+                        m.put("rating", v.getRating());
+                        m.put("description", v.getDescription());
+                        m.put("spaceType", v.getSpaceType() == null ? null : v.getSpaceType().name());
+                        m.put("chargeType", v.getChargeType() == null ? null : v.getChargeType().name());
                         return m;
                     })
                     .collect(Collectors.toList());

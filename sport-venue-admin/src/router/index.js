@@ -44,6 +44,18 @@ const routes = [
         meta: { title: "场馆详情", requiresAuth: true }
       },
       {
+        path: "/merchant/list",
+        name: "MerchantList",
+        component: () => import("@/views/merchant/MerchantList.vue"),
+        meta: { title: "商户管理", requiresAuth: true }
+      },
+      {
+        path: "/commission/list",
+        name: "CommissionList",
+        component: () => import("@/views/commission/CommissionList.vue"),
+        meta: { title: "平台抽成", requiresAuth: true }
+      },
+      {
         path: "/profile",
         name: "Profile",
         component: () => import("@/views/Profile.vue"),

@@ -1,10 +1,13 @@
 package com.sportvenue.venue.controller;
 
+import com.sportvenue.common.exception.BusinessException;
 import com.sportvenue.common.model.ApiResponse;
 import com.sportvenue.venue.dto.VenueDTO;
 import com.sportvenue.venue.dto.VenueQueryDTO;
 import com.sportvenue.venue.entity.Venue;
+import com.sportvenue.venue.repository.VenueRepository;
 import com.sportvenue.venue.service.VenueService;
+import com.sportvenue.venue.util.SecurityUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -30,11 +33,17 @@ public class BusinessVenueController {
     @Autowired
     private VenueService venueService;
 
+    @Autowired
+    private VenueRepository venueRepository;
+
     /**
      * 创建场馆（B端商户）
      */
     @PostMapping
     public ApiResponse<VenueDTO> createVenue(@RequestBody Venue venue) {
+        Long merchantId = SecurityUtils.requireMerchantId();
+        venue.setMerchantId(merchantId);
+        venue.setMerchantName(SecurityUtils.requireCurrentUser().getMerchantName());
         log.info("B端商户创建场馆请求：{}", venue.getName());
         return venueService.createVenue(venue);
     }
@@ -44,8 +53,15 @@ public class BusinessVenueController {
      */
     @PutMapping("/{id}")
     public ApiResponse<VenueDTO> updateVenue(@PathVariable("id") Long id, @RequestBody Venue venue) {
-        log.info("B端商户更新场馆请求，ID：{}", id);
-        return venueService.updateVenue(id, venue);
+        try {
+            Long merchantId = SecurityUtils.requireMerchantId();
+            requireOwnVenue(id);
+            venue.setMerchantId(merchantId);
+            log.info("B端商户更新场馆请求，ID：{}", id);
+            return venueService.updateVenue(id, venue);
+        } catch (BusinessException e) {
+            return ApiResponse.error(e.getCode(), e.getMessage());
+        }
     }
 
     /**
@@ -53,8 +69,13 @@ public class BusinessVenueController {
      */
     @DeleteMapping("/{id}")
     public ApiResponse<Void> deleteVenue(@PathVariable("id") Long id) {
-        log.info("B端商户删除场馆请求，ID：{}", id);
-        return venueService.deleteVenue(id);
+        try {
+            requireOwnVenue(id);
+            log.info("B端商户删除场馆请求，ID：{}", id);
+            return venueService.deleteVenue(id);
+        } catch (BusinessException e) {
+            return ApiResponse.error(e.getCode(), e.getMessage());
+        }
     }
 
     /**
@@ -62,8 +83,13 @@ public class BusinessVenueController {
      */
     @GetMapping("/{id}")
     public ApiResponse<VenueDTO> getVenueById(@PathVariable("id") Long id) {
-        log.info("B端商户获取场馆详情请求，ID：{}", id);
-        return venueService.getVenueById(id);
+        try {
+            requireOwnVenue(id);
+            log.info("B端商户获取场馆详情请求，ID：{}", id);
+            return venueService.getVenueById(id);
+        } catch (BusinessException e) {
+            return ApiResponse.error(e.getCode(), e.getMessage());
+        }
     }
 
     /**
@@ -71,6 +97,7 @@ public class BusinessVenueController {
      */
     @GetMapping
     public ApiResponse<Page<VenueDTO>> getVenueList(VenueQueryDTO queryDTO) {
+        queryDTO.setMerchantId(SecurityUtils.requireMerchantId());
         log.info("B端商户查询场馆列表请求：{}", queryDTO);
         return venueService.getVenueList(queryDTO);
     }
@@ -80,8 +107,12 @@ public class BusinessVenueController {
      */
     @GetMapping("/merchant/{merchantId}")
     public ApiResponse<List<VenueDTO>> getVenuesByMerchant(@PathVariable("merchantId") Long merchantId) {
+        Long current = SecurityUtils.requireMerchantId();
+        if (!current.equals(merchantId)) {
+            return ApiResponse.error(404, "场馆不存在");
+        }
         log.info("B端商户查询商户场馆请求，商户ID：{}", merchantId);
-        return venueService.getVenuesByMerchant(merchantId);
+        return venueService.getVenuesByMerchant(current);
     }
 
     /**
@@ -89,8 +120,15 @@ public class BusinessVenueController {
      */
     @PutMapping("/{id}/status")
     public ApiResponse<Void> updateVenueStatus(@PathVariable("id") Long id, @RequestParam("status") String status) {
-        log.info("B端商户更新场馆状态请求，ID：{}，状态：{}", id, status);
-        return venueService.updateVenueStatus(id, Venue.VenueStatus.valueOf(status.toUpperCase()));
+        try {
+            requireOwnVenue(id);
+            log.info("B端商户更新场馆状态请求，ID：{}，状态：{}", id, status);
+            return venueService.updateVenueStatus(id, Venue.VenueStatus.valueOf(status.toUpperCase()));
+        } catch (BusinessException e) {
+            return ApiResponse.error(e.getCode(), e.getMessage());
+        } catch (IllegalArgumentException e) {
+            return ApiResponse.error(400, "状态不合法");
+        }
     }
 
     /**
@@ -98,8 +136,22 @@ public class BusinessVenueController {
      */
     @PutMapping("/{id}/occupancy")
     public ApiResponse<Void> updateVenueOccupancy(@PathVariable("id") Long id, @RequestParam("occupancy") Integer occupancy) {
-        log.info("B端商户更新场馆使用人数请求，ID：{}，人数：{}", id, occupancy);
-        return venueService.updateVenueOccupancy(id, occupancy);
+        try {
+            requireOwnVenue(id);
+            log.info("B端商户更新场馆使用人数请求，ID：{}，人数：{}", id, occupancy);
+            return venueService.updateVenueOccupancy(id, occupancy);
+        } catch (BusinessException e) {
+            return ApiResponse.error(e.getCode(), e.getMessage());
+        }
+    }
+
+    private void requireOwnVenue(Long id) {
+        Long merchantId = SecurityUtils.requireMerchantId();
+        Venue existing = venueRepository.findById(id)
+                .orElseThrow(() -> new BusinessException(400, "场馆不存在"));
+        if (!merchantId.equals(existing.getMerchantId())) {
+            throw new BusinessException(403, "无权操作该场馆");
+        }
     }
 
     /**

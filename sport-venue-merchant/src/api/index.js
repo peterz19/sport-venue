@@ -35,14 +35,14 @@ export const merchantVenueApi = {
 
   getVenueById(id) {
     return request({
-      url: `/venues/${id}`,
+      url: `/business/venues/${id}`,
       method: "get"
     })
   },
 
   updateVenue(id, data) {
     return request({
-      url: `/venues/${id}`,
+      url: `/business/venues/${id}`,
       method: "put",
       data
     })
@@ -50,7 +50,7 @@ export const merchantVenueApi = {
 
   updateVenueStatus(id, status) {
     return request({
-      url: `/venues/${id}/status`,
+      url: `/business/venues/${id}/status`,
       method: "put",
       params: { status }
     })
@@ -58,7 +58,7 @@ export const merchantVenueApi = {
 
   updateVenueOccupancy(id, occupancy) {
     return request({
-      url: `/venues/${id}/occupancy`,
+      url: `/business/venues/${id}/occupancy`,
       method: "put",
       params: { occupancy }
     })
@@ -68,6 +68,14 @@ export const merchantVenueApi = {
     return request({
       url: "/venues/statistics",
       method: "get"
+    })
+  },
+
+  dashboardOverview(params) {
+    return request({
+      url: "/business/dashboard/overview",
+      method: "get",
+      params
     })
   }
 }

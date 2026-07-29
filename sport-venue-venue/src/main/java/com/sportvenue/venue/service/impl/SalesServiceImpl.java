@@ -5,6 +5,7 @@ import com.sportvenue.common.model.ApiResponse;
 import com.sportvenue.venue.dto.sales.*;
 import com.sportvenue.venue.entity.*;
 import com.sportvenue.venue.repository.*;
+import com.sportvenue.venue.service.PlatformCommissionService;
 import com.sportvenue.venue.service.SalesService;
 import com.sportvenue.venue.util.SecurityUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +42,8 @@ public class SalesServiceImpl implements SalesService {
     private SalesPaymentRepository salesPaymentRepository;
     @Autowired
     private VenueRepository venueRepository;
+    @Autowired
+    private PlatformCommissionService platformCommissionService;
 
     @Override
     public ApiResponse<SalesPreviewResponse> preview(SalesPreviewRequest request) {
@@ -148,6 +151,8 @@ public class SalesServiceImpl implements SalesService {
             payment.setPaidAt(now);
             payment.setRemark("现金支付确认");
             salesPaymentRepository.save(payment);
+
+            platformCommissionService.accrueFromSalesOrder(order);
 
             return ApiResponse.success(toOrderDto(order, venueName(order.getVenueId()),
                     loadItemDtos(order.getId()), null, payment.getPaymentNo()));

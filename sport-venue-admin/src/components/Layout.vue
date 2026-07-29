@@ -17,6 +17,14 @@
           <el-icon><DataBoard /></el-icon>
           <span>数据看板</span>
         </el-menu-item>
+        <el-menu-item index="/merchant/list">
+          <el-icon><OfficeBuilding /></el-icon>
+          <span>商户管理</span>
+        </el-menu-item>
+        <el-menu-item index="/commission/list">
+          <el-icon><Wallet /></el-icon>
+          <span>平台抽成</span>
+        </el-menu-item>
         <el-sub-menu index="/venue">
           <template #title>
             <el-icon><Location /></el-icon>
@@ -76,7 +84,7 @@
 import { computed } from "vue"
 import { useRouter } from "vue-router"
 import { ElMessageBox, ElMessage } from "element-plus"
-import { DataBoard, Location, ArrowDown, User, SwitchButton } from "@element-plus/icons-vue"
+import { DataBoard, Location, ArrowDown, User, SwitchButton, OfficeBuilding, Wallet } from "@element-plus/icons-vue"
 import request from "@/utils/request"
 
 export default {
@@ -86,7 +94,9 @@ export default {
     Location,
     ArrowDown,
     User,
-    SwitchButton
+    SwitchButton,
+    OfficeBuilding,
+    Wallet
   },
   setup() {
     const router = useRouter()

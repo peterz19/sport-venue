@@ -1,418 +1,254 @@
 <template>
   <div class="venue-list">
-    <!-- 搜索区域 -->
     <el-card class="search-card">
       <el-form :model="searchForm" inline>
         <el-form-item label="场馆名称">
-          <el-input
-            v-model="searchForm.name"
-            placeholder="请输入场馆名称"
-            clearable
-            style="width: 200px"
-          />
+          <el-input v-model="searchForm.name" clearable style="width: 200px" />
         </el-form-item>
-        <el-form-item label="场馆类型">
-          <el-select
-            v-model="searchForm.type"
-            placeholder="请选择场馆类型"
-            clearable
-            style="width: 150px"
-          >
-            <el-option
-              v-for="type in venueTypes"
-              :key="type.value"
-              :label="type.label"
-              :value="type.value"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="场馆状态">
-          <el-select
-            v-model="searchForm.status"
-            placeholder="请选择状态"
-            clearable
-            style="width: 120px"
-          >
-            <el-option
-              v-for="status in venueStatuses"
-              :key="status.value"
-              :label="status.label"
-              :value="status.value"
-            />
+        <el-form-item label="状态">
+          <el-select v-model="searchForm.status" clearable style="width: 120px">
+            <el-option label="正常" value="ACTIVE" />
+            <el-option label="停用" value="INACTIVE" />
+            <el-option label="维护中" value="MAINTENANCE" />
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleSearch">
-            <el-icon><Search /></el-icon>
-            搜索
-          </el-button>
-          <el-button @click="handleReset">
-            <el-icon><Refresh /></el-icon>
-            重置
-          </el-button>
+          <el-button type="primary" @click="handleSearch">搜索</el-button>
+          <el-button @click="handleReset">重置</el-button>
+          <el-button @click="getVenueList">刷新</el-button>
         </el-form-item>
       </el-form>
     </el-card>
 
-    <!-- 操作按钮 -->
-    <el-card class="action-card">
-      <el-button type="success" @click="handleRefresh">
-        <el-icon><Refresh /></el-icon>
-        刷新
-      </el-button>
-    </el-card>
-
-    <!-- 数据表格 -->
     <el-card>
-      <el-table
-        v-loading="loading"
-        :data="venueList"
-        border
-        stripe
-        style="width: 100%"
-      >
-        <el-table-column prop="id" label="ID" width="80" />
-        <el-table-column prop="name" label="场馆名称" min-width="150" />
-        <el-table-column prop="type" label="场馆类型" width="120">
-          <template #default="{ row }">
-            <el-tag :type="getTypeTagType(row.type)">
-              {{ getTypeLabel(row.type) }}
-            </el-tag>
-          </template>
+      <el-table v-loading="loading" :data="venueList" border stripe>
+        <el-table-column prop="id" label="ID" width="70" />
+        <el-table-column prop="name" label="场馆名称" min-width="140" />
+        <el-table-column prop="type" label="类型" width="100">
+          <template #default="{ row }">{{ typeLabel(row.type) }}</template>
         </el-table-column>
-        <el-table-column prop="status" label="状态" width="100">
+        <el-table-column prop="status" label="状态" width="90">
           <template #default="{ row }">
-            <el-tag :type="getStatusTagType(row.status)">
-              {{ getStatusLabel(row.status) }}
-            </el-tag>
+            <el-tag :type="row.status === 'ACTIVE' ? 'success' : 'info'">{{ statusLabel(row.status) }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column prop="currentOccupancy" label="当前人数" width="100" />
-        <el-table-column prop="maxCapacity" label="最大容量" width="100" />
-        <el-table-column prop="rating" label="评分" width="100">
-          <template #default="{ row }">
-            <el-rate
-              v-model="row.rating"
-              disabled
-              show-score
-              text-color="#ff9900"
-              score-template="{value}"
-            />
-          </template>
-        </el-table-column>
-        <el-table-column prop="address" label="地址" min-width="200" />
-        <el-table-column label="操作" width="200" fixed="right">
+        <el-table-column prop="capacity" label="容量" width="80" />
+        <el-table-column prop="address" label="地址" min-width="180" show-overflow-tooltip />
+        <el-table-column label="操作" width="260" fixed="right">
           <template #default="{ row }">
             <el-button size="small" @click="handleView(row)">查看</el-button>
-            <el-button size="small" type="primary" @click="handleEdit(row)">
-              编辑
-            </el-button>
-            <el-button size="small" type="warning" @click="handleUpdateOccupancy(row)">
-              更新人数
-            </el-button>
+            <el-button size="small" type="primary" @click="openEdit(row)">编辑</el-button>
+            <el-button size="small" type="warning" @click="handleUpdateOccupancy(row)">更新人数</el-button>
           </template>
         </el-table-column>
       </el-table>
-
-      <!-- 分页 -->
       <div class="pagination">
         <el-pagination
           v-model:current-page="pagination.page"
           v-model:page-size="pagination.size"
-          :page-sizes="[10, 20, 50, 100]"
+          :page-sizes="[10, 20, 50]"
           :total="pagination.total"
-          layout="total, sizes, prev, pager, next, jumper"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
+          layout="total, sizes, prev, pager, next"
+          @size-change="getVenueList"
+          @current-change="getVenueList"
         />
       </div>
     </el-card>
 
-    <!-- 更新人数对话框 -->
-    <el-dialog
-      v-model="occupancyDialog.visible"
-      title="更新场馆人数"
-      width="400px"
-    >
-      <el-form :model="occupancyDialog.form" label-width="100px">
-        <el-form-item label="场馆名称">
-          <span>{{ occupancyDialog.venueName }}</span>
+    <el-dialog v-model="edit.visible" title="编辑场馆" width="560px">
+      <el-form :model="edit.form" label-width="100px">
+        <el-form-item label="名称" required><el-input v-model="edit.form.name" /></el-form-item>
+        <el-form-item label="类型" required>
+          <el-select v-model="edit.form.type" style="width: 100%">
+            <el-option label="公园" value="PARK" />
+            <el-option label="机构" value="INSTITUTION" />
+            <el-option label="体育场" value="STADIUM" />
+            <el-option label="健身房" value="GYM" />
+            <el-option label="其他" value="OTHER" />
+          </el-select>
         </el-form-item>
+        <el-form-item label="空间类型" required>
+          <el-select v-model="edit.form.spaceType" style="width: 100%">
+            <el-option label="室内" value="INDOOR" />
+            <el-option label="室外" value="OUTDOOR" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="收费类型" required>
+          <el-select v-model="edit.form.chargeType" style="width: 100%">
+            <el-option label="收费" value="PAID" />
+            <el-option label="免费" value="FREE" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="地址" required><el-input v-model="edit.form.address" /></el-form-item>
+        <el-form-item label="电话"><el-input v-model="edit.form.phone" /></el-form-item>
+        <el-form-item label="开放时间"><el-input v-model="edit.form.openTime" placeholder="如 08:00" /></el-form-item>
+        <el-form-item label="关闭时间"><el-input v-model="edit.form.closeTime" placeholder="如 22:00" /></el-form-item>
+        <el-form-item label="容量"><el-input-number v-model="edit.form.capacity" :min="0" /></el-form-item>
+        <el-form-item label="简介"><el-input v-model="edit.form.description" type="textarea" /></el-form-item>
+        <el-form-item label="状态">
+          <el-select v-model="edit.form.status" style="width: 100%">
+            <el-option label="正常" value="ACTIVE" />
+            <el-option label="停用" value="INACTIVE" />
+            <el-option label="维护中" value="MAINTENANCE" />
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <el-button @click="edit.visible = false">取消</el-button>
+        <el-button type="primary" :loading="edit.loading" @click="saveEdit">保存</el-button>
+      </template>
+    </el-dialog>
+
+    <el-dialog v-model="occupancyDialog.visible" title="更新场馆人数" width="400px">
+      <el-form label-width="100px">
+        <el-form-item label="场馆">{{ occupancyDialog.venueName }}</el-form-item>
         <el-form-item label="当前人数">
-          <el-input-number
-            v-model="occupancyDialog.form.occupancy"
-            :min="0"
-            :max="occupancyDialog.maxCapacity"
-            style="width: 100%"
-          />
-        </el-form-item>
-        <el-form-item label="最大容量">
-          <span>{{ occupancyDialog.maxCapacity }}</span>
+          <el-input-number v-model="occupancyDialog.form.occupancy" :min="0" :max="occupancyDialog.maxCapacity || 9999" />
         </el-form-item>
       </el-form>
       <template #footer>
         <el-button @click="occupancyDialog.visible = false">取消</el-button>
-        <el-button type="primary" @click="confirmUpdateOccupancy" :loading="occupancyDialog.loading">
-          确定
-        </el-button>
+        <el-button type="primary" :loading="occupancyDialog.loading" @click="confirmUpdateOccupancy">确定</el-button>
       </template>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import { ref, reactive, onMounted } from "vue"
+import { onMounted, reactive, ref } from "vue"
 import { useRouter } from "vue-router"
-import { ElMessage, ElMessageBox } from "element-plus"
-import { Search, Refresh } from "@element-plus/icons-vue"
+import { ElMessage } from "element-plus"
 import { merchantVenueApi } from "@/api"
 
 export default {
   name: "VenueList",
-  components: {
-    Search,
-    Refresh
-  },
   setup() {
     const router = useRouter()
     const loading = ref(false)
+    const allVenues = ref([])
     const venueList = ref([])
-    const venueTypes = ref([])
-    const venueStatuses = ref([])
-
-    // 搜索表单
-    const searchForm = reactive({
-      name: "",
-      type: "",
-      status: ""
+    const searchForm = reactive({ name: "", status: "" })
+    const pagination = reactive({ page: 1, size: 10, total: 0 })
+    const edit = reactive({
+      visible: false,
+      loading: false,
+      form: {}
     })
-
-    // 分页
-    const pagination = reactive({
-      page: 1,
-      size: 10,
-      total: 0
-    })
-
-    // 更新人数对话框
     const occupancyDialog = reactive({
       visible: false,
       loading: false,
       venueName: "",
       maxCapacity: 0,
       venueId: null,
-      form: {
-        occupancy: 0
-      }
+      form: { occupancy: 0 }
     })
 
-    // 获取场馆列表
+    const typeLabel = (t) => ({ PARK: "公园", INSTITUTION: "机构", STADIUM: "体育场", GYM: "健身房", OTHER: "其他" }[t] || t)
+    const statusLabel = (s) => ({ ACTIVE: "正常", INACTIVE: "停用", MAINTENANCE: "维护中" }[s] || s)
+
+    const applyPage = () => {
+      let filtered = allVenues.value
+      if (searchForm.name) filtered = filtered.filter((v) => (v.name || "").includes(searchForm.name))
+      if (searchForm.status) filtered = filtered.filter((v) => v.status === searchForm.status)
+      pagination.total = filtered.length
+      const start = (pagination.page - 1) * pagination.size
+      venueList.value = filtered.slice(start, start + pagination.size)
+    }
+
     const getVenueList = async () => {
       loading.value = true
       try {
         const data = await merchantVenueApi.getVenueList()
-        const all = Array.isArray(data) ? data : (data.content || [])
-        let filtered = all
-        if (searchForm.name) {
-          filtered = filtered.filter(v => (v.name || "").includes(searchForm.name))
-        }
-        if (searchForm.status) {
-          filtered = filtered.filter(v => v.status === searchForm.status)
-        }
-        pagination.total = filtered.length
-        const start = (pagination.page - 1) * pagination.size
-        venueList.value = filtered.slice(start, start + pagination.size)
-      } catch (error) {
-        console.error("获取场馆列表失败:", error)
+        allVenues.value = Array.isArray(data) ? data : []
+        applyPage()
       } finally {
         loading.value = false
       }
     }
 
-    // 获取场馆类型
-    const getVenueTypes = async () => {
-      venueTypes.value = [
-        { label: "公园", value: "PARK" },
-        { label: "机构", value: "INSTITUTION" },
-        { label: "体育场", value: "STADIUM" },
-        { label: "健身房", value: "GYM" },
-        { label: "其他", value: "OTHER" }
-      ]
-    }
-
-    // 获取场馆状态
-    const getVenueStatuses = async () => {
-      venueStatuses.value = [
-        { label: "正常", value: "ACTIVE" },
-        { label: "停用", value: "INACTIVE" },
-        { label: "维护中", value: "MAINTENANCE" }
-      ]
-    }
-
-    // 搜索
     const handleSearch = () => {
       pagination.page = 1
-      getVenueList()
+      applyPage()
     }
-
-    // 重置
     const handleReset = () => {
-      Object.assign(searchForm, {
-        name: "",
-        type: "",
-        status: ""
-      })
+      searchForm.name = ""
+      searchForm.status = ""
       pagination.page = 1
-      getVenueList()
+      applyPage()
+    }
+    const handleView = (row) => router.push(`/venue/detail/${row.id}`)
+
+    const openEdit = async (row) => {
+      const detail = (await merchantVenueApi.getVenueById(row.id)) || row
+      edit.form = {
+        id: detail.id,
+        name: detail.name,
+        type: detail.type || "GYM",
+        spaceType: detail.spaceType || "INDOOR",
+        chargeType: detail.chargeType || "PAID",
+        address: detail.address || "",
+        phone: detail.phone || "",
+        openTime: detail.openTime || "",
+        closeTime: detail.closeTime || "",
+        capacity: detail.capacity || 0,
+        description: detail.description || "",
+        status: detail.status || "ACTIVE",
+        merchantId: detail.merchantId
+      }
+      edit.visible = true
     }
 
-    // 查看场馆
-    const handleView = (row) => {
-      router.push(`/venue/detail/${row.id}`)
+    const saveEdit = async () => {
+      if (!edit.form.name || !edit.form.address) {
+        ElMessage.warning("请填写名称和地址")
+        return
+      }
+      edit.loading = true
+      try {
+        await merchantVenueApi.updateVenue(edit.form.id, edit.form)
+        if (edit.form.status) {
+          await merchantVenueApi.updateVenueStatus(edit.form.id, edit.form.status)
+        }
+        ElMessage.success("已保存")
+        edit.visible = false
+        getVenueList()
+      } finally {
+        edit.loading = false
+      }
     }
 
-    // 编辑场馆
-    const handleEdit = (row) => {
-      ElMessage.info("编辑功能开发中...")
-    }
-
-    // 更新人数
     const handleUpdateOccupancy = (row) => {
       occupancyDialog.venueName = row.name
-      occupancyDialog.maxCapacity = row.maxCapacity
+      occupancyDialog.maxCapacity = row.capacity || 9999
       occupancyDialog.venueId = row.id
       occupancyDialog.form.occupancy = row.currentOccupancy || 0
       occupancyDialog.visible = true
     }
 
-    // 确认更新人数
     const confirmUpdateOccupancy = async () => {
+      occupancyDialog.loading = true
       try {
-        occupancyDialog.loading = true
-        await merchantVenueApi.updateVenueOccupancy(
-          occupancyDialog.venueId,
-          occupancyDialog.form.occupancy
-        )
+        await merchantVenueApi.updateVenueOccupancy(occupancyDialog.venueId, occupancyDialog.form.occupancy)
         ElMessage.success("更新成功")
         occupancyDialog.visible = false
         getVenueList()
-      } catch (error) {
-        console.error("更新人数失败:", error)
-        ElMessage.error("更新人数失败")
       } finally {
         occupancyDialog.loading = false
       }
     }
 
-    // 刷新
-    const handleRefresh = () => {
-      getVenueList()
-    }
-
-    // 分页大小改变
-    const handleSizeChange = (size) => {
-      pagination.size = size
-      pagination.page = 1
-      getVenueList()
-    }
-
-    // 当前页改变
-    const handleCurrentChange = (page) => {
-      pagination.page = page
-      getVenueList()
-    }
-
-    // 获取类型标签样式
-    const getTypeTagType = (type) => {
-      const typeMap = {
-        "GYM": "success",
-        "SWIMMING": "primary",
-        "TENNIS": "warning",
-        "BASKETBALL": "danger",
-        "FOOTBALL": "info"
-      }
-      return typeMap[type] || "info"
-    }
-
-    // 获取类型标签文本
-    const getTypeLabel = (type) => {
-      const typeMap = {
-        "GYM": "健身房",
-        "SWIMMING": "游泳",
-        "TENNIS": "网球",
-        "BASKETBALL": "篮球",
-        "FOOTBALL": "足球"
-      }
-      return typeMap[type] || type
-    }
-
-    // 获取状态标签样式
-    const getStatusTagType = (status) => {
-      const statusMap = {
-        "ACTIVE": "success",
-        "INACTIVE": "danger",
-        "MAINTENANCE": "warning"
-      }
-      return statusMap[status] || "info"
-    }
-
-    // 获取状态标签文本
-    const getStatusLabel = (status) => {
-      const statusMap = {
-        "ACTIVE": "正常",
-        "INACTIVE": "停用",
-        "MAINTENANCE": "维护中"
-      }
-      return statusMap[status] || status
-    }
-
-    onMounted(() => {
-      getVenueTypes()
-      getVenueStatuses()
-      getVenueList()
-    })
-
+    onMounted(getVenueList)
     return {
-      loading,
-      venueList,
-      venueTypes,
-      venueStatuses,
-      searchForm,
-      pagination,
-      occupancyDialog,
-      handleSearch,
-      handleReset,
-      handleView,
-      handleEdit,
-      handleUpdateOccupancy,
-      confirmUpdateOccupancy,
-      handleRefresh,
-      handleSizeChange,
-      handleCurrentChange,
-      getTypeTagType,
-      getTypeLabel,
-      getStatusTagType,
-      getStatusLabel
+      loading, venueList, searchForm, pagination, edit, occupancyDialog,
+      typeLabel, statusLabel, getVenueList, handleSearch, handleReset, handleView,
+      openEdit, saveEdit, handleUpdateOccupancy, confirmUpdateOccupancy
     }
   }
 }
 </script>
 
 <style scoped>
-.venue-list {
-  padding: 0;
-}
-
-.search-card {
-  margin-bottom: 16px;
-}
-
-.action-card {
-  margin-bottom: 16px;
-}
-
-.pagination {
-  margin-top: 20px;
-  text-align: right;
-}
-</style> 
+.search-card { margin-bottom: 16px; }
+.pagination { margin-top: 16px; display: flex; justify-content: flex-end; }
+</style>

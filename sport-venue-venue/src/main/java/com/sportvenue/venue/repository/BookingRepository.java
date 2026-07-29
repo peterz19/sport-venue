@@ -98,4 +98,9 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     @Query(value = "SELECT COALESCE(MAX(CAST(SUBSTRING(order_no, 11) AS UNSIGNED)), 0) " +
                    "FROM bookings WHERE order_no LIKE CONCAT(:prefix, '%')", nativeQuery = true)
     Long findMaxSeqByPrefix(@Param("prefix") String prefix);
+
+    List<Booking> findByStatusAndEndTimeBefore(Booking.BookingStatus status, LocalDateTime endTime);
+
+    List<Booking> findTop50ByMerchantIdAndCustomerUserIdAndSourceOrderByStartTimeDesc(
+            Long merchantId, Long customerUserId, String source);
 }

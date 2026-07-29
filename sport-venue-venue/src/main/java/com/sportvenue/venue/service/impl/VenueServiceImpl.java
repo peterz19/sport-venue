@@ -77,10 +77,13 @@ public class VenueServiceImpl implements VenueService {
             // 参数校验
             validateVenue(venue);
             
-            // 检查场馆名称是否重复（排除自己）
-            Optional<Venue> duplicateVenue = venueRepository.findByNameAndMerchantId(venue.getName(), venue.getMerchantId());
-            if (duplicateVenue.isPresent() && !duplicateVenue.get().getId().equals(id)) {
-                throw new BusinessException("场馆名称已存在");
+            // 改名时检查重名（同名不改则跳过，兼容历史脏数据）
+            if (!existingVenue.getName().equals(venue.getName())) {
+                boolean duplicated = venueRepository.findByMerchantId(venue.getMerchantId()).stream()
+                        .anyMatch(v -> venue.getName().equals(v.getName()) && !v.getId().equals(id));
+                if (duplicated) {
+                    throw new BusinessException("场馆名称已存在");
+                }
             }
             
             // 更新场馆信息

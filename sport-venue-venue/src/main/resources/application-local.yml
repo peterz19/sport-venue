@@ -79,3 +79,11 @@ logging:
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n" 
+# SaaS
+saas:
+  crypto:
+    key: sportvenue-saas-key16
+  wx:
+    mock-enabled: true
+  booking:
+    expire-delay-ms: 300000

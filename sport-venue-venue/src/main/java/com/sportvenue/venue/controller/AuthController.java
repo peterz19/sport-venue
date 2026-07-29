@@ -2,7 +2,9 @@ package com.sportvenue.venue.controller;
 
 import com.sportvenue.common.model.ApiResponse;
 import com.sportvenue.venue.config.JwtConfig;
+import com.sportvenue.venue.entity.Merchant;
 import com.sportvenue.venue.entity.User;
+import com.sportvenue.venue.repository.MerchantRepository;
 import com.sportvenue.venue.repository.UserRepository;
 import com.sportvenue.venue.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -37,6 +39,9 @@ public class AuthController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private MerchantRepository merchantRepository;
 
     /**
      * 用户登录
@@ -80,8 +85,17 @@ public class AuthController {
                     if (user.getMerchantId() == null) {
                         return ApiResponse.error(403, "账号未绑定商户");
                     }
+                    Merchant merchant = merchantRepository.findById(user.getMerchantId()).orElse(null);
+                    if (merchant == null || merchant.getStatus() != Merchant.MerchantStatus.ACTIVE) {
+                        return ApiResponse.error(40301, "商户已停用，请联系平台");
+                    }
+                } else {
+                    // 平台 Admin 前端：仅允许 ADMIN
+                    if (user.getUserType() != User.UserType.ADMIN) {
+                        return ApiResponse.error(403, "非平台管理员，请使用商户端登录");
+                    }
                 }
-                
+
                 String token = jwtConfig.generateToken(user.getUsername(), user.getId(), user.getUserType().name());
                 user.setPassword(null);
                 

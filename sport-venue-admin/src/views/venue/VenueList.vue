@@ -180,7 +180,7 @@
 
 <script>
 import { ref, reactive, onMounted } from "vue"
-import { useRouter } from "vue-router"
+import { useRouter, useRoute } from "vue-router"
 import { ElMessage, ElMessageBox } from "element-plus"
 import { Search, Refresh, Plus } from "@element-plus/icons-vue"
 import { venueApi } from "@/api/venue"
@@ -194,6 +194,7 @@ export default {
   },
   setup() {
     const router = useRouter()
+    const route = useRoute()
     const loading = ref(false)
     const venueList = ref([])
     const venueTypes = ref([])
@@ -207,7 +208,8 @@ export default {
       type: "",
       status: "",
       spaceType: "",
-      chargeType: ""
+      chargeType: "",
+      merchantId: ""
     })
 
     // 分页
@@ -226,6 +228,9 @@ export default {
           size: pagination.size,
           ...searchForm
         }
+        Object.keys(params).forEach((k) => {
+          if (params[k] === "" || params[k] === null || params[k] === undefined) delete params[k]
+        })
         const data = await venueApi.getVenueList(params)
         venueList.value = data.content || []
         pagination.total = data.totalElements || 0
@@ -306,7 +311,8 @@ export default {
         type: "",
         status: "",
         spaceType: "",
-        chargeType: ""
+        chargeType: "",
+        merchantId: ""
       })
       pagination.page = 1
       getVenueList()
@@ -450,6 +456,9 @@ export default {
     }
 
     onMounted(() => {
+      if (route.query.merchantId) {
+        searchForm.merchantId = String(route.query.merchantId)
+      }
       getVenueTypes()
       getVenueSpaceTypes()
       getVenueChargeTypes()
